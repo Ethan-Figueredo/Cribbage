@@ -11,7 +11,7 @@ import edu.up.cs301.game.GameFramework.infoMessage.GameState;
  * @author Steven R. Vegdahl
  * @version July 2013
  */
-public class TTTState extends GameState {
+public class CribState extends GameState {
     //Tag for logging
     private static final String TAG = "TTTState";
 	private static final long serialVersionUID = 7552321013488624386L;
@@ -29,7 +29,7 @@ public class TTTState extends GameState {
     /**
      * Constructor for objects of class TTTState
      */
-    public TTTState()
+    public CribState()
     {
         // initialize the state to be a brand new game
         board = new char[3][3];
@@ -49,7 +49,7 @@ public class TTTState extends GameState {
      * @param original
      * 		the TTTState object that we want to clong
      */
-    public TTTState(TTTState original)
+    public CribState(CribState original)
     {
     	// create a new 3x3 array, and copy the values from
     	// the original

@@ -21,14 +21,14 @@ import edu.up.cs301.game.GameFramework.infoMessage.NotYourTurnInfo;
  * @author Steven R. Vegdahl 
  * @version July 2013
  */
-public class TTTHumanPlayer2 extends GameHumanPlayer implements OnClickListener {
+public class CribHumanPlayer2 extends GameHumanPlayer implements OnClickListener {
 	//Tag for logging
 	private static final String TAG = "TTTHumanPlayer2";
 	// the activity under which we're running
 	GameMainActivity myActivity = null;
 	
 	// the game's state
-	TTTState state = null;
+	CribState state = null;
 	
 	/**
 	 * constuctor
@@ -36,7 +36,7 @@ public class TTTHumanPlayer2 extends GameHumanPlayer implements OnClickListener 
 	 * @param name
 	 * 		the player's name
 	 */
-	public TTTHumanPlayer2(String name) {
+	public CribHumanPlayer2(String name) {
 		super(name);
 	}
 
@@ -157,7 +157,7 @@ public class TTTHumanPlayer2 extends GameHumanPlayer implements OnClickListener 
 		int[] coord = mapNumberToCoord(val);
 		
 		// send a move action to the game
-		game.sendAction(new TTTMoveAction(this, coord[0], coord[1]));
+		game.sendAction(new CribMoveAction(this, coord[0], coord[1]));
 	}
 	
 	/**
@@ -214,14 +214,14 @@ public class TTTHumanPlayer2 extends GameHumanPlayer implements OnClickListener 
 			// if the move is out of turn or otherwise illegal, flash the screen
 			flash(Color.RED, 50);
 		}
-		else if (!(info instanceof TTTState)) {
+		else if (!(info instanceof CribState)) {
 			// if it's not a TTTState object, ignore
 			return;
 		}
 		else {
 			// update the state variable, then update the GUI to reflect the updated
 			// state
-			state = (TTTState)info;
+			state = (CribState)info;
 			setButtonLocationsAndColors();
 		}
 	}

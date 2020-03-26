@@ -12,11 +12,11 @@ import edu.up.cs301.game.GameFramework.actionMessage.GameAction;
  * @version July 2013
  */
 
-public class TTTLocalGame extends LocalGame {
+public class CribLocalGame extends LocalGame {
 	//Tag for logging
 	private static final String TAG = "TTTLocalGame";
 	// the game's state
-	protected TTTState state;
+	protected CribState state;
 
 	// the marks for player 0 and player 1, respectively
 	private final static char[] mark = {'X','O'};
@@ -28,13 +28,13 @@ public class TTTLocalGame extends LocalGame {
 	/**
 	 * Constructor for the TTTLocalGame.
 	 */
-	public TTTLocalGame() {
+	public CribLocalGame() {
 
 		// perform superclass initialization
 		super();
 
 		// create a new, unfilled-in TTTState object
-		state = new TTTState();
+		state = new CribState();
 	}
 
 	/**
@@ -120,7 +120,7 @@ public class TTTLocalGame extends LocalGame {
 	@Override
 	protected void sendUpdatedStateTo(GamePlayer p) {
 		// make a copy of the state, and send it to the player
-		p.sendInfo(new TTTState(state));
+		p.sendInfo(new CribState(state));
 
 	}
 
@@ -149,7 +149,7 @@ public class TTTLocalGame extends LocalGame {
 	protected boolean makeMove(GameAction action) {
 
 		// get the row and column position of the player's move
-		TTTMoveAction tm = (TTTMoveAction) action;
+		CribMoveAction tm = (CribMoveAction) action;
 		int row = tm.getRow();
 		int col = tm.getCol();
 
