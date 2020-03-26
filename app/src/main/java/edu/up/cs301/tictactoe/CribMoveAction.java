@@ -8,16 +8,20 @@ import edu.up.cs301.game.GameFramework.actionMessage.GameAction;
  * a move.
  * 
  * @author Steven R. Vegdahl
+ * @author Ethan Figueredo
  * @version 2 July 2001
  */
 public class CribMoveAction extends GameAction {
     //Tag for logging
-    private static final String TAG = "TTTMoveAction";
+    private static final String TAG = "CribMoveAction";
 	private static final long serialVersionUID = -2242980258970485343L;
-	
-	// instance variables: the selected row and column
-    private int row;
-    private int col;
+
+    public int getIndex() {
+        return index;
+    }
+
+    // instance variables:
+    private int index;
 
     /**
      * Constructor for TTTMoveAction
@@ -31,23 +35,13 @@ public class CribMoveAction extends GameAction {
         // invoke superclass constructor to set the player
         super(player);
 
-        // set the row and column as passed to us
-        this.row = Math.max(0, Math.min(2, row));
-        this.col = Math.max(0, Math.min(2, col));
+    }
+    public void playCard(int index){
+
+    }
+    public void sendToCrib(int index){
+
     }
 
-    /**
-     * get the object's row
-     *
-     * @return the row selected
-     */
-    public int getRow() { return row; }
-
-    /**
-     * get the object's column
-     *
-     * @return the column selected
-     */
-    public int getCol() { return col; }
 
 }
