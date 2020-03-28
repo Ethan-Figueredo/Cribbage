@@ -1,4 +1,4 @@
-package edu.up.cs301.tictactoe;
+package edu.up.cs301.cribbage;
 
 import android.graphics.Color;
 import android.view.View;

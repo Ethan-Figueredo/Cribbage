@@ -1,7 +1,12 @@
-package edu.up.cs301.tictactoe;
+package edu.up.cs301.cribbage;
 
 import java.util.ArrayList;
 
+import edu.up.cs301.cribbage.CribComputerPlayer1;
+import edu.up.cs301.cribbage.CribComputerPlayer2;
+import edu.up.cs301.cribbage.CribHumanPlayer1;
+import edu.up.cs301.cribbage.CribHumanPlayer2;
+import edu.up.cs301.cribbage.CribLocalGame;
 import edu.up.cs301.game.GameFramework.GameMainActivity;
 import edu.up.cs301.game.GameFramework.GamePlayer;
 import edu.up.cs301.game.GameFramework.LocalGame;

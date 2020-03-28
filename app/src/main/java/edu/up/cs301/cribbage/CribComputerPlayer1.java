@@ -1,4 +1,4 @@
-package edu.up.cs301.tictactoe;
+package edu.up.cs301.cribbage;
 
 import edu.up.cs301.game.GameFramework.GameComputerPlayer;
 import edu.up.cs301.game.GameFramework.infoMessage.GameInfo;
@@ -15,7 +15,7 @@ import edu.up.cs301.game.GameFramework.utilities.Logger;
 public class CribComputerPlayer1 extends GameComputerPlayer
 {
     /*
-     * Constructor for the TTTComputerPlayer1 class
+     * Constructor for the CribComputerPlayer1 class
      */
     public CribComputerPlayer1(String name) {
         // invoke superclass constructor

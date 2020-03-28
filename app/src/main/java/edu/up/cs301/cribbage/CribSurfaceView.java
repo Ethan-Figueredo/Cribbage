@@ -1,4 +1,4 @@
-package edu.up.cs301.tictactoe;
+package edu.up.cs301.cribbage;
 
 import android.content.Context;
 import android.graphics.Canvas;
@@ -10,6 +10,7 @@ import android.graphics.Point;
 import android.graphics.RectF;
 import android.util.AttributeSet;
 
+import edu.up.cs301.cribbage.CribState;
 import edu.up.cs301.game.GameFramework.utilities.FlashSurfaceView;
 
 /**

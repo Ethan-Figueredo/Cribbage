@@ -1,4 +1,4 @@
-package edu.up.cs301.tictactoe;
+package edu.up.cs301.cribbage;
 
 import edu.up.cs301.game.GameFramework.GamePlayer;
 import edu.up.cs301.game.GameFramework.LocalGame;
@@ -147,31 +147,6 @@ public class CribLocalGame extends LocalGame {
 	 */
 	@Override
 	protected boolean makeMove(GameAction action) {
-
-		// get the row and column position of the player's move
-		CribMoveAction tm = (CribMoveAction) action;
-		int row = tm.getRow();
-		int col = tm.getCol();
-
-		// get the 0/1 id of our player
-		int playerId = getPlayerIdx(tm.getPlayer());
-
-		// if that space is not blank, indicate an illegal move
-		if (state.getPiece(row, col) != ' ') {
-			return false;
-		}
-
-		// get the 0/1 id of the player whose move it is
-		int whoseMove = state.getWhoseMove();
-
-		// place the player's piece on the selected square
-		state.setPiece(row, col, mark[playerId]);
-
-		// make it the other player's turn
-		state.setWhoseMove(1-whoseMove);
-
-		// bump the move count
-		moveCount++;
 		
 		// return true, indicating the it was a legal move
 		return true;

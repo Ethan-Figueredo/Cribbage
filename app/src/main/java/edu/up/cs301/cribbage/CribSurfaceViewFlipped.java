@@ -1,10 +1,12 @@
-package edu.up.cs301.tictactoe;
+package edu.up.cs301.cribbage;
 
 import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Point;
 import android.util.AttributeSet;
+
+import edu.up.cs301.cribbage.CribSurfaceView;
 
 /**
  * A SurfaceView which allows which an animation to be drawn on it by a
