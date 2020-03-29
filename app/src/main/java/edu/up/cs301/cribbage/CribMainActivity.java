@@ -47,13 +47,6 @@ public class CribMainActivity extends GameMainActivity {
 				return new CribHumanPlayer1(name, R.layout.ttt_human_player1_flipped);
 			}
 		});
-
-		// game of 33
-		playerTypes.add(new GamePlayerType("Local Human Player (game of 33)") {
-			public GamePlayer createPlayer(String name) {
-				return new CribHumanPlayer2(name);
-			}
-		});
 		
 		// dumb computer player
 		playerTypes.add(new GamePlayerType("Computer Player (dumb)") {

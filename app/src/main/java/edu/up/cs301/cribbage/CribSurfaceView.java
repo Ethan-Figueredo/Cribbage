@@ -85,28 +85,12 @@ public class CribSurfaceView extends FlashSurfaceView {
      * Helper-method for the constructors
      */
     private void init() {
-        setBackgroundColor(backgroundColor());
+        setBackgroundColor(Color.GREEN);
     }// init
 
 
     public void setState(CribState state) {
         this.state = state;
-    }
-
-    /**
-     * @return
-     * 		the color to paint the tic-tac-toe lines, and the X's and O's
-     */
-    public int foregroundColor() {
-        return Color.YELLOW;
-    }
-
-    /**
-     * @return
-     * 		the color to paint the tic-tac-toe lines, and the X's and O's
-     */
-    public int backgroundColor() {
-        return Color.BLUE;
     }
 
     /**
@@ -122,31 +106,9 @@ public class CribSurfaceView extends FlashSurfaceView {
         // to the dimensions of the animation surface
         updateDimensions(g);
 
-        // paint the TTT-board's horizontal and vertical lines
-        Paint p = new Paint();
-        p.setColor(foregroundColor());
-        for (int i = 0; i <= 1; i++) {
-            float variable1 = BORDER_PERCENT + SQUARE_SIZE_PERCENT
-                    + (i * SQUARE_DELTA_PERCENT);
-            float variable2 = variable1 + LINE_WIDTH_PERCENT;
-            float fixed1 = BORDER_PERCENT;
-            float fixed2 = 100 - BORDER_PERCENT;
-            g.drawRect(h(variable1), v(fixed1), h(variable2), v(fixed2), p);
-            g.drawRect(h(fixed1), v(variable1), h(fixed2), v(variable2), p);
-        }
-
         // if we don't have any state, there's nothing more to draw, so return
         if (state == null) {
             return;
-        }
-
-        // for each square that has an X or O, draw it on the appropriate
-        // place on the canvas
-        for (int row = 0; row < 3; row++) {
-            for (int col = 0; col < 3; col++) {
-                char result = state.getPiece(row, col); // get piece
-                drawSymbol(g, result, col, row);
-            }
         }
     }
 
