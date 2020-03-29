@@ -172,7 +172,7 @@ public class CribSurfaceView extends FlashSurfaceView {
 
         // set the paint color to be the foreground color
         Paint p = new Paint();
-        p.setColor(foregroundColor());
+        //p.setColor(foregroundColor());
 
         // draw either an X or O, depending on the symbol
         switch (sym) {
@@ -183,7 +183,7 @@ public class CribSurfaceView extends FlashSurfaceView {
                         + SQUARE_SIZE_PERCENT - 5), v(yLoc + SQUARE_SIZE_PERCENT
                         - 1));
                 g.drawOval(rect, p); // outside of the 'O'
-                p.setColor(backgroundColor());
+                p.setColor(Color.GREEN);
                 rect = new RectF(h(xLoc + 6), v(yLoc + 2), h(xLoc
                         + SQUARE_SIZE_PERCENT - 8), v(yLoc + SQUARE_SIZE_PERCENT
                         - 3));

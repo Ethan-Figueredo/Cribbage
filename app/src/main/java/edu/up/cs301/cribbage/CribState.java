@@ -25,7 +25,12 @@ public class CribState extends GameState {
     private int currPegP1;
     private int prevPegP0;
     private int currPegP0;
-    private int playerToMove;
+
+    public int getWhoseMove() {
+        return whoseMove;
+    }
+
+    private int whoseMove;
     private int player0Score;
     private int player1Score;
     private ArrayList<Card> player0Hand;
@@ -40,7 +45,7 @@ public class CribState extends GameState {
      */
     public CribState()
     {
-        playerToMove = 0;
+        whoseMove = 0;
     }// constructor
     
     /**
@@ -52,7 +57,7 @@ public class CribState extends GameState {
     public CribState(CribState original)
     {
     	// copy the player-to-move information
-        playerToMove = original.playerToMove;
+        whoseMove = original.whoseMove;
     }
 
     public int getPrevPeg(int id){
@@ -95,7 +100,7 @@ public class CribState extends GameState {
         return dealerID;
     }
 
-    public int setDealerID(int newID){
+    public void setDealerID(int newID){
         dealerID = newID;
     }
 
@@ -116,4 +121,5 @@ public class CribState extends GameState {
             player1Score += newScore;
         }
     }
+
 }
