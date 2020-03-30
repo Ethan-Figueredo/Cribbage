@@ -35,10 +35,13 @@ public class Card implements Serializable {
 	// instance variables: the card's rank and the suit
     private Rank rank;
     private Suit suit;
-    private ArrayList<Objects> Cards = new ArrayList(52);
 
-    public Objects getCard(){
-    	return Cards;
+    //Making a card array
+	private ArrayList<Object> Cards = new ArrayList(52);
+
+	//Getter method for card
+    public Object getCard(int num){
+    	return Cards[num];
 	}
 
 	/**

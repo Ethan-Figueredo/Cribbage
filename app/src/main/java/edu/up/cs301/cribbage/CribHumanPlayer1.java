@@ -40,10 +40,11 @@ public class CribHumanPlayer1 extends GameHumanPlayer implements View.OnTouchLis
     // the ID for the layout to use
     private int layoutId;
 
-    ArrayList<Card> cardHand1 = new ArrayList();
-    Random ran = new Random();
+    private ArrayList<Card> cardHand1 = new ArrayList();
+    private Random ran = new Random();
 
     Card card;
+    CribState crib;
 
     /**
      * constructor
@@ -58,9 +59,10 @@ public class CribHumanPlayer1 extends GameHumanPlayer implements View.OnTouchLis
         this.layoutId = layoutId;
 
         //Randomly picks 6 cards from 52 deck to have in start
-        for (int i = 0; i <= 6; i++){
+        for (int i = 0; i < 6; i++){
             int nxt = ran.nextInt(52);
-            cardHand1[i] = card.getCard();
+            crib.getDeck()
+            cardHand1.add(card.getCard(nxt));
         }
     }
 
