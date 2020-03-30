@@ -1,5 +1,6 @@
 package edu.up.cs301.cribbage;
 
+import edu.up.cs301.card.Card;
 import edu.up.cs301.game.GameFramework.GamePlayer;
 import edu.up.cs301.game.GameFramework.actionMessage.GameAction;
 
@@ -16,25 +17,42 @@ public class CribMoveAction extends GameAction {
     private static final String TAG = "CribMoveAction";
 	private static final long serialVersionUID = -2242980258970485343L;
 
-    public int getIndex() {
-        return index;
+    private nameAction typeOfAction;
+
+    public Card getCard1() {
+        return card1;
     }
 
     // instance variables:
-    private int index;
+    private Card card1;
+
+    public Card getCard2() {
+        return card2;
+    }
+
+    private Card card2;
 
     /**
      * Constructor for TTTMoveAction
      *
      //@param source the player making the move
-     * @param row the row of the square selected (0-2)
-     * @param col the column of the square selected
+     * @param touch is the card that was touched
      */
-    public CribMoveAction(GamePlayer player, int row, int col)
+    public CribMoveAction(GamePlayer player, Card touch)
     {
         // invoke superclass constructor to set the player
-        super(player);
-
+        super(player, touch);
+        this.card1 = touch;
+        this.card2 = null;
+        typeOfAction = nameAction.PLAY;
+    }
+    public CribMoveAction(GamePlayer player, Card touch, Card touch2)
+    {
+        // invoke superclass constructor to set the player
+        super(player, touch, touch2);
+        this.card2 = touch2;
+        this.card1 = touch;
+        typeOfAction = nameAction.CRIB;
     }
     public void playCard(int index){
 

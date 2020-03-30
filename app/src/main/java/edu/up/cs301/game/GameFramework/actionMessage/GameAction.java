@@ -2,6 +2,9 @@ package edu.up.cs301.game.GameFramework.actionMessage;
 
 
 import java.io.Serializable;
+
+import edu.up.cs301.card.Card;
+import edu.up.cs301.cribbage.CribMoveAction;
 import edu.up.cs301.game.GameFramework.GamePlayer;
 
 /**
@@ -30,14 +33,28 @@ public abstract class GameAction implements Serializable {
     // the player who generated the request
     private GamePlayer player;
 
+    //type of move
+    public enum nameAction {CRIB, PLAY}
+
+    public CribMoveAction getCribAction() {
+        return cribAction;
+    }
+
+    //CribAction
+    private CribMoveAction cribAction;
     /**
      * constructor for GameAction
      *
      * @param player
      * 		the player who created the action
      */
-    public GameAction(GamePlayer player) {
+    public GameAction(GamePlayer player, Card card1) {
         this.player = player;
+        cribAction = new CribMoveAction(player, card1);
+    }
+    public GameAction(GamePlayer player, Card card1, Card card2) {
+        this.player = player;
+        cribAction = new CribMoveAction(player, card1, card2);
     }
 
     /**

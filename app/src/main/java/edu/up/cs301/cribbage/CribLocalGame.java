@@ -3,6 +3,7 @@ package edu.up.cs301.cribbage;
 import edu.up.cs301.game.GameFramework.GamePlayer;
 import edu.up.cs301.game.GameFramework.LocalGame;
 import edu.up.cs301.game.GameFramework.actionMessage.GameAction;
+import edu.up.cs301.game.GameFramework.utilities.Logger;
 
 /**
  * The TTTLocalGame class for a simple tic-tac-toe game.  Defines and enforces
@@ -147,8 +148,18 @@ public class CribLocalGame extends LocalGame {
 	 */
 	@Override
 	protected boolean makeMove(GameAction action) {
-		
-		// return true, indicating the it was a legal move
+		CribMoveAction temp = action.getCribAction();
+		if(temp.equals(CribMoveAction.nameAction.CRIB)) {
+			if(temp.getCard1() == null || temp.getCard2() == null){
+				Logger.log("Check CribAction", "One card is null while playing to crib");
+				return false;
+			}
+		} else if(temp.equals((CribMoveAction.nameAction.PLAY))){
+			if(temp.getCard2() != null){
+				Logger.log("Check CribAction", "Too many cards selected");
+				return false;
+			}
+		}
 		return true;
 	}
 

@@ -136,7 +136,7 @@ public class CribHumanPlayer1 extends GameHumanPlayer implements View.OnTouchLis
         if (p == null) {
             surfaceView.flash(Color.RED, 50);
         } else {
-            CribMoveAction action = new CribMoveAction(this, p.y, p.x);
+            CribMoveAction action = new CribMoveAction(this,/*cards touched*/);
             Logger.log("onTouch", "Human player sending TTTMA ...");
             game.sendAction(action);
             surfaceView.invalidate();
