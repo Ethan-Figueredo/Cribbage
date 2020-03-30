@@ -1,5 +1,6 @@
 package edu.up.cs301.cribbage;
 
+import edu.up.cs301.card.Card;
 import edu.up.cs301.game.GameFramework.GamePlayer;
 import edu.up.cs301.game.GameFramework.actionMessage.GameAction;
 
@@ -39,7 +40,7 @@ public class CribMoveAction extends GameAction {
     public void playCard(int index){
 
     }
-    public void sendToCrib(int index){
+    public void sendToCrib(Card card){
 
     }
 

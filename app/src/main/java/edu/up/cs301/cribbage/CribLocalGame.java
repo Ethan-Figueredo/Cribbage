@@ -64,9 +64,9 @@ public class CribLocalGame extends LocalGame {
 		// to all three lines in the current group
 		for (int i = 0; i < 3; i++) {
 			// get the initial character in each line
-			char rowToken = state.getPiece(i,0);
-			char colToken = state.getPiece(0,i);;
-			char diagToken = state.getPiece(0,i);
+			int rowToken = state.getCurrPeg(i);
+			int colToken = state.getCurrPeg(i);;
+			int diagToken = state.getCurrPeg(i);
 			// determine the direction that the diagonal moves
 			int diagDelta = 1-i;
 			// look for matches for each of the three positions in each

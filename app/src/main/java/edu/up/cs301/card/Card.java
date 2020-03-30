@@ -1,6 +1,8 @@
 package edu.up.cs301.card;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.Objects;
 
 import edu.up.cs301.game.R;
 import android.app.Activity;
@@ -33,6 +35,11 @@ public class Card implements Serializable {
 	// instance variables: the card's rank and the suit
     private Rank rank;
     private Suit suit;
+    private ArrayList<Objects> Cards = new ArrayList(52);
+
+    public Objects getCard(){
+    	return Cards;
+	}
 
 	/**
 	 * Constructor for class card
