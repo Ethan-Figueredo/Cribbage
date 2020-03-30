@@ -6,6 +6,7 @@ import android.graphics.Point;
 import android.view.MotionEvent;
 import android.view.View;
 
+import edu.up.cs301.card.Card;
 import edu.up.cs301.game.GameFramework.GameHumanPlayer;
 import edu.up.cs301.game.GameFramework.GameMainActivity;
 import edu.up.cs301.game.R;
@@ -13,6 +14,9 @@ import edu.up.cs301.game.GameFramework.infoMessage.GameInfo;
 import edu.up.cs301.game.GameFramework.infoMessage.IllegalMoveInfo;
 import edu.up.cs301.game.GameFramework.infoMessage.NotYourTurnInfo;
 import edu.up.cs301.game.GameFramework.utilities.Logger;
+
+import java.util.ArrayList;
+import java.util.Random;
 
 /**
  * A GUI that allows a human to play tic-tac-toe. Moves are made by clicking
@@ -40,6 +44,12 @@ public class CribHumanPlayer1 extends GameHumanPlayer implements View.OnTouchLis
     // the ID for the layout to use
     private int layoutId;
 
+    private ArrayList<Card> cardHand1 = new ArrayList();
+    private Random ran = new Random();
+
+    Card card;
+    CribState crib;
+
     /**
      * constructor
      *
@@ -51,6 +61,13 @@ public class CribHumanPlayer1 extends GameHumanPlayer implements View.OnTouchLis
     public CribHumanPlayer1(String name, int layoutId) {
         super(name);
         this.layoutId = layoutId;
+
+        //Randomly picks 6 cards from 52 deck to have in start
+        for (int i = 0; i < 6; i++){
+            int nxt = ran.nextInt(52);
+            crib.getDeck()
+            cardHand1.add(card.getCard(nxt));
+        }
     }
 
     /**

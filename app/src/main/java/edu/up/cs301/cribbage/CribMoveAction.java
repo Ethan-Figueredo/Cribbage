@@ -62,7 +62,7 @@ public class CribMoveAction extends GameAction {
 
         }
     }
-    public void sendToCrib(int index){
+    public void sendToCrib(Card card){
 
     }
 

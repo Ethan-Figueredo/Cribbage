@@ -40,6 +40,10 @@ public class CribState extends GameState {
     private ArrayList<Card> crib;
     private ArrayList<Card> playedCards;
 
+    public ArrayList<Card> getDeck(){
+        return deck;
+    }
+
     /**
      * Constructor for objects of class TTTState
      */
