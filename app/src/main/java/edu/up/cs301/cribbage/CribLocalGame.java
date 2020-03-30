@@ -149,12 +149,14 @@ public class CribLocalGame extends LocalGame {
 	@Override
 	protected boolean makeMove(GameAction action) {
 		CribMoveAction temp = action.getCribAction();
-		if(temp.equals(CribMoveAction.nameAction.CRIB)) {
-			if(temp.getCard1() == null || temp.getCard2() == null){
+		if(temp.equals(CribMoveAction.nameAction.CRIB)) { //isEnum
+			//checks for crib actions
+			if(temp.getCard1() == null || temp.getCard2() == null){ //check for number of cards selected to send to crib
 				Logger.log("Check CribAction", "One card is null while playing to crib");
 				return false;
 			}
 		} else if(temp.equals((CribMoveAction.nameAction.PLAY))){
+			//checks for play action
 			if(temp.getCard2() != null){
 				Logger.log("Check CribAction", "Too many cards selected");
 				return false;

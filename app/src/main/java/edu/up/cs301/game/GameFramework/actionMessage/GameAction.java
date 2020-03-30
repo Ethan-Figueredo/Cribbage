@@ -36,25 +36,15 @@ public abstract class GameAction implements Serializable {
     //type of move
     public enum nameAction {CRIB, PLAY}
 
-    public CribMoveAction getCribAction() {
-        return cribAction;
-    }
-
-    //CribAction
-    private CribMoveAction cribAction;
     /**
      * constructor for GameAction
      *
      * @param player
      * 		the player who created the action
      */
-    public GameAction(GamePlayer player, Card card1) {
+    public GameAction(GamePlayer player) {
         this.player = player;
-        cribAction = new CribMoveAction(player, card1);
-    }
-    public GameAction(GamePlayer player, Card card1, Card card2) {
-        this.player = player;
-        cribAction = new CribMoveAction(player, card1, card2);
+
     }
 
     /**

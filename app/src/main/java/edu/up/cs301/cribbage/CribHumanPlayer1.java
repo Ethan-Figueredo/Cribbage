@@ -30,6 +30,10 @@ public class CribHumanPlayer1 extends GameHumanPlayer implements View.OnTouchLis
     // the surface view
     private CribSurfaceView surfaceView;
 
+    public CribState getState() {
+        return state;
+    }
+
     // the state
     private CribState state;
 

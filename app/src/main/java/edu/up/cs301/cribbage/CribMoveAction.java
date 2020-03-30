@@ -3,6 +3,7 @@ package edu.up.cs301.cribbage;
 import edu.up.cs301.card.Card;
 import edu.up.cs301.game.GameFramework.GamePlayer;
 import edu.up.cs301.game.GameFramework.actionMessage.GameAction;
+import edu.up.cs301.game.GameFramework.infoMessage.GameState;
 
 /**
  * A game-move object that a tic-tac-toe player sends to the game to make
@@ -32,30 +33,34 @@ public class CribMoveAction extends GameAction {
 
     private Card card2;
 
+    private CribState gameState;
+
     /**
      * Constructor for TTTMoveAction
      *
      //@param source the player making the move
      * @param touch is the card that was touched
      */
-    public CribMoveAction(GamePlayer player, Card touch)
-    {
-        // invoke superclass constructor to set the player
-        super(player, touch);
-        this.card1 = touch;
-        this.card2 = null;
-        typeOfAction = nameAction.PLAY;
-    }
+
     public CribMoveAction(GamePlayer player, Card touch, Card touch2)
     {
         // invoke superclass constructor to set the player
-        super(player, touch, touch2);
-        this.card2 = touch2;
+        super(player);
         this.card1 = touch;
-        typeOfAction = nameAction.CRIB;
+        if(touch2 != null){
+            this.card2 = touch2;
+            typeOfAction = nameAction.CRIB;
+        }else {
+            this.card2 = null;
+            typeOfAction = nameAction.PLAY;
+        }
     }
-    public void playCard(int index){
+    public void playCard(int playerID){
+        if(playerID == 0){
 
+        } else if(playerID == 1){
+
+        }
     }
     public void sendToCrib(int index){
 

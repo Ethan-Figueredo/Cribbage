@@ -36,4 +36,6 @@ public interface GamePlayer {
     //get playerNum
     public int getPlayerNum();
 
+
+
 }// interface GamePlayer
