@@ -24,6 +24,8 @@ public class CribComputerPlayer2 extends GameComputerPlayer {
 	 * 'initAfterReady' method.
 	 */
 	protected char piece;
+	private CribState gameState;
+	private int playerNum;
 
 	/**
 	 * constructor for a computer player
@@ -34,6 +36,7 @@ public class CribComputerPlayer2 extends GameComputerPlayer {
 	public CribComputerPlayer2(String name) {
 		// invoke superclass constructor
 		super(name);
+		//set gameState and playerNum
 	}// constructor
 
 	/**
@@ -180,6 +183,7 @@ public class CribComputerPlayer2 extends GameComputerPlayer {
 	 * @return  If a winning move was found, a Point object containing
 	 *   the coordinates.  If no winning move was found, null.
 	 */
+
 	// helper method to find a winning move
 	private Point helpFindWin(CribState state, char thePiece, int rowStart,
 							  int colStart, int rowDelta, int colDelta) {
@@ -229,4 +233,13 @@ public class CribComputerPlayer2 extends GameComputerPlayer {
 		}
 	}// helpFindWin
 
+	@Override
+	public int getPlayerNum() {
+		return playerNum;
+	}
+
+	@Override
+	public CribState getCribState() {
+		return gameState;
+	}
 }

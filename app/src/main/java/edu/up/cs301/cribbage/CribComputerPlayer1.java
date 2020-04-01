@@ -14,6 +14,7 @@ import edu.up.cs301.game.GameFramework.utilities.Logger;
  */
 public class CribComputerPlayer1 extends GameComputerPlayer
 {
+    private CribState gameState;
     /*
      * Constructor for the CribComputerPlayer1 class
      */
@@ -50,5 +51,15 @@ public class CribComputerPlayer1 extends GameComputerPlayer
         Logger.log("TTTComputer", "Sending move");
     	game.sendAction(new CribMoveAction(this, yVal, xVal));
     	
+    }
+
+    @Override
+    public int getPlayerNum() {
+        return playerNum;
+    }
+
+    @Override
+    public CribState getCribState() {
+        return gameState;
     }
 }

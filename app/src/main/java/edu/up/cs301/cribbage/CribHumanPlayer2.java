@@ -39,7 +39,9 @@ public class CribHumanPlayer2 extends GameHumanPlayer implements OnClickListener
 	public CribHumanPlayer2(String name) {
 		super(name);
 	}
-
+	public CribState getCribState(){
+		return state;
+	}
 	// android ID values for the padding objects
 	private static final int[][] paddingIndices = {
 			{R.id.padding7Top, R.id.padding7Bot},

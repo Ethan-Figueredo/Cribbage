@@ -69,7 +69,9 @@ public class CribHumanPlayer1 extends GameHumanPlayer implements View.OnTouchLis
             cardHand1.add(card.getCard(nxt));
         }
     }
-
+    public CribState getCribState(){
+        return state;
+    }
     /**
      * Callback method, called when player gets a message
      *

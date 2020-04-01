@@ -37,7 +37,17 @@ public class CribState extends GameState {
     private ArrayList<Card> player1Hand;
     private int dealerID;
     private ArrayList<Card> deck;
+
+    public ArrayList<Card> getCrib() {
+        return crib;
+    }
+
     private ArrayList<Card> crib;
+
+    public ArrayList<Card> getPlayedCards() {
+        return playedCards;
+    }
+
     private ArrayList<Card> playedCards;
 
     public ArrayList<Card> getDeck(){

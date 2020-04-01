@@ -54,6 +54,7 @@ public class CribMoveAction extends GameAction {
             this.card2 = null;
             typeOfAction = nameAction.PLAY;
         }
+        gameState = player.getCribState();
     }
     public void playCard(int playerID){
         if(playerID == 0){
@@ -62,8 +63,12 @@ public class CribMoveAction extends GameAction {
 
         }
     }
-    public void sendToCrib(Card card){
+    public void sendToCrib(int playerID){
+        if(playerID == 0){
 
+        } else if(playerID == 1){
+
+        }
     }
 
 

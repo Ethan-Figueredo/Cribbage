@@ -1,5 +1,6 @@
 package edu.up.cs301.game.GameFramework;
 
+import edu.up.cs301.cribbage.CribState;
 import edu.up.cs301.game.GameFramework.infoMessage.GameInfo;
 
 /**
@@ -35,6 +36,8 @@ public interface GamePlayer {
 
     //get playerNum
     public int getPlayerNum();
+
+    public CribState getCribState();
 
 
 
