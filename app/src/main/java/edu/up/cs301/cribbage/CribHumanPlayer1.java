@@ -48,7 +48,7 @@ public class CribHumanPlayer1 extends GameHumanPlayer implements View.OnTouchLis
     private Random ran = new Random();
 
     Card card;
-    CribState crib;
+
 
     /**
      * constructor
@@ -65,9 +65,10 @@ public class CribHumanPlayer1 extends GameHumanPlayer implements View.OnTouchLis
         //Randomly picks 6 cards from 52 deck to have in start
         for (int i = 0; i < 6; i++){
             int nxt = ran.nextInt(52);
-            crib.getDeck()
+            state.getDeck();
             cardHand1.add(card.getCard(nxt));
         }
+
     }
     public CribState getCribState(){
         return state;

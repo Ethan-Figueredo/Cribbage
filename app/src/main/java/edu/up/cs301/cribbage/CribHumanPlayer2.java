@@ -28,7 +28,7 @@ public class CribHumanPlayer2 extends GameHumanPlayer implements OnClickListener
 	GameMainActivity myActivity = null;
 	
 	// the game's state
-	CribState state = null;
+	private CribState state;
 	
 	/**
 	 * constuctor
