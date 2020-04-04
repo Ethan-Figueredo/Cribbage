@@ -1,5 +1,9 @@
 package edu.up.cs301.cribbage;
 
+import java.util.ArrayList;
+import java.util.Random;
+
+import edu.up.cs301.card.Card;
 import edu.up.cs301.game.GameFramework.GameComputerPlayer;
 import edu.up.cs301.game.GameFramework.infoMessage.GameInfo;
 import edu.up.cs301.game.GameFramework.infoMessage.NotYourTurnInfo;
@@ -15,12 +19,37 @@ import edu.up.cs301.game.GameFramework.utilities.Logger;
 public class CribComputerPlayer1 extends GameComputerPlayer
 {
     private CribState gameState;
+    protected int playerNum; // which player number I am
+    protected String name; // my name
+    protected String[] allPlayerNames; // list of all player names, in ID order
+    private boolean running; // whether the player's thread is running
+    private boolean gameOver = false; // whether the game is over
+
+    // the state
+    private CribState state;
+
+    // the ID for the layout to use
+    private int layoutId;
+
+    private ArrayList<Card> cardHand1 = new ArrayList();
+    private Random ran = new Random();
+
+    CribState crib;
+
     /*
      * Constructor for the CribComputerPlayer1 class
      */
     public CribComputerPlayer1(String name) {
         // invoke superclass constructor
         super(name); // invoke superclass constructor
+        this.name = name;
+        ArrayList<Card> cards1 = crib.getDeck();
+
+        for (int i = 0; i < 6; i++){
+            int nxt = ran.nextInt(52);
+            cards1.add(cards1.get(nxt));
+            cards1.remove(nxt);
+        }
     }
 
     /**
