@@ -3,6 +3,7 @@ package edu.up.cs301.cribbage;
 import android.app.Activity;
 import android.graphics.Color;
 import android.graphics.Point;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 
@@ -66,7 +67,7 @@ public class CribHumanPlayer1 extends GameHumanPlayer implements View.OnTouchLis
         for (int i = 0; i < 6; i++){
             int nxt = ran.nextInt(52);
             state.getDeck();
-            cardHand1.add(card.getCard(nxt));
+            cardHand1.add(getCard(52));
         }
 
     }
@@ -89,7 +90,7 @@ public class CribHumanPlayer1 extends GameHumanPlayer implements View.OnTouchLis
             surfaceView.flash(Color.RED, 50);
         }
         else if (!(info instanceof CribState))
-            // if we do not have a TTTState, ignore
+            // if we do not have a CribState, ignore
             return;
         else {
             state = (CribState)info;
@@ -170,6 +171,4 @@ public class CribHumanPlayer1 extends GameHumanPlayer implements View.OnTouchLis
         return true;
 
     }
-
-
 }

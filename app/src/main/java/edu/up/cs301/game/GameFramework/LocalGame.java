@@ -37,6 +37,10 @@ public abstract class LocalGame implements Game, Tickable {
     //Tag for logging
     private static final String TAG = "LocalGame";
 
+    public GameStage getGameStage() {
+        return gameStage;
+    }
+
     // the stage that the game is in
     private GameStage gameStage = GameStage.BEFORE_GAME;
 
@@ -69,6 +73,7 @@ public abstract class LocalGame implements Game, Tickable {
 
     //How many setup turns have passed, initially set to 0
     private int currentSetupTurn = 0;
+
 
 
     /**
@@ -420,6 +425,9 @@ public abstract class LocalGame implements Game, Tickable {
         BEFORE_GAME, WAITING_FOR_NAMES, WAITING_FOR_READY, DURING_GAME, GAME_OVER, SETUP_PHASE
     }
 
+    //an enum-class that itemizes the DURING_GAME Gamestage phases
+
+    protected static enum duringStage{Crib, Play}
     // a handler class for the game's thread
     private static class MyHandler extends Handler {
         // the game

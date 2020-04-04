@@ -66,12 +66,13 @@ public class CribMoveAction extends GameAction {
         }
     }
     public void sendToCrib(int playerID){
+        //adds/removes to player 0's hand
         if(playerID == 0){
             gameState.getPlayer0Hand().remove(card1);
             gameState.getPlayer0Hand().remove(card2);
             gameState.getCrib().add(card1);
             gameState.getCrib().add(card2);;
-        } else if(playerID == 1){
+        } else if(playerID == 1){ //adds/removes to player 1's hand
             gameState.getPlayer1Hand().remove(card1);
             gameState.getPlayer1Hand().remove(card2);
             gameState.getCrib().add(card1);
@@ -79,5 +80,11 @@ public class CribMoveAction extends GameAction {
         }
     }
 
-
+    @Override
+    public CribMoveAction getCribAction() {
+        return new CribMoveAction(getPlayer(), card1,card2);
+    }
+    public nameAction getTypeOfAction(){
+        return typeOfAction;
+    }
 }

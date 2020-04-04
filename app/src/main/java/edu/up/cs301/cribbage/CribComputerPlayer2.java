@@ -61,16 +61,16 @@ public class CribComputerPlayer2 extends GameComputerPlayer {
 		// if it's not a TTTState message, ignore it; otherwise
 		// cast it
 		if (!(info instanceof CribState)) return;
-		CribState myState = (CribState)info;
+		 gameState = (CribState)info;
 
 		// if it's not our move, ignore it
-		if (myState.getWhoseMove() != this.playerNum) return;
+		if (gameState.getWhoseMove() != this.playerNum) return;
 
 		// sleep for a second to make any observers think that we're thinking
 		sleep(1);
 
 		// if we find a win, select that move
-		Point win = findWin(myState, piece);
+		Point win = findWin(gameState, piece);
 		if (win != null) {
 			Logger.log("TTTComputer", "sending action");
 			game.sendAction(new CribMoveAction(this, win.y, win.x));
@@ -80,7 +80,7 @@ public class CribComputerPlayer2 extends GameComputerPlayer {
 		// if we find a threat of a loss (i.e., a direct win for out opponent),
 		// select that position as a blocking move.
 		char opponentPiece = piece == 'X' ? 'O' : 'X';
-		Point loss = findWin(myState, opponentPiece);
+		Point loss = findWin(gameState, opponentPiece);
 		if (loss != null) {
 			Logger.log("TTTComputer", "sending action");
 			game.sendAction(new CribMoveAction(this, loss.y, loss.x));
@@ -94,7 +94,7 @@ public class CribComputerPlayer2 extends GameComputerPlayer {
 		int spaceCount = 0;
 		for (int i = 0; i < 3; i++) {
 			for (int j = 0; j < 3; j++) {
-				if (myState.getPiece(j, i) == ' ') spaceCount++;
+				if (gameState.getPiece(j, i) == ' ') spaceCount++;
 			}
 		}
 
@@ -105,7 +105,7 @@ public class CribComputerPlayer2 extends GameComputerPlayer {
 		// just generated; make that move
 		for (int i = 0; i < 3; i++) {
 			for (int j = 0; j < 3; j++) {
-				if (myState.getPiece(j, i) == ' ') {
+				if (gameState.getPiece(j, i) == ' ') {
 					if (selectCount == 0) {
 						// make the move
 						game.sendAction(new CribMoveAction(this, j, i));

@@ -39,11 +39,6 @@ public class Card implements Serializable {
     //Making a card array
 	private ArrayList<Object> Cards = new ArrayList(52);
 
-	//Getter method for card
-    public Object getCard(int num){
-    	return Cards[num];
-	}
-
 	/**
 	 * Constructor for class card
 	 *
