@@ -3,7 +3,6 @@ package edu.up.cs301.cribbage;
 import android.app.Activity;
 import android.graphics.Color;
 import android.graphics.Point;
-import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 
@@ -48,29 +47,29 @@ public class CribHumanPlayer1 extends GameHumanPlayer implements View.OnTouchLis
     private ArrayList<Card> cardHand1 = new ArrayList();
     private Random ran = new Random();
 
-    Card card;
-
+    CribState crib;
 
     /**
      * constructor
      *
      * @param name
-     * 		the player's name
+     *        the player's name
      * @param layoutId
      *      the id of the layout to use
      */
     public CribHumanPlayer1(String name, int layoutId) {
         super(name);
         this.layoutId = layoutId;
+        ArrayList<Card> cards1 = crib.getDeck();
 
         //Randomly picks 6 cards from 52 deck to have in start
         for (int i = 0; i < 6; i++){
             int nxt = ran.nextInt(52);
-            state.getDeck();
-            cardHand1.add(getCard(52));
+            cards1.add(cards1.get(nxt));
+            cards1.remove(nxt);
         }
-
     }
+
     public CribState getCribState(){
         return state;
     }
@@ -90,7 +89,7 @@ public class CribHumanPlayer1 extends GameHumanPlayer implements View.OnTouchLis
             surfaceView.flash(Color.RED, 50);
         }
         else if (!(info instanceof CribState))
-            // if we do not have a CribState, ignore
+            // if we do not have a TTTState, ignore
             return;
         else {
             state = (CribState)info;
@@ -171,4 +170,6 @@ public class CribHumanPlayer1 extends GameHumanPlayer implements View.OnTouchLis
         return true;
 
     }
+
+
 }
