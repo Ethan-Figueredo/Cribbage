@@ -1,9 +1,10 @@
 package edu.up.cs301.cribbage;
 
+import edu.up.cs301.card.Card;
 import edu.up.cs301.game.GameFramework.GamePlayer;
 
 public class CribCribAction extends CribMoveAction {
-    private static final long serialVersionUID = 3250639793499599047L;
+    private static final long serialVersionUID = 2134321631283669359L;
 
 
     /**
@@ -13,12 +14,12 @@ public class CribCribAction extends CribMoveAction {
      *
      * @param player
      */
-    public CribCribAction(GamePlayer player) {
-        super(player);
+    public CribCribAction(GamePlayer player, Card touch1, Card touch2) {
+        super(player,touch1,touch2);
     }
 
     @Override
-    public boolean isPlay() {
+    public boolean isCrib() {
         return true;
     }
 }

@@ -1,5 +1,6 @@
 package edu.up.cs301.cribbage;
 
+import edu.up.cs301.card.Card;
 import edu.up.cs301.game.GameFramework.GamePlayer;
 import edu.up.cs301.game.GameFramework.LocalGame;
 import edu.up.cs301.game.GameFramework.actionMessage.GameAction;
@@ -34,7 +35,7 @@ public class CribLocalGame extends LocalGame {
 		// perform superclass initialization
 		super();
 
-		// create a new, unfilled-in TTTState object
+		// create a new, unfilled-in CribState object
 		state = new CribState();
 	}
 
@@ -108,21 +109,62 @@ public class CribLocalGame extends LocalGame {
 	 */
 	@Override
 	protected boolean makeMove(GameAction action) {
-		CribMoveAction temp = action.getCribAction();
-		if(temp.getTypeOfAction().equals(CribMoveAction.nameAction.CRIB)) { //isEnum
-			//checks for crib actions
-			if(temp.getCard1() == null || temp.getCard2() == null){ //check for number of cards selected to send to crib
-				Logger.log("Check CribAction", "One card is null while playing to crib");
+		//checks if we have a correct Cribbage action
+		if(!(action instanceof CribMoveAction)){
+			return false;
+		}
+		CribMoveAction move = (CribMoveAction) action;
+
+		//get the index of player
+		int playerIdx = getPlayerIdx(move.getPlayer());
+
+		if(playerIdx < 0 || playerIdx > 2 || playerIdx != state.getWhoseMove()){
+			return false;
+		}
+
+
+		if(move.isCrib()){ //crib action
+			//playermust have six cards
+			if(state.getPlayerHand(playerIdx).size() != 6) {
 				return false;
-			}
-		} else if(temp.getTypeOfAction().equals((CribMoveAction.nameAction.PLAY))){
-			//checks for play action
-			if(temp.getCard2() != null){
-				Logger.log("Check CribAction", "Too many cards selected");
+			}else if(state.getCrib().size() > 2){ //crib can only consist of 0 or two cards at one time before adding to the hand
 				return false;
+			}else if(move.getTouch2() == null){
+				return false;
+			} else{
+				sendToCrib(playerIdx, move.getTouch1(), move.getTouch2());
 			}
+
+		} else if(move.isPlay()){ //play action
+			if(state.getPlayerHand(playerIdx).size() > 4 || state.getPlayerHand(playerIdx).size() < 0){ //checks the amount of cards in players hand is between 0 and 4
+				return false;
+			}else if(move.getTouch2() != null){ //checks if only one card is registered
+				return false;
+			}else if(state.getPlayedCards().size()< 0 || state.getPlayedCards().size() > 8){ //too many cards in the played cards
+				return false;
+			} else{
+				sendToPlay(playerIdx, move.getTouch1());
+			}
+		}else{
+			return false;
 		}
 		return true;
+	}
+	private void sendToCrib(int playerIdx, Card touch1, Card touch2){
+		//illegal player idx
+		if(playerIdx < 0 || playerIdx > 1) return;
+
+		state.getCrib().add(touch1);
+		state.getCrib().add(touch2);
+		state.getPlayerHand(playerIdx).remove(touch1);
+		state.getPlayerHand(playerIdx).remove(touch2);
+	}
+	private void sendToPlay(int playerIdx, Card touch1){
+		//illegal player idx
+		if(playerIdx < 0 || playerIdx > 1) return;
+
+		state.getPlayedCards().add(touch1);
+		state.getPlayerHand(playerIdx).remove(touch1);
 	}
 
 }

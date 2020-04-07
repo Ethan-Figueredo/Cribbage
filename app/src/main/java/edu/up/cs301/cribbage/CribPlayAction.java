@@ -1,5 +1,6 @@
 package edu.up.cs301.cribbage;
 
+import edu.up.cs301.card.Card;
 import edu.up.cs301.game.GameFramework.GamePlayer;
 
 public class CribPlayAction extends CribMoveAction {
@@ -13,8 +14,8 @@ public class CribPlayAction extends CribMoveAction {
      *
      * @param player
      */
-    public CribPlayAction(GamePlayer player) {
-        super(player);
+    public CribPlayAction(GamePlayer player, Card touch1) {
+        super(player,touch1,null);
     }
 
     @Override

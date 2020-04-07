@@ -33,8 +33,9 @@ public abstract class GameAction implements Serializable {
     // the player who generated the request
     private GamePlayer player;
 
-    //type of move
-    public enum nameAction {CRIB, PLAY}
+
+
+
 
     /**
      * constructor for GameAction
@@ -44,7 +45,6 @@ public abstract class GameAction implements Serializable {
      */
     public GameAction(GamePlayer player) {
         this.player = player;
-
     }
 
     /**

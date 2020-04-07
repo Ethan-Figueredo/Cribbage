@@ -18,35 +18,31 @@ public abstract class CribMoveAction extends GameAction {
     private static final String TAG = "CribMoveAction";
     private static final long serialVersionUID = -2242980258970485343L;
 
-    private nameAction typeOfAction;
-
-    public Card getCard1() {
-        return card1;
-    }
-
-    // instance variables:
-    private Card card1;
-
-    public Card getCard2() {
-        return card2;
-    }
-
-    private Card card2;
-
-    private CribState gameState;
+    private Card touch1;
+    private Card touch2;
 
     /**
      * Constructor for TTTMoveAction
      * <p>
      * //@param source the player making the move
      *
-     * @param touch is the card that was touched
+     *  is the card that was touched
      */
 
-    public CribMoveAction(GamePlayer player) {
+    public CribMoveAction(GamePlayer player, Card touch1, Card touch2) {
         // invoke superclass constructor to set the player
         super(player);
+        this.touch1 = touch1;
+        this.touch2 = touch2;
     }
+
+    public Card getTouch1() {
+        return touch1;
+    }
+    public Card getTouch2(){
+        return touch2;
+    }
+
     /**
      * @return
      * 		whether the move was a sent to crib
@@ -61,4 +57,5 @@ public abstract class CribMoveAction extends GameAction {
     public boolean isPlay(){
         return false;
     }
+
 }

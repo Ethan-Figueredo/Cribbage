@@ -35,13 +35,16 @@ public class CribState extends GameState {
     private int player1Score;
     private ArrayList<Card> player0Hand;
 
-    public ArrayList<Card> getPlayer0Hand() {
-        return player0Hand;
+    public ArrayList<Card> getPlayerHand(int hand) {
+        if(hand == 0){
+            return player0Hand;
+        }else if(hand == 1){
+            return player1Hand;
+        }
+        return null;
     }
 
-    public ArrayList<Card> getPlayer1Hand() {
-        return player1Hand;
-    }
+
 
     private ArrayList<Card> player1Hand;
     private int dealerID;
