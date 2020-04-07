@@ -13,10 +13,10 @@ import edu.up.cs301.game.GameFramework.infoMessage.GameState;
  * @author Ethan Figueredo
  * @version 2 July 2001
  */
-public class CribMoveAction extends GameAction {
+public abstract class CribMoveAction extends GameAction {
     //Tag for logging
     private static final String TAG = "CribMoveAction";
-	private static final long serialVersionUID = -2242980258970485343L;
+    private static final long serialVersionUID = -2242980258970485343L;
 
     private nameAction typeOfAction;
 
@@ -37,54 +37,28 @@ public class CribMoveAction extends GameAction {
 
     /**
      * Constructor for TTTMoveAction
+     * <p>
+     * //@param source the player making the move
      *
-     //@param source the player making the move
      * @param touch is the card that was touched
      */
 
-    public CribMoveAction(GamePlayer player, Card touch, Card touch2)
-    {
+    public CribMoveAction(GamePlayer player) {
         // invoke superclass constructor to set the player
         super(player);
-        this.card1 = touch;
-        if(touch2 != null){
-            this.card2 = touch2;
-            typeOfAction = nameAction.CRIB;
-        }else {
-            this.card2 = null;
-            typeOfAction = nameAction.PLAY;
-        }
-        gameState = player.getCribState();
     }
-    public void playCard(int playerID){
-        if(playerID == 0){
-            gameState.getPlayer0Hand().remove(card1);
-            gameState.getPlayedCards().add(card1);
-        } else if(playerID == 1){
-            gameState.getPlayer1Hand().remove(card1);
-            gameState.getPlayedCards().add(card1);
-        }
+    /**
+     * @return
+     * 		whether the move was a sent to crib
+     */
+    public boolean isCrib() {
+        return false;
     }
-    public void sendToCrib(int playerID){
-        //adds/removes to player 0's hand
-        if(playerID == 0){
-            gameState.getPlayer0Hand().remove(card1);
-            gameState.getPlayer0Hand().remove(card2);
-            gameState.getCrib().add(card1);
-            gameState.getCrib().add(card2);;
-        } else if(playerID == 1){ //adds/removes to player 1's hand
-            gameState.getPlayer1Hand().remove(card1);
-            gameState.getPlayer1Hand().remove(card2);
-            gameState.getCrib().add(card1);
-            gameState.getCrib().add(card2);
-        }
-    }
-
-    @Override
-    public CribMoveAction getCribAction() {
-        return new CribMoveAction(getPlayer(), card1,card2);
-    }
-    public nameAction getTypeOfAction(){
-        return typeOfAction;
+    /**
+     * @return
+     * 		whether the move was a play
+     */
+    public boolean isPlay(){
+        return false;
     }
 }

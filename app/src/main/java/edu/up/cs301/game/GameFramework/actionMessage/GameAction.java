@@ -67,5 +67,5 @@ public abstract class GameAction implements Serializable {
         this.player = p;
     }
 
-    public abstract CribMoveAction getCribAction();
+    //public abstract CribMoveAction getCribAction();
 }
