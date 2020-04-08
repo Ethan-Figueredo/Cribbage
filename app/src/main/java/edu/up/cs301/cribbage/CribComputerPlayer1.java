@@ -1,7 +1,5 @@
 package edu.up.cs301.cribbage;
 
-import android.os.Looper;
-
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -10,19 +8,10 @@ import edu.up.cs301.game.GameFramework.GameComputerPlayer;
 import edu.up.cs301.game.GameFramework.infoMessage.GameInfo;
 import edu.up.cs301.game.GameFramework.infoMessage.NotYourTurnInfo;
 import edu.up.cs301.game.GameFramework.utilities.Logger;
-import edu.up.cs301.game.GameFramework.actionMessage.GameOverAckAction;
-import edu.up.cs301.game.GameFramework.actionMessage.MyNameIsAction;
-import edu.up.cs301.game.GameFramework.actionMessage.ReadyAction;
-import edu.up.cs301.game.GameFramework.infoMessage.BindGameInfo;
-import edu.up.cs301.game.GameFramework.infoMessage.GameOverInfo;
-import edu.up.cs301.game.GameFramework.infoMessage.StartGameInfo;
-import edu.up.cs301.game.GameFramework.infoMessage.TimerInfo;
 import edu.up.cs301.game.GameFramework.utilities.GameTimer;
-import edu.up.cs301.game.GameFramework.utilities.MessageBox;
-import edu.up.cs301.game.GameFramework.utilities.Tickable;
 
 import android.os.Handler;
-import android.os.Looper;
+
 /**
  * This is a really dumb computer player that always just makes a random move
  * it's so stupid that it sometimes tries to make moves on non-blank spots.
@@ -30,7 +19,7 @@ import android.os.Looper;
  * @author Steven R. Vegdahl
  * @versio2 July 2013
  */
-public abstract class CribComputerPlayer1 extends GameComputerPlayer
+public class CribComputerPlayer1 extends GameComputerPlayer
 {
     private CribState gameState;
 
@@ -156,35 +145,24 @@ public abstract class CribComputerPlayer1 extends GameComputerPlayer
         action = null;
         Card card = null;
         if(state.getGameStage() == CribState.THROW_STAGE){//if throw stage
-            action = new CribCardsToThrow(this, throwCards(state.getPlayer1Hand()));//pick two cards to throw and save them into
+            action = new CribThrowAction(this);//pick two cards to throw and save them into
             //a CardsToThrow action
         }
-        else if (state.getGameStage() == CribState.PEG_STAGE){
-            card = cardsToTable(state.getPlayer1Hand());
-            action = new CribCardsToTable(this, card);//pick one card and save it to
+        else if (state.getGameStage() == CribState.PLAY_STAGE){
+            action = new CribThrowAction(this);//pick one card and save it to
             //a CardsToTable action
 
 
             sleep((int) (Math.random()*1000));//sleep up to one second
         }
         game.sendAction(action);//sends action
-        if(card != null){
-            int cardPos = indexOfCard(state.getPlayer1Hand(), card);
+        /*if(card != null){
+            int cardPos = indexOfCard(state.getHand(1), card);
             if (cardPos >=0 && cardPos < state.getPlayer1Hand().length){
                 Card[] hand = state.getPlayer1Hand();
                 hand[cardPos] = null;
                 state.setHand(hand);//gets index of card played and removes the card
             }
-        }
-    }
-
-    @Override
-    public int getPlayerNum() {
-        return playerNum;
-    }
-
-    @Override
-    public CribState getCribState() {
-        return gameState;
+        }*/
     }
 }

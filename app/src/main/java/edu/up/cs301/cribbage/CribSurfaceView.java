@@ -9,7 +9,9 @@ import android.graphics.Path;
 import android.graphics.Point;
 import android.graphics.RectF;
 import android.util.AttributeSet;
+import android.view.MotionEvent;
 
+import edu.up.cs301.card.Card;
 import edu.up.cs301.cribbage.CribState;
 import edu.up.cs301.game.GameFramework.utilities.FlashSurfaceView;
 
@@ -101,148 +103,15 @@ public class CribSurfaceView extends FlashSurfaceView {
      * 		the canvas to draw on
      */
     public void onDraw(Canvas g) {
-
-        // update the variables that relate
-        // to the dimensions of the animation surface
-        updateDimensions(g);
-
         // if we don't have any state, there's nothing more to draw, so return
         if (state == null) {
             return;
         }
-    }
 
-    /**
-     * update the instance variables that relate to the drawing surface
-     *
-     * @param g
-     * 		an object that references the drawing surface
-     */
-    private void updateDimensions(Canvas g) {
-
-        // initially, set the height and width to be that of the
-        // drawing surface
-        int width = g.getWidth();
-        int height = g.getHeight();
-
-        // Set the "full square" size to be the minimum of the height and
-        // the width. Depending on which is greater, set either the
-        // horizontal or vertical base to be partway across the screen,
-        // so that the "playing square" is in the middle of the screen on
-        // its long dimension
-        if (width > height) {
-            fullSquare = height;
-            vBase = 0;
-            hBase = (width - height) / (float) 2.0;
-        } else {
-            fullSquare = width;
-            hBase = 0;
-            vBase = (height - width) / (float) 2.0;
-        }
-
-    }
-
-    // x- and y-percentage-coordinates for a polygon that displays the X's
-    // first slash
-    private static float[] xPoints1 = { 6.25f, 12.5f, 87.5f, 93.75f };
-    private static float[] yPoints1 = { 12.5f, 6.25f, 93.75f, 87.5f };
-
-    // x- and y-percentage-coordinates for a polygon that displays the X's
-    // second slash
-    private static float[] xPoints2 = { 87.5f, 6.25f, 93.75f, 12.5f };
-    private static float[] yPoints2 = { 6.25f, 87.5f, 12.5f, 93.75f };
-
-    /**
-     * Draw a symbol (X or O) on the canvas in a particular location
-     *
-     * @param g
-     *            the graphics object on which to draw
-     * @param sym
-     *            the symbol to draw (X or O)
-     * @param col
-     *            the column number of the square on which to draw (0, 1 or 2)
-     * @param col
-     *            the row number of the square on which to draw (0, 1 or 2)
-     */
-    protected void drawSymbol(Canvas g, char sym, int col, int row) {
-
-        // compute the pixel-location
-        float xLoc = BORDER_PERCENT + col * SQUARE_DELTA_PERCENT; // compute ...
-        float yLoc = BORDER_PERCENT + row * SQUARE_DELTA_PERCENT; // ... location
-
-        // set the paint color to be the foreground color
-        Paint p = new Paint();
-        //p.setColor(foregroundColor());
-
-        // draw either an X or O, depending on the symbol
-        switch (sym) {
-            case 'O':
-                // 'O' found: draw it by drawing two circles: an outer one with the
-                // foreground color, and an inner one with the background color
-                RectF rect = new RectF(h(xLoc + 5), v(yLoc + 1), h(xLoc
-                        + SQUARE_SIZE_PERCENT - 5), v(yLoc + SQUARE_SIZE_PERCENT
-                        - 1));
-                g.drawOval(rect, p); // outside of the 'O'
-                p.setColor(Color.GREEN);
-                rect = new RectF(h(xLoc + 6), v(yLoc + 2), h(xLoc
-                        + SQUARE_SIZE_PERCENT - 8), v(yLoc + SQUARE_SIZE_PERCENT
-                        - 3));
-                g.drawOval(rect, p); // carve out "hole"
-                break;
-            case 'X': // 'X' found: draw it
-
-                // create a translation matrix to move Path to the given square on the
-                // surface
-                Matrix translateMatrix = new Matrix();
-                translateMatrix.setTranslate(h(xLoc), v(yLoc));
-
-                // create the Path object for the X's first slash; move and draw it
-                Path pth = createPoly(xPoints1, yPoints1, fullSquare
-                        * SQUARE_SIZE_PERCENT / 100);
-                pth.transform(translateMatrix);
-                g.drawPath(pth, p);
-
-                // create the Path object for the X's second slash; move and draw it
-                pth = createPoly(xPoints2, yPoints2, fullSquare
-                        * SQUARE_SIZE_PERCENT / 100);
-                pth.transform(translateMatrix);
-                g.drawPath(pth, p);
-                break;
-            default:
-                // if not X or O, draw nothing
-                break;
-        }
-    }
-
-    /**
-     * helper-method to create a scaled polygon (Path) object from a list of points
-     *
-     * @param xPoints
-     * 		list of x-coordinates, taken as percentages
-     * @param yPoints
-     * 		corresponding list of y-coordinates--should have the same length as xPoints
-     * @param scale
-     * 		factor by which to scale them
-     * @return
-     */
-    private Path createPoly(float[] xPoints, float[] yPoints, float scale) {
-
-        // in case array-lengths are different, take the minimim length, to avoid
-        // array-out-of-bounds errors
-        int count = Math.min(xPoints.length, yPoints.length);
-
-        // run through the points, adding each to the Path object, scaling as we go
-        Path rtnVal = new Path();
-        rtnVal.moveTo(xPoints[0] * scale / 100, yPoints[0] * scale / 100);
-        for (int i = 1; i < count; i++) {
-            float xPoint = xPoints[i] * scale / 100;
-            float yPoint = yPoints[i] * scale / 100;
-            rtnVal.lineTo(xPoint, yPoint);
-        }
-
-        // close the Path into a polygon; return the object
-        rtnVal.close();
-        return rtnVal;
+        Paint blue = new Paint();
+        blue.setColor(Color.BLUE);
+        RectF crib = new RectF(0, 300, 500, 600);
+        g.drawRect(crib, blue);
     }
 
     /**
@@ -258,50 +127,101 @@ public class CribSurfaceView extends FlashSurfaceView {
      * 		board, or null if the point does not correspond to a square
      */
     public Point mapPixelToSquare(int x, int y) {
-
-        // loop through each square and see if we get a "hit"; if so, return
-        // the corresponding Point in "square" coordinates
-        for (int i = 0; i < 3; i++) {
-            for (int j = 0; j < 3; j++) {
-                float left = h(BORDER_PERCENT + (i * SQUARE_DELTA_PERCENT));
-                float right = h(BORDER_PERCENT + SQUARE_SIZE_PERCENT
-                        + (i * SQUARE_DELTA_PERCENT));
-                float top = v(BORDER_PERCENT + (j * SQUARE_DELTA_PERCENT));
-                float bottom = v(BORDER_PERCENT + SQUARE_SIZE_PERCENT
-                        + (j * SQUARE_DELTA_PERCENT));
-                if ((x > left) != (x > right) && (y > top) != (y > bottom)) {
-                    return new Point(i, j);
-                }
-            }
-        }
-
         // no match: return null
         return null;
     }
 
     /**
-     * helper-method to convert from a percentage to a horizontal pixel location
+     * draws a sequence of card-backs, each offset a bit from the previous one, so that all can be
+     * seen to some extent
      *
-     * @param percent
-     * 		the percentage across the drawing square
-     * @return
-     * 		the pixel location that corresponds to that percentage
+     * @param g
+     * 		the canvas to draw on
+     * @param topRect
+     * 		the rectangle that defines the location of the top card (and the size of all
+     * 		the cards
+     * @param deltaX
+     * 		the horizontal change between the drawing position of two consecutive cards
+     * @param deltaY
+     * 		the vertical change between the drawing position of two consecutive cards
+     * @param numCards
+     * 		the number of card-backs to draw
      */
-    private float h(float percent) {
-        return hBase + percent * fullSquare / 100;
+    private void drawCardBacks(Canvas g, RectF topRect, float deltaX, float deltaY,
+                               int numCards) {
+        // loop through from back to front, drawing a card-back in each location
+        for (int i = numCards-1; i >= 0; i--) {
+            // determine theh position of this card's top/left corner
+            float left = topRect.left + i*deltaX;
+            float top = topRect.top + i*deltaY;
+            // draw a card-back (hence null) into the appropriate rectangle
+            drawCard(g,
+                    new RectF(left, top, left + topRect.width(), top + topRect.height()),
+                    null);
+        }
     }
 
     /**
-     * helper-method to convert from a percentage to a vertical pixel location
+     * draws a card on the canvas; if the card is null, draw a card-back
      *
-     * @param percent
-     * 		the percentage down the drawing square
-     * @return
-     * 		the pixel location that corresponds to that percentage
+     * @param g
+     * 		the canvas object
+     * @param rect
+     * 		a rectangle defining the location to draw the card
+     * @param c
+     * 		the card to draw; if null, a card-back is drawn
      */
-    private float v(float percent) {
-        return vBase + percent * fullSquare / 100;
+    private static void drawCard(Canvas g, RectF rect, Card c) {
+        if (c == null) {
+            // null: draw a card-back, consisting of a blue card
+            // with a white line near the border. We implement this
+            // by drawing 3 concentric rectangles:
+            // - blue, full-size
+            // - white, slightly smaller
+            // - blue, even slightly smaller
+            Paint white = new Paint();
+            white.setColor(Color.WHITE);
+            Paint blue = new Paint();
+            blue.setColor(Color.BLUE);
+            RectF inner1 = scaledBy(rect, 0.96f); // scaled by 96%
+            RectF inner2 = scaledBy(rect, 0.98f); // scaled by 98%
+            g.drawRect(rect, blue); // outer rectangle: blue
+            g.drawRect(inner2, white); // middle rectangle: white
+            g.drawRect(inner1, blue); // inner rectangle: blue
+        }
+        else {
+            // just draw the card
+            c.drawOn(g, rect);
+        }
     }
 
+    /**
+     * scales a rectangle, moving all edges with respect to its center
+     *
+     * @param rect
+     * 		the original rectangle
+     * @param factor
+     * 		the scaling factor
+     * @return
+     * 		the scaled rectangle
+     */
+    private static RectF scaledBy(RectF rect, float factor) {
+        // compute the edge locations of the original rectangle, but with
+        // the middle of the rectangle moved to the origin
+        float midX = (rect.left+rect.right)/2;
+        float midY = (rect.top+rect.bottom)/2;
+        float left = rect.left-midX;
+        float right = rect.right-midX;
+        float top = rect.top-midY;
+        float bottom = rect.bottom-midY;
 
+        // scale each side; move back so that center is in original location
+        left = left*factor + midX;
+        right = right*factor + midX;
+        top = top*factor + midY;
+        bottom = bottom*factor + midY;
+
+        // create/return the new rectangle
+        return new RectF(left, top, right, bottom);
+    }
 }

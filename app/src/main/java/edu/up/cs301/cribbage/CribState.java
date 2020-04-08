@@ -52,7 +52,7 @@ public class CribState extends GameState {
     private int turn;
     private int gameStage;
     public static final int THROW_STAGE = 0;
-    public static final int PEG_STAGE = 1;
+    public static final int PLAY_STAGE = 1;
     public static final int COUNT_STAGE = 2;
     public String[] tutorialTexts = {
             "It is now the Throw Stage. Please select two cards to throw to the crib",
@@ -66,6 +66,7 @@ public class CribState extends GameState {
     public CribState()
     {
         whoseMove = 0;
+        gameStage = THROW_STAGE;
         piles = new Deck[5];
         piles[0] = new Deck();  //player 0's hand
         piles[1] = new Deck();  //player 1's hand
@@ -92,6 +93,7 @@ public class CribState extends GameState {
     {
     	// copy the player-to-move information
         whoseMove = orig.whoseMove;
+        gameStage = orig.gameStage;
         piles = new Deck[5];
         piles[0] = new Deck(orig.piles[0]);  //player 0's hand
         piles[1] = new Deck(orig.piles[1]);  //player 1's hand
