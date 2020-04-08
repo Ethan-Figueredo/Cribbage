@@ -72,13 +72,13 @@ public class CribSurfaceViewFlipped extends CribSurfaceView {
      *		column and row of the corresponding square on the tic-tac-toe
      * 		board, or null if the point does not correspond to a square
      */
-    public Point mapPixelToSquare(int x, int y) {
+    public int mapPixelToSquare(int x, int y) {
 
         // get point that superclass would have
-        Point p = super.mapPixelToSquare(x, y);
+        int p = super.mapPixelToPosition(x, y);
 
         // return "inverted" point
-        return p == null ? null : new Point(2-p.x, 2-p.y);
+        return p;
     }
 
 }

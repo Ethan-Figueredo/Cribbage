@@ -1,6 +1,7 @@
 package edu.up.cs301.cribbage;
 
 import android.app.Activity;
+import android.content.pm.ActivityInfo;
 import android.graphics.Color;
 import android.graphics.Point;
 import android.view.MotionEvent;
@@ -111,7 +112,7 @@ public class CribHumanPlayer1 extends GameHumanPlayer implements View.OnTouchLis
 
         // Load the layout resource for the new configuration
         activity.setContentView(layoutId);
-
+        myActivity.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);//its a warning
         // set the surfaceView instance variable
         surfaceView = (CribSurfaceView)myActivity.findViewById(R.id.surfaceView);
         Logger.log("set listener","OnTouch");
@@ -154,12 +155,12 @@ public class CribHumanPlayer1 extends GameHumanPlayer implements View.OnTouchLis
         // values are in the range 0..2)
         int xGet = (int) event.getX();
         int yGet = (int) event.getY();
-        Point p = surfaceView.mapPixelToSquare(xGet, yGet);
-
+        int indexOfTouch = surfaceView.mapPixelToPosition(xGet, yGet);
+        System.out.println(indexOfTouch + "Thiss is it");
         // if the location did not map to a legal square, flash
         // the screen; otherwise, create and send an action to
         // the game
-        if (p == null) {
+        if (indexOfTouch == -1) {
             surfaceView.flash(Color.RED, 50);
         } else {
             if(state.getGameStage() == CribState.THROW_STAGE){

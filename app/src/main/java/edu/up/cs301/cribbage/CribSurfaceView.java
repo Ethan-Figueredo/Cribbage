@@ -205,9 +205,25 @@ public class CribSurfaceView extends FlashSurfaceView {
      *		column and row of the corresponding square on the tic-tac-toe
      * 		board, or null if the point does not correspond to a square
      */
-    public Point mapPixelToSquare(int x, int y) {
+    public int mapPixelToPosition(int x, int y) {
         // no match: return null
-        return null;
+        if(y < getHeight() - 300 || x < getWidth()/6) {
+            return -1; //illegal square
+        }
+        if(x<getWidth()/6){
+            return 0;
+        }else if(x < getWidth()/3){
+            return 1;
+        } else if(x < getWidth()/2) {
+            return 2;
+        }else if(x < 4*getWidth()/6){
+            return 3;
+        }else if(x<5*getWidth()/6){
+            return 4;
+        }else if(x<getWidth()){
+            return 5;
+        }
+        return -1;
     }
 
     /**
