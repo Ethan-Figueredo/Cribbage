@@ -47,6 +47,7 @@ public abstract class GameComputerPlayer implements GamePlayer, Tickable {
      *
      * @return this game's timer object
      */
+
     protected final GameTimer getTimer() {
         return myTimer;
     }
