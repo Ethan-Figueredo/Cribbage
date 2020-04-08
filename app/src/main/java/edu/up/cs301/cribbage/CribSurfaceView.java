@@ -210,15 +210,15 @@ public class CribSurfaceView extends FlashSurfaceView {
         if(y < getHeight() - 300 || x < getWidth()/6) {
             return -1; //illegal square
         }
-        if(x<getWidth()/6){
+        if(x>getWidth()/6 &&x < getWidth()/3){
             return 0;
-        }else if(x < getWidth()/3){
+        }else if(x > getWidth()/3 && x < getWidth()/2){
             return 1;
-        } else if(x < getWidth()/2) {
+        } else if(x > getWidth()/2 && x < 4*getWidth()/6) {
             return 2;
-        }else if(x < 4*getWidth()/6){
+        }else if(x > 4*getWidth()/6 && x < 5*getWidth()/6){
             return 3;
-        }else if(x<5*getWidth()/6){
+        }else if(x>5*getWidth()/6 && x < getWidth()){
             return 4;
         }else if(x<getWidth()){
             return 5;
