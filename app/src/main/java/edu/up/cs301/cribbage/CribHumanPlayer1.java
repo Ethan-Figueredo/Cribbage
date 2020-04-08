@@ -67,14 +67,6 @@ public class CribHumanPlayer1 extends GameHumanPlayer implements View.OnTouchLis
     public CribHumanPlayer1(String name, int layoutId) {
         super(name);
         this.layoutId = layoutId;
-        ArrayList<Card> cards1 = crib.getDeck();
-
-        //Randomly picks 6 cards from 52 deck to have in start
-        for (int i = 0; i < 6; i++){
-            int nxt = ran.nextInt(52);
-            cards1.add(cards1.get(nxt));
-            cards1.remove(nxt);
-        }
     }
 
     public CribState getCribState(){
@@ -159,7 +151,7 @@ public class CribHumanPlayer1 extends GameHumanPlayer implements View.OnTouchLis
         // values are in the range 0..2)
         int xGet = (int) event.getX();
         int yGet = (int) event.getY();
-        Point p = surfaceView.mapPixelToSquare(x, y);
+        Point p = surfaceView.mapPixelToSquare(xGet, yGet);
 
         // if the location did not map to a legal square, flash
         // the screen; otherwise, create and send an action to

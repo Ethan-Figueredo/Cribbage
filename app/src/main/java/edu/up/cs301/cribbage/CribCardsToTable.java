@@ -11,7 +11,7 @@ import edu.up.cs301.game.GameFramework.actionMessage.GameAction;
  * @version 04/7/2020
  */
 
-class CribCardsToTable extends CribMoveAction {
+class CribCardsToTable extends GameAction {
 
     // Instance Variables
 

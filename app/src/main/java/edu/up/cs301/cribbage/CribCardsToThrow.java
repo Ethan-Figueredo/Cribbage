@@ -8,7 +8,7 @@ import edu.up.cs301.game.GameFramework.actionMessage.GameAction;
  * @version 04/7/2020
  */
 
-class CribCardsToThrow extends CribMoveAction {
+class CribCardsToThrow extends GameAction {
 
     /**
      * Class that is used for throw actions
