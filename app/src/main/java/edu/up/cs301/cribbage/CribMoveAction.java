@@ -19,6 +19,8 @@ public class CribMoveAction extends GameAction {
 	private static final long serialVersionUID = -2242980258970485343L;
 
     private nameAction typeOfAction;
+    private Card[] cardsToThrow;
+    private GamePlayer player;
 
     public Card getCard1() {
         return card1;
@@ -79,5 +81,9 @@ public class CribMoveAction extends GameAction {
         }
     }
 
+    public void CardsToThrow(GamePlayer player, Card[] cards) {
+        this.player = player;
+        cardsToThrow = cards;
+    } // Constructor for the CardsToThrow gameAction
 
 }

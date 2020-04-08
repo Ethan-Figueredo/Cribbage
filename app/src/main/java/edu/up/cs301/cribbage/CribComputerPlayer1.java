@@ -54,7 +54,7 @@ public abstract class CribComputerPlayer1 extends GameComputerPlayer
     // this game is connected to the GUI
     private GameTimer myTimer = new GameTimer(this); // my timer
     private CribMoveAction action;//action that will be sent to the game
-    
+
 
 
     /*
@@ -164,13 +164,13 @@ public abstract class CribComputerPlayer1 extends GameComputerPlayer
     private void takeTurn(){
         action = null;
         Card card = null;
-        if(state.getGameStage() == CbgState.THROW_STAGE){//if throw stage
-            action = new CardsToThrow(this, throwCards(state.getHand()));//pick two cards to throw and save them into
+        if(state.getGameStage() == CribState.THROW_STAGE){//if throw stage
+            action = new CribCardsToThrow(this, throwCards(state.getPlayer1Hand()));//pick two cards to throw and save them into
             //a CardsToThrow action
         }
-        else if (state.getGameStage() == CbgState.PEG_STAGE){
-            card = cardsToTable(state.getHand());
-            action = new CardsToTable(this, card);//pick one card and save it to
+        else if (state.getGameStage() == CribState.PEG_STAGE){
+            card = cardsToTable(state.getPlayer1Hand());
+            action = new CribCardsToTable(this, card);//pick one card and save it to
             //a CardsToTable action
 
 
@@ -178,9 +178,9 @@ public abstract class CribComputerPlayer1 extends GameComputerPlayer
         }
         game.sendAction(action);//sends action
         if(card != null){
-            int cardPos = indexOfCard(state.getHand(), card);
-            if (cardPos >=0 && cardPos < state.getHand().length){
-                Card[] hand = state.getHand();
+            int cardPos = indexOfCard(state.getPlayer1Hand(), card);
+            if (cardPos >=0 && cardPos < state.getPlayer1Hand().length){
+                Card[] hand = state.getPlayer1Hand();
                 hand[cardPos] = null;
                 state.setHand(hand);//gets index of card played and removes the card
             }

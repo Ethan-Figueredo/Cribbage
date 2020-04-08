@@ -36,17 +36,18 @@ public class CribState extends GameState {
     private int whoseMove;
     private int player0Score;
     private int player1Score;
-    private ArrayList<Card> player0Hand;
+    private Card[] player0Hand;
+    private Card[] player1Hand;
+    private Card[] playerHand;
 
-    public ArrayList<Card> getPlayer0Hand() {
+    public Card[] getPlayer0Hand() {
         return player0Hand;
     }
 
-    public ArrayList<Card> getPlayer1Hand() {
+    public Card[]  getPlayer1Hand() {
         return player1Hand;
     }
 
-    private ArrayList<Card> player1Hand;
     private int dealerID;
     private ArrayList<Card> deck;
 
@@ -67,6 +68,7 @@ public class CribState extends GameState {
     }
 
     private int turn;
+    private int throwCount;
     private int gameStage;
     public static final int THROW_STAGE = 0;
     public static final int PEG_STAGE = 1;
@@ -95,6 +97,7 @@ public class CribState extends GameState {
     {
     	// copy the player-to-move information
         whoseMove = original.whoseMove;
+        gameStage = original.gameStage;
     }
 
     public int getPrevPeg(int id){
@@ -175,6 +178,52 @@ public class CribState extends GameState {
 
     public int getTurn(){
         return turn;
+    }
+
+    /**
+     * Setter method for the ThrowCount
+     *
+     */
+
+    public final void setThrowCount(int throwCount){
+        this.throwCount = throwCount;
+    }
+
+    /**
+     * Getter method for the throwCount
+     * @return int throwCount  The number of cards being thrown
+     */
+
+    public int getThrowCount(){
+        return throwCount;
+    }
+
+    /**
+     * Setter method for the GameStage
+     *
+     */
+
+    public final void setGameStage(int stage) {
+        gameStage = stage;
+    }
+
+    /**
+     * Getter method for the gameStage
+     * @return int gameStage  The stage the game is in
+     */
+
+    public final int getGameStage() {
+        return gameStage;
+    } // GetGameStage
+
+
+    /**
+     * Setter method for the hand
+     *
+     */
+
+    public final void setHand(Card[] hand) {
+        playerHand = hand;
     }
 
 }
