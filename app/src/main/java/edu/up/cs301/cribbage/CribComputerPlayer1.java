@@ -10,19 +10,10 @@ import edu.up.cs301.game.GameFramework.GameComputerPlayer;
 import edu.up.cs301.game.GameFramework.infoMessage.GameInfo;
 import edu.up.cs301.game.GameFramework.infoMessage.NotYourTurnInfo;
 import edu.up.cs301.game.GameFramework.utilities.Logger;
-import edu.up.cs301.game.GameFramework.actionMessage.GameOverAckAction;
-import edu.up.cs301.game.GameFramework.actionMessage.MyNameIsAction;
-import edu.up.cs301.game.GameFramework.actionMessage.ReadyAction;
-import edu.up.cs301.game.GameFramework.infoMessage.BindGameInfo;
-import edu.up.cs301.game.GameFramework.infoMessage.GameOverInfo;
-import edu.up.cs301.game.GameFramework.infoMessage.StartGameInfo;
-import edu.up.cs301.game.GameFramework.infoMessage.TimerInfo;
 import edu.up.cs301.game.GameFramework.utilities.GameTimer;
-import edu.up.cs301.game.GameFramework.utilities.MessageBox;
-import edu.up.cs301.game.GameFramework.utilities.Tickable;
 
 import android.os.Handler;
-import android.os.Looper;
+
 /**
  * This is a really dumb computer player that always just makes a random move
  * it's so stupid that it sometimes tries to make moves on non-blank spots.
@@ -30,7 +21,7 @@ import android.os.Looper;
  * @author Steven R. Vegdahl
  * @versio2 July 2013
  */
-public abstract class CribComputerPlayer1 extends GameComputerPlayer
+public class CribComputerPlayer1 extends GameComputerPlayer
 {
     private CribState gameState;
 
@@ -151,15 +142,12 @@ public abstract class CribComputerPlayer1 extends GameComputerPlayer
     private void takeTurn(){
         action = null;
         Card card = null;
-        if(state.getGameStage() == CribState.sendTocrib){//if throw stage
-            Card touch1 = state.getPlayerHand(playerNum).get(0);
-            Card touch2 = state.getPlayerHand(playerNum).get(1);
-            action = new CribCribAction(this, touch1,touch2);//pick two cards to throw and save them into
+        if(state.getGameStage() == CribState.THROW_STAGE){//if throw stage
+            action = new CribThrowAction(this);//pick two cards to throw and save them into
             //a CardsToThrow action
         }
-        else if (state.getGameStage() == CribState.sendToPlay){
-            Card touch1 = state.getPlayerHand(playerNum).get(0);
-            action = new CribPlayAction(this, touch1);//pick one card and save it to
+        else if (state.getGameStage() == CribState.PLAY_STAGE){
+            action = new CribThrowAction(this);//pick one card and save it to
             //a CardsToTable action
 
 

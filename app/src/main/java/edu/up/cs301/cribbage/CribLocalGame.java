@@ -109,62 +109,12 @@ public class CribLocalGame extends LocalGame {
 	 */
 	@Override
 	protected boolean makeMove(GameAction action) {
-		//checks if we have a correct Cribbage action
-		if(!(action instanceof CribMoveAction)){
-			return false;
+		if(action instanceof CribThrowAction){
+
+			return true;
+		} else if(action instanceof CribPlayAction){
+			return true;
 		}
-		CribMoveAction move = (CribMoveAction) action;
-
-		//get the index of player
-		int playerIdx = getPlayerIdx(move.getPlayer());
-
-		if(playerIdx < 0 || playerIdx > 2 || playerIdx != state.getWhoseMove()){
-			return false;
-		}
-
-
-		if(move.isCrib()){ //crib action
-			//playermust have six cards
-			if(state.getPlayerHand(playerIdx).size() != 6) {
-				return false;
-			}else if(state.getCrib().size() > 2){ //crib can only consist of 0 or two cards at one time before adding to the hand
-				return false;
-			}else if(move.getTouch2() == null){
-				return false;
-			} else{
-				sendToCrib(playerIdx, move.getTouch1(), move.getTouch2());
-			}
-
-		} else if(move.isPlay()){ //play action
-			if(state.getPlayerHand(playerIdx).size() > 4 || state.getPlayerHand(playerIdx).size() < 0){ //checks the amount of cards in players hand is between 0 and 4
-				return false;
-			}else if(move.getTouch2() != null){ //checks if only one card is registered
-				return false;
-			}else if(state.getPlayedCards().size()< 0 || state.getPlayedCards().size() > 8){ //too many cards in the played cards
-				return false;
-			} else{
-				sendToPlay(playerIdx, move.getTouch1());
-			}
-		}else{
-			return false;
-		}
-		return true;
+		return false;
 	}
-	private void sendToCrib(int playerIdx, Card touch1, Card touch2){
-		//illegal player idx
-		if(playerIdx < 0 || playerIdx > 1) return;
-
-		state.getCrib().add(touch1);
-		state.getCrib().add(touch2);
-		state.getPlayerHand(playerIdx).remove(touch1);
-		state.getPlayerHand(playerIdx).remove(touch2);
-	}
-	private void sendToPlay(int playerIdx, Card touch1){
-		//illegal player idx
-		if(playerIdx < 0 || playerIdx > 1) return;
-
-		state.getPlayedCards().add(touch1);
-		state.getPlayerHand(playerIdx).remove(touch1);
-	}
-
 }

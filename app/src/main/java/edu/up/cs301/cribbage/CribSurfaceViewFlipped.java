@@ -61,24 +61,6 @@ public class CribSurfaceViewFlipped extends CribSurfaceView {
     }
 
     /**
-     * Draw a symbol (X or O) on the canvas in a particular location
-     *
-     * @param g
-     *            the graphics object on which to draw
-     * @param sym
-     *            the symbol to draw (X or O)
-     * @param col
-     *            the column number of the square on which to draw (0, 1 or 2)
-     * @param col
-     *            the row number of the square on which to draw (0, 1 or 2)
-     */
-    protected void drawSymbol(Canvas g, char sym, int col, int row) {
-
-        // draw symbol in inverted position
-        super.drawSymbol(g, sym, 2 - col, 2 - row);
-    }
-
-    /**
      * maps a point from the canvas' pixel coordinates to "square" coordinates
      *
      * @param x

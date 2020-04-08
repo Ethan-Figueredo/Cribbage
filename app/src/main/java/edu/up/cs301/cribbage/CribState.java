@@ -35,44 +35,32 @@ public class CribState extends GameState {
     public static final int PLAYER_2 = 1;
 
     private int whoseMove;
-    private int player0Score;
-    private int player1Score;
-    private ArrayList<Card> player0Hand;
-    private ArrayList<Card> player1Hand;
-    private ArrayList<Card> deck;
+    private int throwCount = 0;
+    private int[] scores = new int[]{0, 0};
+    private Deck[] piles;
 
-    public ArrayList<Card> getPlayerHand(int hand) {
-        if(hand == 0){
-            return player0Hand;
-        }else if(hand == 1){
-            return player1Hand;
-        }
-        return null;
+    public Deck getHand(int index) {
+        return piles[index];
     }
 
     private int dealerID;
 
-
-    public ArrayList<Card> getCrib() {
-        return crib;
+    public Deck getCrib() {
+        return piles[3];
     }
 
-    private ArrayList<Card> crib;
-
-    public ArrayList<Card> getPlayedCards() {
-        return playedCards;
+    public Deck getPlayedCards() {
+        return piles[4];
     }
 
-    private ArrayList<Card> playedCards;
-
-    public ArrayList<Card> getDeck(){
-        return deck;
+    public Deck getDeck(){
+        return piles[2];
     }
 
     private int turn;
     private int gameStage;
-    public static final int sendTocrib = 0;
-    public static final int sendToPlay = 1;
+    public static final int THROW_STAGE = 0;
+    public static final int PLAY_STAGE = 1;
     public static final int COUNT_STAGE = 2;
     public String[] tutorialTexts = {
             "It is now the Throw Stage. Please select two cards to throw to the crib",
@@ -86,54 +74,40 @@ public class CribState extends GameState {
     public CribState()
     {
         whoseMove = 0;
+        gameStage = THROW_STAGE;
+        piles = new Deck[5];
+        piles[0] = new Deck();  //player 0's hand
+        piles[1] = new Deck();  //player 1's hand
+        piles[2] = new Deck();  //full deck
+        piles[3] = new Deck();  //crib
+        piles[4] = new Deck();  //played cards
+
+        piles[2].add52();
+        piles[2].shuffle();
+
+        for(int i = 0; i < 6; i++){
+            piles[2].moveTopCardTo(piles[0]);
+            piles[2].moveTopCardTo(piles[1]);
+        }
     }// constructor
     
     /**
      * Copy constructor for class TTTState
      *  
-     * @param original
+     * @param orig
      * 		the TTTState object that we want to clong
      */
-    public CribState(CribState original)
+    public CribState(CribState orig)
     {
     	// copy the player-to-move information
-        whoseMove = original.whoseMove;
-    }
-
-    public int getPrevPeg(int id){
-        if(id == 0) {
-            return prevPegP0;
-        } else if(id == 1){
-            return prevPegP1;
-        } else {
-            return -1;
-        }
-    }
-
-    public void setPrevPeg(int id, int location){
-        if(id == 0) {
-            prevPegP0 = location;
-        } else if(id == 1){
-            prevPegP1 = location;
-        }
-    }
-
-    public int getCurrPeg(int id){
-        if(id == 0) {
-            return currPegP0;
-        } else if(id == 1){
-            return currPegP1;
-        } else {
-            return -1;
-        }
-    }
-
-    public void setCurrPeg(int id, int location){
-        if(id == 0) {
-            currPegP0 = location;
-        } else if(id == 1){
-            currPegP1 = location;
-        }
+        whoseMove = orig.whoseMove;
+        gameStage = orig.gameStage;
+        piles = new Deck[5];
+        piles[0] = new Deck(orig.piles[0]);  //player 0's hand
+        piles[1] = new Deck(orig.piles[1]);  //player 1's hand
+        piles[2] = new Deck(orig.piles[2]);  //full deck
+        piles[3] = new Deck(orig.piles[3]);  //crib
+        piles[4] = new Deck(orig.piles[4]);  //played cards
     }
 
     public int getDealerID(){
@@ -144,22 +118,12 @@ public class CribState extends GameState {
         dealerID = newID;
     }
 
-    public int getScore(int id){
-        if(id == 0){
-            return player0Score;
-        } else if(id == 1){
-            return player1Score;
-        } else {
-            return -1;
-        }
+    public int getScore(int index){
+        return scores[index];
     }
 
-    public void setScore(int id, int newScore){
-        if(id == 0){
-            player0Score += newScore;
-        } else if(id == 1){
-            player1Score += newScore;
-        }
+    public void setScore(int index, int newScore){
+        scores[index] = newScore;
     }
 
     /**

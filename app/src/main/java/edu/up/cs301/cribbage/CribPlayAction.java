@@ -14,11 +14,10 @@ public class CribPlayAction extends CribMoveAction {
      *
      * @param player
      */
-    public CribPlayAction(GamePlayer player, Card touch1) {
-        super(player,touch1,null);
+    public CribPlayAction(GamePlayer player) {
+        super(player);
     }
 
-    @Override
     public boolean isPlay() {
         return true;
     }

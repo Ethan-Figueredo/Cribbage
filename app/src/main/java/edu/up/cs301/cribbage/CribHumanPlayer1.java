@@ -67,14 +67,6 @@ public class CribHumanPlayer1 extends GameHumanPlayer implements View.OnTouchLis
     public CribHumanPlayer1(String name, int layoutId) {
         super(name);
         this.layoutId = layoutId;
-        ArrayList<Card> cards1 = crib.getDeck();
-
-        //Randomly picks 6 cards from 52 deck to have in start
-        for (int i = 0; i < 6; i++){
-            int nxt = ran.nextInt(52);
-            cards1.add(cards1.get(nxt));
-            cards1.remove(nxt);
-        }
     }
 
     public CribState getCribState(){
@@ -170,26 +162,12 @@ public class CribHumanPlayer1 extends GameHumanPlayer implements View.OnTouchLis
         if (p == null) {
             surfaceView.flash(Color.RED, 50);
         } else {
-            if(state.getGameStage() ==  CribState.sendTocrib){
-                CribCribAction action = new CribCribAction(this, selectedCards[0],selectedCards[1]);
-            }else if(state.getGameStage() == CribState.sendToPlay){
-                CribPlayAction action = new CribPlayAction(this,selectedCards[0]);
-            }
-            Logger.log("onTouch", "Human player sending TTTMA ...");
-            game.sendAction(action);
-            surfaceView.invalidate();
-        }
-
-        if(event.getAction() == MotionEvent.ACTION_DOWN){//only selected on down motion
-            float x = event.getX();//coordinates of touch
-            float y = event.getY();
-
-            if(state != null && state.getTurn() == CribState.PLAYER_1){//checks if state is not null, cecks stage
-                //and checks whose turn it is
-                for(int i = 0; i<tempHand.length; i++){
-                        selectCard(tempHand[i]);//selects card that user touched
-
-                }
+            if(state.getGameStage() == CribState.THROW_STAGE){
+                game.sendAction(new CribThrowAction(this));
+                surfaceView.invalidate();
+            } else if(state.getGameStage() == CribState.PLAY_STAGE){
+                game.sendAction(new CribPlayAction(this));
+                surfaceView.invalidate();
             }
         }
 
@@ -203,7 +181,7 @@ public class CribHumanPlayer1 extends GameHumanPlayer implements View.OnTouchLis
      * This method takes the selected cards and creates an action based on the current stage
      * 	and sends that action to the game.
      */
-/*  public final void confirm() {
+    /*public final void confirm() {
         if(!isEmpty(selectedCards)){//do only if cards have been selected
             action = null;//resets action
             if(state.getGameStage() == CribState.THROW_STAGE){//checks if game is in throw stage
@@ -244,7 +222,7 @@ public class CribHumanPlayer1 extends GameHumanPlayer implements View.OnTouchLis
      * @param card  Card that was touched
      */
     private void selectCard(Card card) {
-        if(state.getGameStage() == CribState.sendTocrib& isFull(tempHand)){//if the temp hand is full and its the throw stage
+        if(state.getGameStage() == CribState.THROW_STAGE && isFull(tempHand)){//if the temp hand is full and its the throw stage
             if(selectedCards[0] == card){
                 selectedCards[0] = null;//deselects
             }else if(selectedCards[1] == card){
@@ -254,7 +232,7 @@ public class CribHumanPlayer1 extends GameHumanPlayer implements View.OnTouchLis
             }else if(selectedCards[1] == null){
                 selectedCards[1] = card;//selects
             }
-        }else if(state.getGameStage() == CribState.sendToPlay){
+        }else if(state.getGameStage() == CribState.PLAY_STAGE){
             if(selectedCards[0] == null){
                 selectedCards[0] = card;//selects
             }else if(selectedCards[0] == card){

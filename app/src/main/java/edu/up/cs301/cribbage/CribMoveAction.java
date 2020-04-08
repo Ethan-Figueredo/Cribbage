@@ -18,27 +18,15 @@ public abstract class CribMoveAction extends GameAction {
     private static final String TAG = "CribMoveAction";
     private static final long serialVersionUID = -2242980258970485343L;
 
-    private Card touch1;
-    private Card touch2;
-
     /**
      * Constructor for TTTMoveAction
      *
      *  is the card that was touched
      */
 
-    public CribMoveAction(GamePlayer player, Card touch1, Card touch2) {
+    public CribMoveAction(GamePlayer player) {
         // invoke superclass constructor to set the player
         super(player);
-        this.touch1 = touch1;
-        this.touch2 = touch2;
-    }
-
-    public Card getTouch1() {
-        return touch1;
-    }
-    public Card getTouch2(){
-        return touch2;
     }
 
     /**
