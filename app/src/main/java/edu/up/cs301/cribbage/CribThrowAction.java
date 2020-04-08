@@ -12,6 +12,15 @@ import edu.up.cs301.game.GameFramework.actionMessage.GameAction;
 
 class CribThrowAction extends CribMoveAction {
     private int indexofCard1;
+
+    public int getIndexofCard1() {
+        return indexofCard1;
+    }
+
+    public int getIndexofCard2() {
+        return indexofCard2;
+    }
+
     private int indexofCard2;
     public CribThrowAction(GamePlayer player,int index1, int index2) {
         super(player);

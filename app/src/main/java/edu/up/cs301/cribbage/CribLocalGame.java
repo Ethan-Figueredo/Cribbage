@@ -111,11 +111,17 @@ public class CribLocalGame extends LocalGame {
 	@Override
 	protected boolean makeMove(GameAction action) {
 		if(action instanceof CribThrowAction){
-
+			sendToCrib(((CribThrowAction) action).getIndexofCard1(), ((CribThrowAction) action).getIndexofCard2());
 			return true;
 		} else if(action instanceof CribPlayAction){
 			return true;
 		}
 		return false;
+	}
+	private void sendToCrib(int index, int index2){
+		state.getCrib().add(state.getHand(state.getWhoseMove()).getCard(index));
+		state.getCrib().add(state.getHand(state.getWhoseMove()).getCard(index2));
+		state.getHand(state.getWhoseMove()).removeCard(index);
+		state.getHand(state.getWhoseMove()).removeCard(index2);
 	}
 }
