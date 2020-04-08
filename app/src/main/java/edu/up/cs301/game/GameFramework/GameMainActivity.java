@@ -168,8 +168,7 @@ public abstract class GameMainActivity extends Activity implements
             MessageBox.popUpMessage(Resources.getSystem().getString(R.string.Config_Error_Msg),
                     this);
         }
-        Card temp = null;
-        temp.initImages(this);
+
         if (this.config.isUserModifiable()) { // normal run: user has chance to modify configuration
 
             // initialize and show the GUI that allows the user to specify the game's

@@ -55,7 +55,7 @@ public class CribHumanPlayer1 extends GameHumanPlayer implements View.OnTouchLis
     private Card[] cardsOnTable;//arraylist of cards currently on the table
     private Card[] currCrib;
     private CribMoveAction action;//action that will be sent to the game
-
+    private int indexOfCard1;
 
     /**
      * constructor
@@ -118,6 +118,8 @@ public class CribHumanPlayer1 extends GameHumanPlayer implements View.OnTouchLis
         Logger.log("set listener","OnTouch");
         surfaceView.setOnTouchListener(this);
         surfaceView.setState(state);
+
+        Card.initImages(activity);
     }
 
     /**
@@ -160,6 +162,7 @@ public class CribHumanPlayer1 extends GameHumanPlayer implements View.OnTouchLis
         // if the location did not map to a legal square, flash
         // the screen; otherwise, create and send an action to
         // the game
+
         if (indexOfTouch == -1) {
             surfaceView.flash(Color.RED, 50);
         } else {
