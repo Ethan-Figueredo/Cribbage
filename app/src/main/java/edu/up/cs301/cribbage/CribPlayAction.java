@@ -5,7 +5,7 @@ import edu.up.cs301.game.GameFramework.GamePlayer;
 
 public class CribPlayAction extends CribMoveAction {
     private static final long serialVersionUID = 3250639793499599047L;
-
+    private int indexPlay;
 
     /**
      * Constructor for TTTMoveAction
@@ -14,8 +14,9 @@ public class CribPlayAction extends CribMoveAction {
      *
      * @param player
      */
-    public CribPlayAction(GamePlayer player) {
+    public CribPlayAction(GamePlayer player, int index) {
         super(player);
+        this.indexPlay = index;
     }
 
     public boolean isPlay() {

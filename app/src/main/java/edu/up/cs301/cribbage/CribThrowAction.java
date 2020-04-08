@@ -8,10 +8,15 @@ import edu.up.cs301.game.GameFramework.actionMessage.GameAction;
  * @version 04/7/2020
  */
 
-class CribThrowAction extends CribMoveAction {
 
-    public CribThrowAction(GamePlayer player) {
+
+class CribThrowAction extends CribMoveAction {
+    private int indexofCard1;
+    private int indexofCard2;
+    public CribThrowAction(GamePlayer player,int index1, int index2) {
         super(player);
+        this.indexofCard1 = index1;
+        this.indexofCard2 = index2;
     } // Constructor for the CardsToThrow gameAction
 
     public boolean isThrow(){

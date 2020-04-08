@@ -136,11 +136,11 @@ public class CribComputerPlayer1 extends GameComputerPlayer
         action = null;
         Card card = null;
         if(state.getGameStage() == CribState.THROW_STAGE){//if throw stage
-            action = new CribThrowAction(this);//pick two cards to throw and save them into
+            action = new CribThrowAction(this, 0, 1);//pick two cards to throw and save them into
             //a CardsToThrow action
         }
         else if (state.getGameStage() == CribState.PLAY_STAGE){
-            action = new CribThrowAction(this);//pick one card and save it to
+            action = new CribThrowAction(this, 0, 1);//pick one card and save it to
             //a CardsToTable action
 
 

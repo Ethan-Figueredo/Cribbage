@@ -33,7 +33,7 @@ public abstract class CribMoveAction extends GameAction {
      * @return
      * 		whether the move was a sent to crib
      */
-    public boolean isCrib() {
+    public boolean isThrow() {
         return false;
     }
     /**

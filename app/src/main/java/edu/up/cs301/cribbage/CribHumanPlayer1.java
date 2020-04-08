@@ -158,7 +158,11 @@ public class CribHumanPlayer1 extends GameHumanPlayer implements View.OnTouchLis
         int xGet = (int) event.getX();
         int yGet = (int) event.getY();
         int indexOfTouch = surfaceView.mapPixelToPosition(xGet, yGet);
-        System.out.println(indexOfTouch + "Thiss is it");
+        int count = event.getPointerCount();
+        if(count == 0){
+             indexOfCard1= indexOfTouch;
+        }
+
         // if the location did not map to a legal square, flash
         // the screen; otherwise, create and send an action to
         // the game
@@ -167,10 +171,11 @@ public class CribHumanPlayer1 extends GameHumanPlayer implements View.OnTouchLis
             surfaceView.flash(Color.RED, 50);
         } else {
             if(state.getGameStage() == CribState.THROW_STAGE){
-                game.sendAction(new CribThrowAction(this));
+                System.out.println("Thiiiss is it" + indexOfCard1);
+                game.sendAction(new CribThrowAction(this, indexOfCard1,indexOfTouch));
                 surfaceView.invalidate();
             } else if(state.getGameStage() == CribState.PLAY_STAGE){
-                game.sendAction(new CribPlayAction(this));
+                game.sendAction(new CribPlayAction(this,indexOfCard1));
                 surfaceView.invalidate();
             }
         }
