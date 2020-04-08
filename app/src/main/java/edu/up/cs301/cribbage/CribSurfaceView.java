@@ -187,7 +187,7 @@ public class CribSurfaceView extends FlashSurfaceView {
         for(int i = 0; i < x; i++){
             Card temp = state.getHand(1).getCard(i);
                 if(temp!=null){
-                    drawCard(g,hand1Box.get(i), temp);
+                    drawCardBacks(g, hand1Box.get(i), 0, 300, 1);
                 }
 
         }
@@ -212,15 +212,15 @@ public class CribSurfaceView extends FlashSurfaceView {
         }
         if(x>getWidth()/6 &&x < getWidth()/3){
             return 0;
-        }else if(x > getWidth()/3 && x < getWidth()/2){
+        }else if(x > getWidth()/3 && x < getWidth()/2-100){
             return 1;
-        } else if(x > getWidth()/2 && x < 4*getWidth()/6) {
+        } else if(x > getWidth()/2 && x < 4*getWidth()/6-100) {
             return 2;
-        }else if(x > 4*getWidth()/6 && x < 5*getWidth()/6){
+        }else if(x > 4*getWidth()/6 && x < 5*getWidth()/6-100){
             return 3;
-        }else if(x>5*getWidth()/6 && x < getWidth()){
+        }else if(x>5*getWidth()/6 && x < getWidth()-100){
             return 4;
-        }else if(x<getWidth()){
+        }else if(x>getWidth()-100){
             return 5;
         }
         return -1;
