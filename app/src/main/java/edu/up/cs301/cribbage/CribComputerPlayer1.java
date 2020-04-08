@@ -2,12 +2,6 @@ package edu.up.cs301.cribbage;
 
 import android.os.Looper;
 
-import android.util.Log;
-
-import java.util.ArrayList;
-import java.util.Random;
-
-import edu.up.cs301.card.Card;
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -27,21 +21,18 @@ import edu.up.cs301.game.GameFramework.utilities.GameTimer;
 import edu.up.cs301.game.GameFramework.utilities.MessageBox;
 import edu.up.cs301.game.GameFramework.utilities.Tickable;
 
+import android.os.Handler;
+import android.os.Looper;
 /**
  * This is a really dumb computer player that always just makes a random move
  * it's so stupid that it sometimes tries to make moves on non-blank spots.
- * 
+ *
  * @author Steven R. Vegdahl
- * @versio2 July 2013 
+ * @versio2 July 2013
  */
-public class CribComputerPlayer1 extends GameComputerPlayer
+public abstract class CribComputerPlayer1 extends GameComputerPlayer
 {
     private CribState gameState;
-    protected int playerNum; // which player number I am
-    protected String name; // my name
-    protected String[] allPlayerNames; // list of all player names, in ID order
-    private boolean running; // whether the player's thread is running
-    private boolean gameOver = false; // whether the game is over
 
     // the state
     private CribState state;
@@ -52,7 +43,19 @@ public class CribComputerPlayer1 extends GameComputerPlayer
     private ArrayList<Card> cardHand1 = new ArrayList();
     private Random ran = new Random();
 
-    CribState crib;
+    private CribState state; // the game object
+    private int playerNum; // which player number I am
+    private String name; // my name
+    private String[] allPlayerNames; // list of all player names, in ID order
+    private Handler myHandler; // the handler for this player's thread
+    private boolean running; // whether the player's thread is running
+    private boolean gameOver = false; // whether the game is over
+    private CribMainActivity myActivity; // the game's main activity, set only
+    // this game is connected to the GUI
+    private GameTimer myTimer = new GameTimer(this); // my timer
+    private CribMoveAction action;//action that will be sent to the game
+
+
 
     /*
      * Constructor for the CribComputerPlayer1 class
@@ -161,13 +164,13 @@ public class CribComputerPlayer1 extends GameComputerPlayer
     private void takeTurn(){
         action = null;
         Card card = null;
-        if(state.getGameStage() == CbgState.THROW_STAGE){//if throw stage
-            action = new CardsToThrow(this, throwCards(state.getHand()));//pick two cards to throw and save them into
+        if(state.getGameStage() == CribState.THROW_STAGE){//if throw stage
+            action = new CribCardsToThrow(this, throwCards(state.getPlayer1Hand()));//pick two cards to throw and save them into
             //a CardsToThrow action
         }
-        else if (state.getGameStage() == CbgState.PEG_STAGE){
-            card = cardsToTable(state.getHand());
-            action = new CardsToTable(this, card);//pick one card and save it to
+        else if (state.getGameStage() == CribState.PEG_STAGE){
+            card = cardsToTable(state.getPlayer1Hand());
+            action = new CribCardsToTable(this, card);//pick one card and save it to
             //a CardsToTable action
 
 
@@ -175,9 +178,9 @@ public class CribComputerPlayer1 extends GameComputerPlayer
         }
         game.sendAction(action);//sends action
         if(card != null){
-            int cardPos = indexOfCard(state.getHand(), card);
-            if (cardPos >=0 && cardPos < state.getHand().length){
-                Card[] hand = state.getHand();
+            int cardPos = indexOfCard(state.getPlayer1Hand(), card);
+            if (cardPos >=0 && cardPos < state.getPlayer1Hand().length){
+                Card[] hand = state.getPlayer1Hand();
                 hand[cardPos] = null;
                 state.setHand(hand);//gets index of card played and removes the card
             }
