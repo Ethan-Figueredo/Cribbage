@@ -67,5 +67,15 @@ public class CribComputerPlayer2 extends GameComputerPlayer {
 		// sleep for a second to make any observers think that we're thinking
 		sleep(1);
 	}// receiveInfo
+
+	@Override
+	public int getPlayerNum() {
+		return playerNum;
+	}
+
+	@Override
+	public CribState getCribState() {
+		return gameState;
+	}
 }
 

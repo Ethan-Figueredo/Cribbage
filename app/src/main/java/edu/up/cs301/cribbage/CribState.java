@@ -25,7 +25,7 @@ public class CribState extends GameState {
     private int currPegP1;
     private int prevPegP0;
     private int currPegP0;
-    private int throwCount;
+    private int throwCount = 0;
 
     public int getWhoseMove() {
         return whoseMove;
@@ -35,7 +35,6 @@ public class CribState extends GameState {
     public static final int PLAYER_2 = 1;
 
     private int whoseMove;
-    private int throwCount = 0;
     private int[] scores = new int[]{0, 0};
     private Deck[] piles;
 

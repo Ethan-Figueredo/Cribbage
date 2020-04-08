@@ -108,10 +108,22 @@ public class CribSurfaceView extends FlashSurfaceView {
             return;
         }
 
-        Paint blue = new Paint();
+        Paint blue = new Paint(); //drawing the crib
         blue.setColor(Color.BLUE);
         RectF crib = new RectF(0, 300, 500, 600);
         g.drawRect(crib, blue);
+
+
+
+
+        int n = state.getHand(0).size();
+        int x = state.getHand(1).size();
+        //draw the handsof each player
+        for(int i = 0; i < n; i ++) {
+            Card temp = state.getHand(0).removeTopCard();
+           drawCard(g, crib, temp);
+            state.getHand(0).add(temp);
+        }
     }
 
     /**

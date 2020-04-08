@@ -53,13 +53,6 @@ public class CribComputerPlayer1 extends GameComputerPlayer
         // invoke superclass constructor
         super(name); // invoke superclass constructor
         this.name = name;
-        ArrayList<Card> cards1 = state.getDeck();
-
-        for (int i = 0; i < 6; i++){
-            int nxt = ran.nextInt(52);
-            cards1.add(cards1.get(nxt));
-            cards1.remove(nxt);
-        }
     }
 
     /**

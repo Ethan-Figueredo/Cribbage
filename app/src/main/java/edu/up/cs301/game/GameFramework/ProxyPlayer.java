@@ -1,5 +1,6 @@
 package edu.up.cs301.game.GameFramework;
 
+import edu.up.cs301.cribbage.CribState;
 import edu.up.cs301.game.GameFramework.actionMessage.GameAction;
 import edu.up.cs301.game.GameFramework.infoMessage.BindGameInfo;
 import edu.up.cs301.game.GameFramework.infoMessage.GameInfo;
@@ -140,6 +141,16 @@ public class ProxyPlayer implements GamePlayer {
      */
     public boolean supportsGui() {
         return false;
+    }
+
+    @Override
+    public int getPlayerNum() {
+        return 0;
+    }
+
+    @Override
+    public CribState getCribState() {
+        return null;
     }
 }
 

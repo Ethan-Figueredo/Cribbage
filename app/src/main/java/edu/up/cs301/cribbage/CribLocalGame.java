@@ -37,6 +37,7 @@ public class CribLocalGame extends LocalGame {
 
 		// create a new, unfilled-in CribState object
 		state = new CribState();
+
 	}
 
 
