@@ -34,8 +34,6 @@ public abstract class CribComputerPlayer1 extends GameComputerPlayer
 {
     private CribState gameState;
 
-    // the state
-    private CribState state;
 
     // the ID for the layout to use
     private int layoutId;
@@ -64,7 +62,7 @@ public abstract class CribComputerPlayer1 extends GameComputerPlayer
         // invoke superclass constructor
         super(name); // invoke superclass constructor
         this.name = name;
-        ArrayList<Card> cards1 = crib.getDeck();
+        ArrayList<Card> cards1 = state.getDeck();
 
         for (int i = 0; i < 6; i++){
             int nxt = ran.nextInt(52);
@@ -152,7 +150,7 @@ public abstract class CribComputerPlayer1 extends GameComputerPlayer
         while (hand[rand1] == null && !canPlay) {
 
             rand1 = (rand1 + 1)%6;
-            canPlay = CribCounter.canMove(hand[rand1], state);
+            //canPlay = CribCounter.canMove(hand[rand1], state);
         }
 
         return hand[rand1];
