@@ -186,7 +186,13 @@ public class Deck implements Serializable {
             return cards.remove(cards.size()-1);
         }
     }
-
+    /*
+    gets CArd from index
+    */
+    public Card getCard(int index){
+        if (cards.isEmpty()) return null;
+        return cards.get(index);
+    }
     /**
      * @return
      * 		the top card in the deck, without removing it; null

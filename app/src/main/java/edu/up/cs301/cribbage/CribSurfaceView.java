@@ -11,6 +11,8 @@ import android.graphics.RectF;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
 
+import java.util.ArrayList;
+
 import edu.up.cs301.card.Card;
 import edu.up.cs301.cribbage.CribState;
 import edu.up.cs301.game.GameFramework.utilities.FlashSurfaceView;
@@ -109,20 +111,85 @@ public class CribSurfaceView extends FlashSurfaceView {
         }
 
         Paint blue = new Paint(); //drawing the crib
+        Paint red = new Paint();
         blue.setColor(Color.BLUE);
+        red.setColor(Color.RED);
+        System.out.println(getWidth()-100 + " This is it");
+
         RectF crib = new RectF(0, 300, 500, 600);
+        RectF hand0 = new RectF(500,getHeight(),getWidth()-100,getHeight()-300);
+        RectF hand1 = new RectF(500,0,getWidth()-100, 300);
+
         g.drawRect(crib, blue);
+        g.drawRect(hand0, blue);
+        g.drawRect(hand1, blue);
+
+        RectF crib1 = new RectF(0,300,125,600);
+        RectF crib2 = new RectF(125,300,125,600);
+        RectF crib3 = new RectF(250,300,125,600);
+        RectF crib4 = new RectF(375,300,125,600);
+
+        int width = getWidth() - 100;
+        int height = getHeight()-300;
+        RectF hand00 = new RectF(500,getHeight(), width/6,height);
+        RectF hand01 = new RectF(500 + width/6, getHeight(), width/3, height);
+        RectF hand02 = new RectF(500 + width/3, getHeight(),width/2,height);
+        RectF hand03 = new RectF(500 + width/2, getHeight(),4*width/6,height);
+        RectF hand04 = new RectF(500 + 4*width/6, getHeight(),5*width/6,height);
+        RectF hand05 = new RectF(500 + width, getHeight(),width,height);
+
+        RectF hand10 = new RectF(500, 0, width/6, 300);
+        RectF hand11 = new RectF(500 + width/6, 0, width/3, 300);
+        RectF hand12 = new RectF(500+width/3, 0, width/2, 300);
+        RectF hand13 = new RectF(500+width/2, 0, 4*width/6, 300);
+        RectF hand14 = new RectF(500+4*width/6, 0, 5*width/6, 300);
+        RectF hand15 = new RectF(500+5*width/6, 0, width, 300);
 
 
+        ArrayList<RectF> cribBox = new ArrayList<>();
+        cribBox.add(crib1);
+        cribBox.add(crib2);
+        cribBox.add(crib3);
+        cribBox.add(crib4);
 
+        ArrayList<RectF> hand0Box = new ArrayList<>();
+        hand0Box.add(hand00);
+        hand0Box.add(hand01);
+        hand0Box.add(hand02);
+        hand0Box.add(hand03);
+        hand0Box.add(hand04);
+        hand0Box.add(hand05);
+
+        ArrayList<RectF> hand1Box = new ArrayList<>();
+        hand1Box.add(hand10);
+        hand1Box.add(hand11);
+        hand1Box.add(hand12);
+        hand1Box.add(hand13);
+        hand1Box.add(hand14);
+        hand1Box.add(hand15);
 
         int n = state.getHand(0).size();
         int x = state.getHand(1).size();
-        //draw the handsof each player
+        int z = state.getCrib().size();
+        //draw the crib
+        for(int i = 0; i < z; i ++) {
+            Card temp = state.getCrib().getCard(i);
+            if (temp!=null) {
+                drawCard(g, cribBox.get(i), temp);
+            }
+        }
         for(int i = 0; i < n; i ++) {
-            Card temp = state.getHand(0).removeTopCard();
-           drawCard(g, crib, temp);
-            state.getHand(0).add(temp);
+            Card temp = state.getHand(0).getCard(i);
+            if (temp!=null) {
+                drawCard(g, hand0Box.get(i), temp);
+            }
+        }
+        for(int i = 0; i < x; i++){
+            Card temp = state.getHand(1).getCard(i);
+                if(temp!=null){
+                    drawCard(g,hand1Box.get(i), temp);
+                }
+
         }
     }
 
