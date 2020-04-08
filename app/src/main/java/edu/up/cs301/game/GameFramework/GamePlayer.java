@@ -40,7 +40,7 @@ public interface GamePlayer {
 
     public CribState getCribState();
 
-    public abstract Card getCardFromHand();
+
 
 
 

@@ -83,29 +83,18 @@ public abstract class CribComputerPlayer1 extends GameComputerPlayer
 
         // if it was a "not your turn" message, just ignore it
         if (info instanceof NotYourTurnInfo) return;
-        Logger.log("TTTComputer", "My turn!");
-        // pick x and y positions at random (0-2)
-        int xVal = (int)(3*Math.random());
-        int yVal = (int)(3*Math.random());
 
-        // delay for a second to make opponent think we're thinking
-        sleep(1);
+        if (!(info instanceof CribState)) return;
 
-        // Submit our move to the game object. We haven't even checked it it's
-        // our turn, or that that position is unoccupied. If it was not our turn,
-        // we'll get a message back that we'll ignore. If it was an illegal move,
-        // we'll end up here again (and possibly again, and again). At some point,
-        // we'll end up randomly pick a move that is legal.
         Logger.log("TTTComputer", "Sending move");
         //game.sendAction(new CribMoveAction(this, yVal, xVal));
 
-        if(info instanceof CribState){
-            state = (CribState)info;
-            int turn = state.getTurn();
-            if(state.getTurn() == CribState.PLAYER_2) {
-                takeTurn();
-            }// else do nothing
-        }
+        state = (CribState)info;
+        int turn = state.getWhoseMove();
+        if(turn == playerNum) {
+            takeTurn();
+        }// else do nothing
+
 
     }
 
@@ -162,19 +151,22 @@ public abstract class CribComputerPlayer1 extends GameComputerPlayer
     private void takeTurn(){
         action = null;
         Card card = null;
-        if(state.getGameStage() == CribState.THROW_STAGE){//if throw stage
-            action = new CribCardsToThrow(this, throwCards(state.getPlayer1Hand()));//pick two cards to throw and save them into
+        if(state.getGameStage() == CribState.sendTocrib){//if throw stage
+            Card touch1 = state.getPlayerHand(playerNum).get(0);
+            Card touch2 = state.getPlayerHand(playerNum).get(1);
+            action = new CribCribAction(this, touch1,touch2);//pick two cards to throw and save them into
             //a CardsToThrow action
         }
-        else if (state.getGameStage() == CribState.PEG_STAGE){
-            card = cardsToTable(state.getPlayer1Hand());
-            action = new CribCardsToTable(this, card);//pick one card and save it to
+        else if (state.getGameStage() == CribState.sendToPlay){
+            Card touch1 = state.getPlayerHand(playerNum).get(0);
+            action = new CribPlayAction(this, touch1);//pick one card and save it to
             //a CardsToTable action
 
 
-            sleep((int) (Math.random()*1000));//sleep up to one second
+            sleep((int) (Math.random()*1000));//creates a thinking time
         }
         game.sendAction(action);//sends action
+        /*
         if(card != null){
             int cardPos = indexOfCard(state.getPlayer1Hand(), card);
             if (cardPos >=0 && cardPos < state.getPlayer1Hand().length){
@@ -182,7 +174,7 @@ public abstract class CribComputerPlayer1 extends GameComputerPlayer
                 hand[cardPos] = null;
                 state.setHand(hand);//gets index of card played and removes the card
             }
-        }
+        }*/
     }
 
     @Override

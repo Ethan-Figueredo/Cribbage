@@ -25,6 +25,7 @@ public class CribState extends GameState {
     private int currPegP1;
     private int prevPegP0;
     private int currPegP0;
+    private int throwCount;
 
     public int getWhoseMove() {
         return whoseMove;
@@ -36,9 +37,9 @@ public class CribState extends GameState {
     private int whoseMove;
     private int player0Score;
     private int player1Score;
-    private Card[] player0Hand;
-    private Card[] player1Hand;
-    private Card[] playerHand;
+    private ArrayList<Card> player0Hand;
+    private ArrayList<Card> player1Hand;
+    private ArrayList<Card> deck;
 
     public ArrayList<Card> getPlayerHand(int hand) {
         if(hand == 0){
@@ -50,7 +51,7 @@ public class CribState extends GameState {
     }
 
     private int dealerID;
-    private ArrayList<Card> deck;
+
 
     public ArrayList<Card> getCrib() {
         return crib;
@@ -70,8 +71,8 @@ public class CribState extends GameState {
 
     private int turn;
     private int gameStage;
-    public static final int THROW_STAGE = 0;
-    public static final int PEG_STAGE = 1;
+    public static final int sendTocrib = 0;
+    public static final int sendToPlay = 1;
     public static final int COUNT_STAGE = 2;
     public String[] tutorialTexts = {
             "It is now the Throw Stage. Please select two cards to throw to the crib",
@@ -214,15 +215,5 @@ public class CribState extends GameState {
     public final int getGameStage() {
         return gameStage;
     } // GetGameStage
-
-
-    /**
-     * Setter method for the hand
-     *
-     */
-
-    public final void setHand(Card[] hand) {
-        playerHand = hand;
-    }
 
 }
