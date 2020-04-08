@@ -30,6 +30,9 @@ public class CribState extends GameState {
         return whoseMove;
     }
 
+    public static final int PLAYER_1 = 0;//player constants
+    public static final int PLAYER_2 = 1;
+
     private int whoseMove;
     private int player0Score;
     private int player1Score;
@@ -65,6 +68,17 @@ public class CribState extends GameState {
     public ArrayList<Card> getDeck(){
         return deck;
     }
+
+    private int turn;
+    private int gameStage;
+    public static final int THROW_STAGE = 0;
+    public static final int PEG_STAGE = 1;
+    public static final int COUNT_STAGE = 2;
+    public String[] tutorialTexts = {
+            "It is now the Throw Stage. Please select two cards to throw to the crib",
+            "It is now the Peg Stage. Please select one card at a time to send to the table",
+            "It is now the Count Stage. The cards are being counted."
+    };
 
     /**
      * Constructor for objects of class TTTState
@@ -146,6 +160,24 @@ public class CribState extends GameState {
         } else if(id == 1){
             player1Score += newScore;
         }
+    }
+
+    /**
+     * Setter method for the turn
+     *
+     */
+
+    public void setTurn(int turn){
+        this.turn = turn;
+    }
+
+    /**
+     * Getter method for the turn the game is in
+     * @return int turn  Reference for which turn the game is in
+     */
+
+    public int getTurn(){
+        return turn;
     }
 
 }
