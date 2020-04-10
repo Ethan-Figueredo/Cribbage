@@ -125,12 +125,13 @@ public class CribSurfaceView extends FlashSurfaceView {
         g.drawRect(hand1, blue);
 
         RectF crib1 = new RectF(0,300,125,600);
-        RectF crib2 = new RectF(125,300,125,600);
-        RectF crib3 = new RectF(250,300,125,600);
-        RectF crib4 = new RectF(375,300,125,600);
+        RectF crib2 = new RectF(125,300,250,600);
+        RectF crib3 = new RectF(250,300,375,600);
+        RectF crib4 = new RectF(375,300,500,600);
 
         int width = getWidth() - 100;
         int height = getHeight()-300;
+
         RectF hand00 = new RectF(500,getHeight(), width/6,height);
         RectF hand01 = new RectF(500 + width/6, getHeight(), width/3, height);
         RectF hand02 = new RectF(500 + width/3, getHeight(),width/2,height);
@@ -171,13 +172,7 @@ public class CribSurfaceView extends FlashSurfaceView {
         int n = state.getHand(0).size();
         int x = state.getHand(1).size();
         int z = state.getCrib().size();
-        //draw the crib
-        for(int i = 0; i < z; i ++) {
-            Card temp = state.getCrib().getCard(i);
-            if (temp!=null) {
-                drawCard(g, cribBox.get(i), temp);
-            }
-        }
+
         for(int i = 0; i < n; i ++) {
             Card temp = state.getHand(0).getCard(i);
             if (temp!=null) {
@@ -190,6 +185,14 @@ public class CribSurfaceView extends FlashSurfaceView {
                     drawCardBacks(g, hand1Box.get(i), 0, 300, 1);
                 }
 
+        }
+        //draw the crib
+        for(int i = 0; i < z; i ++) {
+            Card temp = state.getCrib().getCard(i);
+            System.out.println("This is the card"+ temp);
+            if(temp!= null) {
+                drawCard(g, cribBox.get(i), temp);
+            }
         }
     }
 

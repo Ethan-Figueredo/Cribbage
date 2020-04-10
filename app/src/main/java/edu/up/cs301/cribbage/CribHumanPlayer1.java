@@ -56,6 +56,7 @@ public class CribHumanPlayer1 extends GameHumanPlayer implements View.OnTouchLis
     private Card[] currCrib;
     private CribMoveAction action;//action that will be sent to the game
     private int indexOfCard1;
+    private int count;
 
     /**
      * constructor
@@ -68,6 +69,7 @@ public class CribHumanPlayer1 extends GameHumanPlayer implements View.OnTouchLis
     public CribHumanPlayer1(String name, int layoutId) {
         super(name);
         this.layoutId = layoutId;
+        count = 1;
     }
 
     public CribState getCribState(){
@@ -151,16 +153,18 @@ public class CribHumanPlayer1 extends GameHumanPlayer implements View.OnTouchLis
      */
     public boolean onTouch(View v, MotionEvent event) {
         // ignore if not an "up" event
-        if (event.getAction() != MotionEvent.ACTION_UP) return true;
+        if (event.getAction() != MotionEvent.ACTION_UP) {
+            return true;
+        }
         // get the x and y coordinates of the touch-location;
         // convert them to square coordinates (where both
         // values are in the range 0..2)
         int xGet = (int) event.getX();
         int yGet = (int) event.getY();
         int indexOfTouch = surfaceView.mapPixelToPosition(xGet, yGet);
-        int count = event.getPointerCount();
-        if(count == 0){
-             indexOfCard1= indexOfTouch;
+
+        if(count%2 != 0){
+            indexOfCard1 = indexOfTouch;
         }
 
         // if the location did not map to a legal square, flash
@@ -171,8 +175,12 @@ public class CribHumanPlayer1 extends GameHumanPlayer implements View.OnTouchLis
             surfaceView.flash(Color.RED, 50);
         } else {
             if(state.getGameStage() == CribState.THROW_STAGE){
-                System.out.println("Thiiiss is it" + indexOfCard1);
-                game.sendAction(new CribThrowAction(this, indexOfCard1,indexOfTouch));
+                System.out.println("Thiiiss is it" + count);
+                if(count%2 == 0) {
+                    game.sendAction(new CribThrowAction(this, indexOfCard1, indexOfTouch));
+
+                }
+                count++;
                 surfaceView.invalidate();
             } else if(state.getGameStage() == CribState.PLAY_STAGE){
                 game.sendAction(new CribPlayAction(this,indexOfCard1));
