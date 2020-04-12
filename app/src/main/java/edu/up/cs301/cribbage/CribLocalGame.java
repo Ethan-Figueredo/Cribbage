@@ -110,9 +110,21 @@ public class CribLocalGame extends LocalGame {
 	 */
 	@Override
 	protected boolean makeMove(GameAction action) {
-		if(action instanceof CribThrowAction){
-			sendToCrib(((CribThrowAction) action).getIndexofCard1(), ((CribThrowAction) action).getIndexofCard2());
-			System.out.println("size of crib" + state.getCrib().peekAtTopCard());
+		if(!(action instanceof CribMoveAction)){
+			return false;
+		}
+		CribMoveAction cribMA = (CribMoveAction) action;
+		int thisPlayerIdx = getPlayerIdx(cribMA.getPlayer());
+
+		if(cribMA.isThrow()){
+			if(state.getHand(thisPlayerIdx).size() != 6){
+				return false;
+			} else if(((CribThrowAction) action).getIndexofCard1() == ((CribThrowAction) action).getIndexofCard2()){
+				return false;
+			} else {
+				sendToCrib(((CribThrowAction) action).getIndexofCard1(), ((CribThrowAction) action).getIndexofCard2());
+				state.setWhoseMove();
+			}
 			return true;
 		} else if(action instanceof CribPlayAction){
 			return true;
@@ -122,7 +134,12 @@ public class CribLocalGame extends LocalGame {
 	private void sendToCrib(int index, int index2){
 		state.getCrib().add(state.getHand(0).getCard(index));
 		state.getCrib().add(state.getHand(0).getCard(index2));
-		state.getHand(0).removeCard(index);
-		state.getHand(0).removeCard(index2);
+		if(index < index2){
+			state.getHand(0).removeCard(index2);
+			state.getHand(0).removeCard(index);
+		}else if(index2 < index){
+			state.getHand(0).removeCard(index);
+			state.getHand(0).removeCard(index2);
+		}
 	}
 }

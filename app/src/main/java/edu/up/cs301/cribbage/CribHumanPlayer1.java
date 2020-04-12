@@ -70,6 +70,7 @@ public class CribHumanPlayer1 extends GameHumanPlayer implements View.OnTouchLis
         super(name);
         this.layoutId = layoutId;
         count = 1;
+        playerNum = 0;
     }
 
     public CribState getCribState(){
@@ -175,8 +176,9 @@ public class CribHumanPlayer1 extends GameHumanPlayer implements View.OnTouchLis
             surfaceView.flash(Color.RED, 50);
         } else {
             if(state.getGameStage() == CribState.THROW_STAGE){
-                System.out.println("Thiiiss is it" + count);
+
                 if(count%2 == 0) {
+                    System.out.print("This is comp1 " + playerNum);
                     game.sendAction(new CribThrowAction(this, indexOfCard1, indexOfTouch));
 
                 }

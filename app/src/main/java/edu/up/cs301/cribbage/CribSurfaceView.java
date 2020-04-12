@@ -119,10 +119,23 @@ public class CribSurfaceView extends FlashSurfaceView {
         RectF crib = new RectF(0, 300, 500, 600);
         RectF hand0 = new RectF(500,getHeight(),getWidth()-100,getHeight()-300);
         RectF hand1 = new RectF(500,0,getWidth()-100, 300);
+        RectF flipped = new RectF(6*getWidth()/8,getHeight()/4, 7*getWidth()/8, getHeight()-1000); //rectangle for flipped card
+        RectF play = new RectF(300, getHeight()/2,getWidth(),getHeight()-600); //rectangle for play cards
 
-        g.drawRect(crib, blue);
-        g.drawRect(hand0, blue);
-        g.drawRect(hand1, blue);
+        RectF play1 = new RectF(00,getHeight()/2,getWidth()/8 ,getHeight()-600);
+        RectF play2 = new RectF( getWidth()/8,getHeight()/2,2*getWidth()/8 ,getHeight()-600);
+        RectF play3 = new RectF( 2*getWidth()/8,getHeight()/2,3*getWidth()/8 ,getHeight()-600);
+        RectF play4 = new RectF( 3*getWidth()/8,getHeight()/2,4*getWidth()/8 ,getHeight()-600);
+        RectF play5 = new RectF(  4*getWidth()/8,getHeight()/2,5*getWidth()/8 ,getHeight()-600);
+        RectF play6 = new RectF( 5*getWidth()/8 ,getHeight()/2,6*getWidth()/8 ,getHeight()-600);
+        RectF play7 = new RectF( 6*getWidth()/8,getHeight()/2,7*getWidth()/8 ,getHeight()-600);
+        RectF play8 = new RectF(7*getWidth()/8,getHeight()/2,getWidth() ,getHeight()-600);//not displayed
+
+
+
+        g.drawRect(play7, blue);
+        g.drawRect(crib, red);
+        g.drawRect(flipped, red);
 
         RectF crib1 = new RectF(0,300,125,600);
         RectF crib2 = new RectF(125,300,250,600);
@@ -169,6 +182,16 @@ public class CribSurfaceView extends FlashSurfaceView {
         hand1Box.add(hand14);
         hand1Box.add(hand15);
 
+        ArrayList<RectF> playBox = new ArrayList<>();
+        playBox.add(play1);
+        playBox.add(play2);
+        playBox.add(play3);
+        playBox.add(play4);
+        playBox.add(play5);
+        playBox.add(play6);
+        playBox.add(play7);
+        playBox.add(play8);
+
         int n = state.getHand(0).size();
         int x = state.getHand(1).size();
         int z = state.getCrib().size();
@@ -193,6 +216,16 @@ public class CribSurfaceView extends FlashSurfaceView {
             if(temp!= null) {
                 drawCard(g, cribBox.get(i), temp);
             }
+        }
+
+        red.setTextSize(20);
+
+        if(state.getDealerID() == 1){
+            g.drawCircle(100,100,50,blue);
+            g.drawText("DEALER",60,100,red);
+        }else if(state.getDealerID() == 0){
+            g.drawCircle(100, getHeight()-100, 50, blue);
+            g.drawText("DEALER",60,getHeight()- 100,red);
         }
     }
 

@@ -34,6 +34,10 @@ public class CribState extends GameState {
     public static final int PLAYER_1 = 0;//player constants
     public static final int PLAYER_2 = 1;
 
+    public void setWhoseMove() {
+        whoseMove = 1 - getWhoseMove();
+    }
+
     private int whoseMove;
     private int[] scores = new int[]{0, 0};
     private Deck[] piles;
