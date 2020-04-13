@@ -36,10 +36,6 @@ public class CribHumanPlayer1 extends GameHumanPlayer implements View.OnTouchLis
     // the surface view
     private CribSurfaceView surfaceView;
 
-    // These variables will reference widgets that will be modified during play
-    private TextView playerScoreTextView = null;
-    private TextView oppScoreTextView    = null;
-
     public CribState getState() {
         return state;
     }
@@ -103,12 +99,12 @@ public class CribHumanPlayer1 extends GameHumanPlayer implements View.OnTouchLis
             return;
         else {
             state = (CribState)info;
-            if(playerNum == 0){
+            /*if(playerNum == 0){
                 playerScoreTextView.setText(state.getScore(0)+ "");
             }
             if(playerNum == 1){
                 playerScoreTextView.setText(state.getScore(1)+ "");
-            }
+            }*/
             surfaceView.setState(state);
             surfaceView.invalidate();
             Logger.log(TAG, "receiving");
@@ -129,10 +125,6 @@ public class CribHumanPlayer1 extends GameHumanPlayer implements View.OnTouchLis
 
         // set the surfaceView instance variable
         surfaceView = (CribSurfaceView)myActivity.findViewById(R.id.surfaceView);
-
-        //Initialize the widget reference member variables
-        this.playerScoreTextView = (TextView)activity.findViewById(R.id.yourScoreValue);
-        this.oppScoreTextView    = (TextView)activity.findViewById(R.id.oppScoreValue);
 
         Logger.log("set listener","OnTouch");
         surfaceView.setOnTouchListener(this);

@@ -237,6 +237,14 @@ public class CribSurfaceView extends FlashSurfaceView {
             g.drawCircle(100, getHeight()-100, 50, blue);
             g.drawText("DEALER 0",60,getHeight()- 100,red);
         }
+
+        Paint white = new Paint();
+        white.setColor(Color.WHITE);
+        g.drawText("You: ", 1000, 1300, white);
+        g.drawText(state.getScore(0) + "", 1050, 1300, white);
+        g.drawText("Opponent: ", 1000, 1350, white);
+        g.drawText(state.getScore(1) + "", 1075, 1350, white);
+
     }
 
     /**
