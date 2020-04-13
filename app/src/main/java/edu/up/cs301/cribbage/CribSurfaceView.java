@@ -116,11 +116,9 @@ public class CribSurfaceView extends FlashSurfaceView {
         red.setColor(Color.RED);
         System.out.println(getWidth()-100 + " This is it");
 
-        RectF crib = new RectF(0, 300, 500, 600);
-        RectF hand0 = new RectF(500,getHeight(),getWidth()-100,getHeight()-300);
-        RectF hand1 = new RectF(500,0,getWidth()-100, 300);
+
         RectF flipped = new RectF(6*getWidth()/8,getHeight()/4, 7*getWidth()/8, getHeight()-1000); //rectangle for flipped card
-        RectF play = new RectF(300, getHeight()/2,getWidth(),getHeight()-600); //rectangle for play cards
+
 
         RectF play1 = new RectF(00,getHeight()/2,getWidth()/8 ,getHeight()-600);
         RectF play2 = new RectF( getWidth()/8,getHeight()/2,2*getWidth()/8 ,getHeight()-600);
