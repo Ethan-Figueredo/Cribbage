@@ -6,6 +6,7 @@ import android.graphics.Color;
 import android.graphics.Point;
 import android.view.MotionEvent;
 import android.view.View;
+import android.widget.TextView;
 
 import edu.up.cs301.card.Card;
 import edu.up.cs301.game.GameFramework.GameHumanPlayer;
@@ -34,6 +35,10 @@ public class CribHumanPlayer1 extends GameHumanPlayer implements View.OnTouchLis
 
     // the surface view
     private CribSurfaceView surfaceView;
+
+    // These variables will reference widgets that will be modified during play
+    private TextView playerScoreTextView = null;
+    private TextView oppScoreTextView    = null;
 
     public CribState getState() {
         return state;
@@ -98,6 +103,12 @@ public class CribHumanPlayer1 extends GameHumanPlayer implements View.OnTouchLis
             return;
         else {
             state = (CribState)info;
+            if(playerNum == 0){
+                playerScoreTextView.setText(state.getScore(0)+ "");
+            }
+            if(playerNum == 1){
+                playerScoreTextView.setText(state.getScore(1)+ "");
+            }
             surfaceView.setState(state);
             surfaceView.invalidate();
             Logger.log(TAG, "receiving");
@@ -115,8 +126,14 @@ public class CribHumanPlayer1 extends GameHumanPlayer implements View.OnTouchLis
         // Load the layout resource for the new configuration
         activity.setContentView(layoutId);
         myActivity.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);//its a warning
+
         // set the surfaceView instance variable
         surfaceView = (CribSurfaceView)myActivity.findViewById(R.id.surfaceView);
+
+        //Initialize the widget reference member variables
+        this.playerScoreTextView = (TextView)activity.findViewById(R.id.yourScoreValue);
+        this.oppScoreTextView    = (TextView)activity.findViewById(R.id.oppScoreValue);
+
         Logger.log("set listener","OnTouch");
         surfaceView.setOnTouchListener(this);
         surfaceView.setState(state);

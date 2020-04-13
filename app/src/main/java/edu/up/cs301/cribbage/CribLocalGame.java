@@ -24,7 +24,6 @@ public class CribLocalGame extends LocalGame {
 	// the game's state
 	protected CribState state;
 
-	private GameStage stage;
 
 	// the number of moves that have been played so far, used to
 	// determine whether the game is over

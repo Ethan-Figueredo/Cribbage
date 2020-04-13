@@ -32,14 +32,14 @@ public class CribMainActivity extends GameMainActivity {
 		// yellow-on-blue GUI
 		playerTypes.add(new GamePlayerType("Local Human Player (blue-yellow)") {
 			public GamePlayer createPlayer(String name) {
-				return new CribHumanPlayer1(name, R.layout.ttt_human_player1);
+				return new CribHumanPlayer1(name, R.layout.crib_human_player1);
 			}
 		});
 		
 		// red-on-yellow GUI
 		playerTypes.add(new GamePlayerType("Local Human Player (yellow-red)") {
 			public GamePlayer createPlayer(String name) {
-				return new CribHumanPlayer1(name, R.layout.ttt_human_player1_flipped);
+				return new CribHumanPlayer1(name, R.layout.crib_human_player1_flipped);
 			}
 		});
 		
