@@ -162,7 +162,7 @@ public class CribHumanPlayer1 extends GameHumanPlayer implements View.OnTouchLis
         int xGet = (int) event.getX();
         int yGet = (int) event.getY();
         int indexOfTouch = surfaceView.mapPixelToPosition(xGet, yGet);
-
+        System.out.println("Index pf touch " + indexOfTouch);
         if(count%2 != 0){
             indexOfCard1 = indexOfTouch;
         }

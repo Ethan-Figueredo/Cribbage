@@ -140,7 +140,7 @@ public class CribLocalGame extends LocalGame {
 			}
 			if(state.getHand(0).size() == 0 && state.getHand(1).size() == 0){
 				//calculate score
-				//state.setDealerID();
+				state.setDealerID();
 				state.resetRoundHand();
 
 			}

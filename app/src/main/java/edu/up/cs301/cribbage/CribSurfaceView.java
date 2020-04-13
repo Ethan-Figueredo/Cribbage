@@ -216,12 +216,13 @@ public class CribSurfaceView extends FlashSurfaceView {
                 }
 
         }
+
         //draw the crib
         for(int i = 0; i < z; i ++) {
             Card temp = state.getCrib().getCard(i);
             System.out.println("This is the card"+ temp);
             if(temp!= null) {
-                drawCard(g, cribBox.get(i), temp);
+                drawCardBacks(g,cribBox.get(i),0,600,1); //not the dealer
             }
         }
         //shows card for the first card

@@ -77,10 +77,11 @@ public class CribState extends GameState {
      */
     public CribState()
     {
-        whoseMove = 0;
+
         Random ran = new Random();
         int random = ran.nextInt(2);
         dealerID = random;
+        whoseMove = 1 - random;
         System.out.println("Dealer Id " + dealerID);
         gameStage = THROW_STAGE;
         piles = new Deck[5];
@@ -119,7 +120,7 @@ public class CribState extends GameState {
         piles[4] = new Deck(orig.piles[4]);  //played cards
     }
     public void resetRoundHand(){
-        setDealerID();
+        setWhoseMove();
         gameStage = THROW_STAGE;
 
         piles = new Deck[5];
