@@ -92,6 +92,7 @@ public class CribState extends GameState {
             piles[2].moveTopCardTo(piles[0]);
             piles[2].moveTopCardTo(piles[1]);
         }
+        dealerID = 0;
     }// constructor
     
     /**
@@ -112,13 +113,32 @@ public class CribState extends GameState {
         piles[3] = new Deck(orig.piles[3]);  //crib
         piles[4] = new Deck(orig.piles[4]);  //played cards
     }
+    public void resetRoundHand(){
+        setDealerID();
+        gameStage = THROW_STAGE;
+
+        piles = new Deck[5];
+        piles[0] = new Deck();  //player 0's hand
+        piles[1] = new Deck();  //player 1's hand
+        piles[2] = new Deck();  //full deck
+        piles[3] = new Deck();  //crib
+        piles[4] = new Deck();  //played cards
+
+        piles[2].add52();
+        piles[2].shuffle();
+
+        for(int i = 0; i < 6; i++){
+            piles[2].moveTopCardTo(piles[0]);
+            piles[2].moveTopCardTo(piles[1]);
+        }
+    }
 
     public int getDealerID(){
         return dealerID;
     }
 
-    public void setDealerID(int newID){
-        dealerID = newID;
+    public void setDealerID(){
+        dealerID = 1 - dealerID;
     }
 
     public int getScore(int index){

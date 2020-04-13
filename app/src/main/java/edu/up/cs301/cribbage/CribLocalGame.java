@@ -140,8 +140,9 @@ public class CribLocalGame extends LocalGame {
 			}
 			if(state.getHand(0).size() == 0 && state.getHand(1).size() == 0){
 				//calculate score
-				//reset played cards
-				//repopulate hands
+				//state.setDealerID();
+				state.resetRoundHand();
+
 			}
 			return true;
 		}
@@ -152,7 +153,9 @@ public class CribLocalGame extends LocalGame {
 	}
 	private void calculateCribScore(){
 		Card pos1 = state.getCrib().getCard(0);
-
+		Card pos2 = state.getCrib().getCard(1);
+		Card pos3 = state.getCrib().getCard(2);
+		Card pos4 = state.getCrib().getCard(3);
 	}
 	private void sendToPlay(int playerNum, int index){
 		state.getPlayedCards().add(state.getHand(playerNum).getCard(index));

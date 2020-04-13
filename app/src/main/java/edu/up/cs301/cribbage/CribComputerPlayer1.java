@@ -74,9 +74,9 @@ public class CribComputerPlayer1 extends GameComputerPlayer
 
         state = (CribState)info;
         int turn = state.getWhoseMove();
+        sleep(1);
         if(state.getGameStage() == CribState.THROW_STAGE) {
             System.out.print("This is comp player" + playerNum + " " + turn);
-            sleep(2);
             game.sendAction(new CribThrowAction(this, 0, 1));
         }else if(state.getGameStage() == CribState.PLAY_STAGE){
             game.sendAction(new CribPlayAction(this, 0));

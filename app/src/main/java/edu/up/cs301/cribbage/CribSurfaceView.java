@@ -233,10 +233,10 @@ public class CribSurfaceView extends FlashSurfaceView {
         red.setTextSize(20);
         if(state.getDealerID() == 1){
             g.drawCircle(100,100,50,blue);
-            g.drawText("DEALER",60,100,red);
+            g.drawText("DEALER 1",60,100,red);
         }else if(state.getDealerID() == 0){
             g.drawCircle(100, getHeight()-100, 50, blue);
-            g.drawText("DEALER",60,getHeight()- 100,red);
+            g.drawText("DEALER 0",60,getHeight()- 100,red);
         }
     }
 
