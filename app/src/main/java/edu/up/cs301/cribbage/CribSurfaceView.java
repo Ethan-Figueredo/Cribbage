@@ -133,10 +133,6 @@ public class CribSurfaceView extends FlashSurfaceView {
 
 
 
-        g.drawRect(play7, blue);
-        g.drawRect(crib, red);
-        g.drawRect(flipped, red);
-
         RectF crib1 = new RectF(0,300,125,600);
         RectF crib2 = new RectF(125,300,250,600);
         RectF crib3 = new RectF(250,300,375,600);
@@ -195,13 +191,24 @@ public class CribSurfaceView extends FlashSurfaceView {
         int n = state.getHand(0).size();
         int x = state.getHand(1).size();
         int z = state.getCrib().size();
+        int y = state.getPlayedCards().size();
 
+        //adds card during the play phase
+        for(int i = 0; i < y; i++){
+            Card temp = state.getPlayedCards().getCard(i);
+            if(temp != null){
+                drawCard(g,playBox.get(i), temp);
+            }
+        }
+
+        //adds card to hand0
         for(int i = 0; i < n; i ++) {
             Card temp = state.getHand(0).getCard(i);
             if (temp!=null) {
                 drawCard(g, hand0Box.get(i), temp);
             }
         }
+        //adds card to hand1
         for(int i = 0; i < x; i++){
             Card temp = state.getHand(1).getCard(i);
                 if(temp!=null){
@@ -217,9 +224,13 @@ public class CribSurfaceView extends FlashSurfaceView {
                 drawCard(g, cribBox.get(i), temp);
             }
         }
-
+        //shows card for the first card
+        if(state.getGameStage() == CribState.PLAY_STAGE){
+            Card temp = state.getDeck().getCard(0);
+            drawCard(g,flipped,temp);
+        }
+        //draws dealer symbol
         red.setTextSize(20);
-
         if(state.getDealerID() == 1){
             g.drawCircle(100,100,50,blue);
             g.drawText("DEALER",60,100,red);

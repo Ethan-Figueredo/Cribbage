@@ -122,24 +122,52 @@ public class CribLocalGame extends LocalGame {
 			} else if(((CribThrowAction) action).getIndexofCard1() == ((CribThrowAction) action).getIndexofCard2()){
 				return false;
 			} else {
-				sendToCrib(((CribThrowAction) action).getIndexofCard1(), ((CribThrowAction) action).getIndexofCard2());
+				sendToCrib(thisPlayerIdx, ((CribThrowAction) action).getIndexofCard1(), ((CribThrowAction) action).getIndexofCard2());
 				state.setWhoseMove();
 			}
+			if(state.getHand(0).size() == 4 && state.getHand(1).size() == 4){
+				calculateCribScore();
+				calculateHandScore();
+				state.setGameStage(CribState.PLAY_STAGE);
+			}
 			return true;
-		} else if(action instanceof CribPlayAction){
+		} else if(cribMA.isPlay()){
+			if(state.getHand(thisPlayerIdx).size() > 4){
+				return false;
+			} else{
+				sendToPlay(thisPlayerIdx,((CribPlayAction)action).getIndexPlay());
+				state.setWhoseMove();
+			}
+			if(state.getHand(0).size() == 0 && state.getHand(1).size() == 0){
+				//calculate score
+				//reset played cards
+				//repopulate hands
+			}
 			return true;
 		}
 		return false;
 	}
-	private void sendToCrib(int index, int index2){
-		state.getCrib().add(state.getHand(0).getCard(index));
-		state.getCrib().add(state.getHand(0).getCard(index2));
+	private void calculateHandScore(){
+		return;
+	}
+	private void calculateCribScore(){
+		Card pos1 = state.getCrib().getCard(0);
+
+	}
+	private void sendToPlay(int playerNum, int index){
+		state.getPlayedCards().add(state.getHand(playerNum).getCard(index));
+		state.getHand(playerNum).removeCard(index);
+	}
+
+	private void sendToCrib(int playerNum, int index, int index2){
+		state.getCrib().add(state.getHand(playerNum).getCard(index));
+		state.getCrib().add(state.getHand(playerNum).getCard(index2));
 		if(index < index2){
-			state.getHand(0).removeCard(index2);
-			state.getHand(0).removeCard(index);
+			state.getHand(playerNum).removeCard(index2);
+			state.getHand(playerNum).removeCard(index);
 		}else if(index2 < index){
-			state.getHand(0).removeCard(index);
-			state.getHand(0).removeCard(index2);
+			state.getHand(playerNum).removeCard(index);
+			state.getHand(playerNum).removeCard(index2);
 		}
 	}
 }

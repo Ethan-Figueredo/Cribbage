@@ -52,7 +52,7 @@ public class CribComputerPlayer1 extends GameComputerPlayer
     public CribComputerPlayer1(String name) {
         // invoke superclass constructor
         super(name); // invoke superclass constructor
-        playerNum = 1;
+
     }
 
     /**
@@ -76,6 +76,7 @@ public class CribComputerPlayer1 extends GameComputerPlayer
         int turn = state.getWhoseMove();
         if(state.getGameStage() == CribState.THROW_STAGE) {
             System.out.print("This is comp player" + playerNum + " " + turn);
+            sleep(2);
             game.sendAction(new CribThrowAction(this, 0, 1));
         }else if(state.getGameStage() == CribState.PLAY_STAGE){
             game.sendAction(new CribPlayAction(this, 0));

@@ -5,6 +5,11 @@ import edu.up.cs301.game.GameFramework.GamePlayer;
 
 public class CribPlayAction extends CribMoveAction {
     private static final long serialVersionUID = 3250639793499599047L;
+
+    public int getIndexPlay() {
+        return indexPlay;
+    }
+
     private int indexPlay;
 
     /**

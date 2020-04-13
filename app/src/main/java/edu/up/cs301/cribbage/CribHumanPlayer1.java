@@ -70,7 +70,6 @@ public class CribHumanPlayer1 extends GameHumanPlayer implements View.OnTouchLis
         super(name);
         this.layoutId = layoutId;
         count = 1;
-        playerNum = 0;
     }
 
     public CribState getCribState(){
