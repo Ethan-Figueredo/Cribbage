@@ -1,6 +1,7 @@
 package edu.up.cs301.cribbage;
 
 import java.util.ArrayList;
+import java.util.Random;
 
 import edu.up.cs301.card.Card;
 import edu.up.cs301.game.GameFramework.infoMessage.GameState;
@@ -77,6 +78,10 @@ public class CribState extends GameState {
     public CribState()
     {
         whoseMove = 0;
+        Random ran = new Random();
+        int random = ran.nextInt(2);
+        dealerID = random;
+        System.out.println("Dealer Id " + dealerID);
         gameStage = THROW_STAGE;
         piles = new Deck[5];
         piles[0] = new Deck();  //player 0's hand
@@ -92,7 +97,6 @@ public class CribState extends GameState {
             piles[2].moveTopCardTo(piles[0]);
             piles[2].moveTopCardTo(piles[1]);
         }
-        dealerID = 0;
     }// constructor
     
     /**
@@ -106,6 +110,7 @@ public class CribState extends GameState {
     	// copy the player-to-move information
         whoseMove = orig.whoseMove;
         gameStage = orig.gameStage;
+        dealerID = orig.dealerID;
         piles = new Deck[5];
         piles[0] = new Deck(orig.piles[0]);  //player 0's hand
         piles[1] = new Deck(orig.piles[1]);  //player 1's hand
