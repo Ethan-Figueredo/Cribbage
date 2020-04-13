@@ -1,5 +1,9 @@
 package edu.up.cs301.cribbage;
 
+import java.lang.reflect.Array;
+import java.util.ArrayList;
+import java.util.Arrays;
+
 import edu.up.cs301.card.Card;
 import edu.up.cs301.game.GameFramework.GamePlayer;
 import edu.up.cs301.game.GameFramework.LocalGame;
@@ -149,14 +153,133 @@ public class CribLocalGame extends LocalGame {
 		return false;
 	}
 	private void calculateHandScore(){
-		return;
+
+
 	}
 	private void calculateCribScore(){
 		Card pos1 = state.getCrib().getCard(0);
 		Card pos2 = state.getCrib().getCard(1);
 		Card pos3 = state.getCrib().getCard(2);
 		Card pos4 = state.getCrib().getCard(3);
+
+		pairCheck(50,pos1.getRank().ordinal(),pos2.getRank().ordinal(),pos3.getRank().ordinal(),pos4.getRank().ordinal());
+		fifteenCheck(50,pos1.getRank().ordinal(),pos2.getRank().ordinal(),pos3.getRank().ordinal(),pos4.getRank().ordinal());
+		pairRoyal(50,pos1.getRank().ordinal(),pos2.getRank().ordinal(),pos3.getRank().ordinal(),pos4.getRank().ordinal());
+		runCheck(50,pos1.getRank().ordinal(),pos2.getRank().ordinal(),pos3.getRank().ordinal(),pos4.getRank().ordinal());
 	}
+	//method that checks pairs
+	private void pairCheck(int playerIdx, int one, int two, int three, int four){
+		int x;
+		if(playerIdx == 50){
+			x =state.getDealerID();
+		} else {
+			x = playerIdx;
+		}
+		if(one == two) {
+			state.setScore(x, state.getScore(x) + 2);
+		}
+		if( one == three){
+			state.setScore(x, state.getScore(x) + 2);
+		}
+		if(one == four){
+			state.setScore(x, state.getScore(x) + 2);
+		}
+		if(two == three) {
+			state.setScore(x, state.getScore(x) + 2);
+		}
+		if(two == four){
+			state.setScore(x, state.getScore(x) + 2);
+		}
+		if(three == four){
+			state.setScore(x, state.getScore(x) + 2);
+		}
+	}
+	//method that checks combinations for 15
+	private void fifteenCheck(int playerIdx, int one, int two, int three, int four) {
+		int x;
+		if(playerIdx == 50){
+			x =state.getDealerID();
+		} else {
+			x = playerIdx;
+		}
+		if(one + two == 15 ){
+			state.setScore(x, state.getScore(x) + 2);
+		}
+		if(two + three == 15){
+			state.setScore(x, state.getScore(x) + 2);
+		}
+		if(three + four == 15){
+			state.setScore(x, state.getScore(x) + 2);
+		}
+		if(two + three == 15){
+			state.setScore(x, state.getScore(x) + 2);
+		}
+		if(two + four == 15){
+			state.setScore(x, state.getScore(x) + 2);
+		}
+		if(three + four == 15){
+			state.setScore(x, state.getScore(x) + 2);
+		}
+		if(one + two + three == 15){
+			state.setScore(x, state.getScore(x) + 2);
+		}
+		if(two + three + four == 15){
+			state.setScore(x, state.getScore(x) + 2);
+		}
+		if(one + two + four == 15){
+			state.setScore(x, state.getScore(x) + 2);
+		}
+		if(one + three + four == 15){
+			state.setScore(x, state.getScore(x) + 2);
+		}
+		if(one+two+three+four == 15){
+			state.setScore(x, state.getScore(x) + 2);
+		}
+
+	}
+	//checks for three of a kind
+	private void pairRoyal(int playerIdx, int one, int two, int three, int four){
+		int x;
+		if(playerIdx == 50){
+			x =state.getDealerID();
+		} else {
+			x = playerIdx;
+		}
+		if(one == two && one == three){
+			state.setScore(x, state.getScore(x) + 6);
+		}
+		if(two == three && two == four){
+			state.setScore(x, state.getScore(x) + 6);
+		}
+		if(one == two && one == four){
+			state.setScore(x, state.getScore(x) + 6);
+		}
+		if(one == three && one == four){
+			state.setScore(x, state.getScore(x) + 6);
+		}
+	}
+	//checks runs
+	private void runCheck(int playerIdx, int one, int two, int three, int four){
+		int x;
+		if(playerIdx == 50){
+			x =state.getDealerID();
+		} else {
+			x = playerIdx;
+		}
+		int[] temp = {one,two,three,four};
+		Arrays.sort(temp);
+		if(temp[0] == temp[1] - 1 && temp[1] == temp[2]-1){
+			state.setScore(x, state.getScore(x) + 3);
+		}
+		if (temp[1] == temp[2]-1 && temp[2] == temp[3] - 1){
+			state.setScore(x, state.getScore(x) + 3);
+		}
+		if(temp[0] == temp[1] - 1 && temp[1] == temp[2]-1 && temp[2] == temp[3] - 1){
+			state.setScore(x, state.getScore(x) + 4);
+		}
+	}
+	//helper method (helps runCheck) that sorts the numbers in rising order
+
 	private void sendToPlay(int playerNum, int index){
 		state.getPlayedCards().add(state.getHand(playerNum).getCard(index));
 		state.getHand(playerNum).removeCard(index);
