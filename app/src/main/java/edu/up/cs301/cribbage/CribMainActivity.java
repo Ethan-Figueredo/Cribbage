@@ -35,14 +35,7 @@ public class CribMainActivity extends GameMainActivity {
 				return new CribHumanPlayer1(name, R.layout.crib_human_player1);
 			}
 		});
-		
-		// red-on-yellow GUI
-		playerTypes.add(new GamePlayerType("Local Human Player (yellow-red)") {
-			public GamePlayer createPlayer(String name) {
-				return new CribHumanPlayer1(name, R.layout.crib_human_player1_flipped);
-			}
-		});
-		
+
 		// dumb computer player
 		playerTypes.add(new GamePlayerType("Computer Player (dumb)") {
 			public GamePlayer createPlayer(String name) {
@@ -58,11 +51,11 @@ public class CribMainActivity extends GameMainActivity {
 		});
 
 		// Create a game configuration class for Tic-tac-toe
-		GameConfig defaultConfig = new GameConfig(playerTypes, 2,2, "Tic-Tac-Toe", PORT_NUMBER);
+		GameConfig defaultConfig = new GameConfig(playerTypes, 2,2, "Cribbage", PORT_NUMBER);
 
 		// Add the default players
 		defaultConfig.addPlayer("Human", 0); // yellow-on-blue GUI
-		defaultConfig.addPlayer("Computer", 3); // dumb computer player
+		defaultConfig.addPlayer("Computer", 1); // dumb computer player
 
 		// Set the initial information for the remote player
 		defaultConfig.setRemoteData("Remote Player", "", 1); // red-on-yellow GUI
