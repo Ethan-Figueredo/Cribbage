@@ -89,7 +89,7 @@ public class CribSurfaceView extends FlashSurfaceView {
      * Helper-method for the constructors
      */
     private void init() {
-        setBackgroundColor(Color.GREEN);
+        setBackgroundColor(Color.BLACK);
     }// init
 
 

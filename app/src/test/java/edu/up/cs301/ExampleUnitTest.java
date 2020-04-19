@@ -2,6 +2,9 @@ package edu.up.cs301;
 
 import org.junit.Test;
 
+import edu.up.cs301.cribbage.CribLocalGame;
+import edu.up.cs301.cribbage.CribState;
+
 import static org.junit.Assert.*;
 
 /**
@@ -10,8 +13,11 @@ import static org.junit.Assert.*;
  * @see <a href="http://d.android.com/tools/testing">Testing documentation</a>
  */
 public class ExampleUnitTest {
+    CribState state = new CribState();
     @Test
     public void addition_isCorrect() {
         assertEquals(4, 2 + 2);
     }
+
+
 }

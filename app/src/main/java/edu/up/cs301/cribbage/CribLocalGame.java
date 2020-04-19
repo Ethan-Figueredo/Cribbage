@@ -175,22 +175,22 @@ public class CribLocalGame extends LocalGame {
 			x = playerIdx;
 		}
 		if(one == two) {
-			state.setScore(x, state.getScore(x) + 2);
+			state.setScore(x,  2);
 		}
 		if( one == three){
-			state.setScore(x, state.getScore(x) + 2);
+			state.setScore(x,  2);
 		}
 		if(one == four){
-			state.setScore(x, state.getScore(x) + 2);
+			state.setScore(x,  2);
 		}
 		if(two == three) {
-			state.setScore(x, state.getScore(x) + 2);
+			state.setScore(x, 2);
 		}
 		if(two == four){
-			state.setScore(x, state.getScore(x) + 2);
+			state.setScore(x,  2);
 		}
 		if(three == four){
-			state.setScore(x, state.getScore(x) + 2);
+			state.setScore(x,  2);
 		}
 	}
 	//method that checks combinations for 15
