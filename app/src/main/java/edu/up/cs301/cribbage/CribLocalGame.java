@@ -129,8 +129,8 @@ public class CribLocalGame extends LocalGame {
 				state.setWhoseMove();
 			}
 			if(state.getHand(0).size() == 4 && state.getHand(1).size() == 4){
-				calculateCribScore();
-				calculateHandScore();
+				//calculateCribScore();
+				//calculateHandScore();
 				state.setGameStage(CribState.PLAY_STAGE);
 			}
 			return true;
@@ -143,6 +143,7 @@ public class CribLocalGame extends LocalGame {
 			}
 			if(state.getHand(0).size() == 0 && state.getHand(1).size() == 0){
 				//calculate score
+				calculateCribScore();
 				state.setDealerID();
 				state.resetRoundHand();
 
@@ -175,22 +176,22 @@ public class CribLocalGame extends LocalGame {
 			x = playerIdx;
 		}
 		if(one == two) {
-			state.setScore(x,  2);
+			state.setScore(x,  state.getScore(x) + 2);
 		}
-		if( one == three){
-			state.setScore(x,  2);
+		if(one == three){
+			state.setScore(x,  state.getScore(x) + 2);
 		}
 		if(one == four){
-			state.setScore(x,  2);
+			state.setScore(x,  state.getScore(x) + 2);
 		}
 		if(two == three) {
-			state.setScore(x, 2);
+			state.setScore(x, state.getScore(x) + 2);
 		}
 		if(two == four){
-			state.setScore(x,  2);
+			state.setScore(x,  state.getScore(x) + 2);
 		}
 		if(three == four){
-			state.setScore(x,  2);
+			state.setScore(x,  state.getScore(x) + 2);
 		}
 	}
 	//method that checks combinations for 15

@@ -40,7 +40,7 @@ public class CribState extends GameState {
     }
 
     private int whoseMove;
-    private int[] scores = new int[]{0, 0};
+    private int[] scores;
     private Deck[] piles;
 
     public Deck getHand(int index) {
@@ -91,6 +91,8 @@ public class CribState extends GameState {
         piles[3] = new Deck();  //crib
         piles[4] = new Deck();  //played cards
 
+        scores = new int[]{0, 0};
+
         piles[2].add52();
         piles[2].shuffle();
 
@@ -118,6 +120,8 @@ public class CribState extends GameState {
         piles[2] = new Deck(orig.piles[2]);  //full deck
         piles[3] = new Deck(orig.piles[3]);  //crib
         piles[4] = new Deck(orig.piles[4]);  //played cards
+
+        scores = orig.scores;
     }
     public void resetRoundHand(){
         setWhoseMove();

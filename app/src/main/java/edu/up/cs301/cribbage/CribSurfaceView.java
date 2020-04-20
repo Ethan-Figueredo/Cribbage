@@ -242,8 +242,8 @@ public class CribSurfaceView extends FlashSurfaceView {
         white.setColor(Color.WHITE);
 
         int score1 = state.getScore(0);
-
         int score2 = state.getScore(1);
+
         System.out.println( score1 + " " + score2 + " This is score" );
         g.drawText("You: ", 1000, 1300, white);
         g.drawText(score1 + "", 1050, 1300, white);
