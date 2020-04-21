@@ -49,15 +49,10 @@ public class CribHumanPlayer1 extends GameHumanPlayer implements View.OnTouchLis
     private ArrayList<Card> cardHand1 = new ArrayList();
     private Random ran = new Random();
 
-    CribState crib;
-
-    private Card[] tempHand;//temporary hand for changing
-    private Card[] selectedCards = new Card[2];
-    private Card[] cardsOnTable;//arraylist of cards currently on the table
-    private Card[] currCrib;
     private CribMoveAction action;//action that will be sent to the game
     private int indexOfCard1;
     private int count;
+    private boolean canPlay;
 
     /**
      * constructor
@@ -76,6 +71,10 @@ public class CribHumanPlayer1 extends GameHumanPlayer implements View.OnTouchLis
     public CribState getCribState(){
         return state;
     }
+
+    public boolean getCanPlay() { return canPlay; }
+
+    public void setCanPlay(boolean play) { canPlay = play; }
 
 
 
@@ -99,12 +98,6 @@ public class CribHumanPlayer1 extends GameHumanPlayer implements View.OnTouchLis
             return;
         else {
             state = (CribState)info;
-            /*if(playerNum == 0){
-                playerScoreTextView.setText(state.getScore(0)+ "");
-            }
-            if(playerNum == 1){
-                playerScoreTextView.setText(state.getScore(1)+ "");
-            }*/
             surfaceView.setState(state);
             surfaceView.invalidate();
             Logger.log(TAG, "receiving");
