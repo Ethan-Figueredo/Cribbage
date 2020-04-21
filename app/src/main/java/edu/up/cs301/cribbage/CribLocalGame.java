@@ -129,7 +129,7 @@ public class CribLocalGame extends LocalGame {
 				state.setWhoseMove();
 			}
 			if(state.getHand(0).size() == 4 && state.getHand(1).size() == 4){
-				//calculateCribScore();
+				calculateCribScore();
 				//calculateHandScore();
 				state.setGameStage(CribState.PLAY_STAGE);
 			}
@@ -281,7 +281,8 @@ public class CribLocalGame extends LocalGame {
 	//helper method (helps runCheck) that sorts the numbers in rising order
 
 	private void sendToPlay(int playerNum, int index){
-		state.getPlayedCards().add(state.getHand(playerNum).getCard(index));
+		Card temp = state.getHand(playerNum).getCard(index);
+		state.getPlayedCards().add(temp);
 		state.getHand(playerNum).removeCard(index);
 	}
 

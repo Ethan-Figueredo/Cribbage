@@ -77,7 +77,7 @@ public class CribComputerPlayer2 extends GameComputerPlayer {
 			int[] index = crib();
 			game.sendAction(new CribThrowAction(this, index[0], index[1]));
 		}else if(state.getGameStage() == CribState.PLAY_STAGE){
-			int index = play();
+			int index = 0;
 			game.sendAction(new CribPlayAction(this, index));
 		}
 
@@ -90,24 +90,19 @@ public class CribComputerPlayer2 extends GameComputerPlayer {
 	 */
 
 	private int play(){
-		int x = state.getPlayedCards().size();
 		int found = -1;
 		if(check15()){
 			found = lookfor15();
-			if(found == -1 && check2Consec()){
-				found = lookFor2Consec();
-				if(found == -1){
-					found = playPair();
-					if(found == -1){
-						return 0;
-					}
-					return found;
-				}
-				return found;
-			}
-			return found;
 		}
-		return 0;
+		if(found == -1 && check2Consec()){
+			found = lookFor2Consec();}
+		if(found == -1){
+			found = playPair();
+		}
+		if(found == -1){
+			return 0;
+		}
+		return found;
 	}
 	private int lookFor2Consec(){
 		int x = state.getPlayedCards().size();
@@ -150,7 +145,15 @@ public class CribComputerPlayer2 extends GameComputerPlayer {
 		return false;
 	}
 	private boolean check15(){
-		if(state.getPlayedCards().size() == 1){
+		int x = state.getHand(playerNum).size();
+		int count = 0;
+		if(state.getPlayedCards().size() >= 1){
+			for(int i = 0; i < x;i++){
+				count += state.getPlayedCards().getCard(i).getRank().ordinal() + 1;
+				if(count >= 15){
+					return false;
+				}
+			}
 			return true;
 		}
 		return false;
@@ -242,78 +245,78 @@ public class CribComputerPlayer2 extends GameComputerPlayer {
 
 		int[] index = new int[2];
 		if(one == two) {
-			index[0] = 1;
-			index[1] = 2;
+			index[0] = 0;
+			index[1] = 1;
 			return index;
 		}
 		if( one == three){
-			index[0] = 1;
-			index[1] = 3;
+			index[0] = 0;
+			index[1] = 2;
 			return index;
 		}
 		if(one == four){
-			index[0] = 1;
-			index[1] = 4;
+			index[0] = 0;
+			index[1] = 3;
 			return index;
 		}
 		if(one == five){
 			index[0] = 1;
-			index[1] = 5;
+			index[1] = 4;
 			return index;
 		}
 		if(one == six){
-			index[0] = 1;
-			index[1] = 6;
+			index[0] = 0;
+			index[1] = 5;
 			return index;
 		}
 		if(two == three) {
+			index[0] = 1;
+			index[1] = 2;
+			return index;
+		}
+		if(two == four){
+			index[0] = 1;
+			index[1] = 3;
+			return index;
+		}
+		if(two == five){
+			index[0] = 1;
+			index[1] = 4;
+			return index;
+		}
+		if(two == six){
+			index[0] = 1;
+			index[1] = 5;
+			return index;
+		}
+		if(three == four){
 			index[0] = 2;
 			index[1] = 3;
 			return index;
 		}
-		if(two == four){
-			index[0] = 2;
-			index[1] = 4;
-			return index;
-		}
-		if(two == five){
-			index[0] = 2;
-			index[1] = 5;
-			return index;
-		}
-		if(two == six){
-			index[0] = 2;
-			index[1] = 6;
-			return index;
-		}
-		if(three == four){
-			index[0] = 3;
-			index[1] = 4;
-			return index;
-		}
 		if(three == five){
-			index[0] = 3;
-			index[1] = 5;
+			index[0] = 2;
+			index[1] = 4;
 			return index;
 		}
 		if(three == six){
-			index[0] = 3;
-			index[1] = 6;
-			return index;
-		}
-		if(four == five){
-			index[0] = 4;
+			index[0] = 2;
 			index[1] = 5;
 			return index;
 		}
+		if(four == five){
+			index[0] = 3;
+			index[1] = 4;
+			return index;
+		}
 		if(four == six){
-			index[0] = 4;
-			index[1] = 6;
+			index[0] = 3;
+			index[1] = 5;
 			return index;
 		}
 		if(five == six){
-			index[0] = 5;
-			index[1] = 6;
+			index[0] = 4;
+			index[1] = 5;
 			return index;
 		}
 		return null;
@@ -327,9 +330,10 @@ public class CribComputerPlayer2 extends GameComputerPlayer {
 
 		for (int i = 0; i < x; i++) {
 			int temp = state.getHand(playerNum).getCard(i).getRank().ordinal();
-			if(temp == 4 || temp == 9){
+			if(temp == 4 || temp >= 9){
 				if(!ONE){
 					index[0] = i;
+					ONE = true;
 				}else{
 					index[1] = i;
 					return index;
