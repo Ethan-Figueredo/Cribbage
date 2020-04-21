@@ -32,8 +32,7 @@ public class CribState extends GameState {
         return whoseMove;
     }
 
-    public static final int PLAYER_1 = 0;//player constants
-    public static final int PLAYER_2 = 1;
+    int lastMove;
 
     public void setWhoseMove() {
         whoseMove = 1 - getWhoseMove();
@@ -48,6 +47,23 @@ public class CribState extends GameState {
     }
 
     private int dealerID;
+    private int runningTotal;
+
+    public int getLastMove(){
+        return lastMove;
+    }
+
+    public void setLastMove(int move){
+        lastMove = move;
+    }
+
+    public int getRunningTotal(){
+        return runningTotal;
+    }
+
+    public void setRunningTotal(int value){
+        runningTotal = value;
+    }
 
     public Deck getCrib() {
         return piles[3];
@@ -92,6 +108,8 @@ public class CribState extends GameState {
         piles[4] = new Deck();  //played cards
 
         scores = new int[]{0, 0};
+        runningTotal = 0;
+        lastMove = 0;
 
         piles[2].add52();
         piles[2].shuffle();
@@ -122,6 +140,8 @@ public class CribState extends GameState {
         piles[4] = new Deck(orig.piles[4]);  //played cards
 
         scores = orig.scores;
+        runningTotal = orig.runningTotal;
+        lastMove = orig.lastMove;
     }
     public void resetRoundHand(){
         setWhoseMove();
@@ -157,6 +177,39 @@ public class CribState extends GameState {
 
     public void setScore(int index, int newScore){
         scores[index] = newScore;
+    }
+
+    public int rankToInt(Card card){
+        switch(card.getRank()){
+            case ACE:
+                return 1;
+            case TWO:
+                return 2;
+            case THREE:
+                return 3;
+            case FOUR:
+                return 4;
+            case FIVE:
+                return 5;
+            case SIX:
+                return 6;
+            case SEVEN:
+                return 7;
+            case EIGHT:
+                return 8;
+            case NINE:
+                return 9;
+            case TEN:
+                return 10;
+            case JACK:
+                return 10;
+            case QUEEN:
+                return 10;
+            case KING:
+                return 10;
+            default:
+                return 0;
+        }
     }
 
     /**
