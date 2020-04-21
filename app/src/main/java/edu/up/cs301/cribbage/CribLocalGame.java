@@ -281,8 +281,9 @@ public class CribLocalGame extends LocalGame {
 	//helper method (helps runCheck) that sorts the numbers in rising order
 
 	private void sendToPlay(int playerNum, int index){
-		Card temp = state.getHand(playerNum).getCard(index);
-		state.getPlayedCards().add(temp);
+		//Card temp = state.getHand(playerNum).getCard(index);
+		//state.getPlayedCards().add(temp);
+		state.getPlayedCards().add(state.getHand(playerNum).getCard(index));
 		state.getHand(playerNum).removeCard(index);
 	}
 
