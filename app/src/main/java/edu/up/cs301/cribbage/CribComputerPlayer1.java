@@ -73,6 +73,10 @@ public class CribComputerPlayer1 extends GameComputerPlayer
         Logger.log("TTTComputer", "Sending move");
 
         state = (CribState)info;
+        if(state.getHand(1 - this.playerNum).size() == 0){
+            state.setWhoseMove();
+            return;
+        }
         int turn = state.getWhoseMove();
         sleep(1);
         if(state.getGameStage() == CribState.THROW_STAGE) {

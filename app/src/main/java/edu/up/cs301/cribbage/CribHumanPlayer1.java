@@ -99,6 +99,10 @@ public class CribHumanPlayer1 extends GameHumanPlayer implements View.OnTouchLis
         else {
             state = (CribState)info;
             surfaceView.setState(state);
+            if(state.getHand(this.playerNum).size() == 0){
+                state.setWhoseMove();
+                return;
+            }
             surfaceView.invalidate();
             Logger.log(TAG, "receiving");
         }
