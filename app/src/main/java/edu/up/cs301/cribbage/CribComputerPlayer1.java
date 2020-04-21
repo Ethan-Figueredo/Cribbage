@@ -57,7 +57,7 @@ public class CribComputerPlayer1 extends GameComputerPlayer
 
     /**
      * Called when the player receives a game-state (or other info) from the
-     * game.
+     * game. Most of computer 1 functionality
      *
      * @param info
      * 		the message from the game
@@ -128,7 +128,6 @@ public class CribComputerPlayer1 extends GameComputerPlayer
             rand1 = (rand1 + 1)%6;
             //canPlay = CribCounter.canMove(hand[rand1], state);
         }
-
         return hand[rand1];
     }
 
