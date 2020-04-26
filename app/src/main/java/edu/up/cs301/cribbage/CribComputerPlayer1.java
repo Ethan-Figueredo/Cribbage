@@ -46,6 +46,7 @@ public class CribComputerPlayer1 extends GameComputerPlayer
 
 
 
+
     /*
      * Constructor for the CribComputerPlayer1 class
      */
@@ -72,6 +73,7 @@ public class CribComputerPlayer1 extends GameComputerPlayer
 
         Logger.log("TTTComputer", "Sending move");
 
+
         state = (CribState)info;
         int turn = state.getWhoseMove();
         sleep(1);
@@ -81,7 +83,7 @@ public class CribComputerPlayer1 extends GameComputerPlayer
         }else if(state.getGameStage() == CribState.PLAY_STAGE){
             game.sendAction(new CribPlayAction(this, 0));
         }
-
+        Logger.log("TTTComputer1", "Play move");
 
     }
 
