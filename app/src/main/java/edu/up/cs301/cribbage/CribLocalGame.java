@@ -133,18 +133,19 @@ public class CribLocalGame extends LocalGame {
 			}
 			return true;
 		} else if(cribMA.isPlay()){
-			if(state.getHand(thisPlayerIdx).size() > 4) {
+			if(state.getHand(thisPlayerIdx).size() > 4) {//player has too many cards in their hands
 				return false;
-			} else if(!checkCanPlay(thisPlayerIdx) && !checkCanPlay(1 - thisPlayerIdx)){
+			} else if(!checkCanPlay(thisPlayerIdx) && !checkCanPlay(1 - thisPlayerIdx)){//check if both players cant play
 				forLast(state.getLastMove());
 				state.getPlayedCards().nullifyDeck();
 				state.setRunningTotal(0);
-				state.setWhoseMove();
-				return true;
+				//state.setWhoseMove();
+				return false;
 			} else{
 				if(over31(thisPlayerIdx, ((CribPlayAction)action).getIndexPlay())) {
 					return false;
 				} else if(!checkCanPlay(thisPlayerIdx)) {
+					state.setWhoseMove();
 					return false;
 				} else {
 					state.setRunningTotal(state.getRunningTotal() + state.rankToInt(state.getHand(thisPlayerIdx).getCard(((CribPlayAction) action).getIndexPlay())));
@@ -225,39 +226,6 @@ public class CribLocalGame extends LocalGame {
 		} else {
 			x = playerIdx;
 		}
-		/*if(one + two == 15 ){
-			state.setScore(x, state.getScore(x) + 2);
-		}
-		if(two + three == 15){
-			state.setScore(x, state.getScore(x) + 2);
-		}
-		if(three + four == 15){
-			state.setScore(x, state.getScore(x) + 2);
-		}
-		if(two + three == 15){
-			state.setScore(x, state.getScore(x) + 2);
-		}
-		if(two + four == 15){
-			state.setScore(x, state.getScore(x) + 2);
-		}
-		if(three + four == 15){
-			state.setScore(x, state.getScore(x) + 2);
-		}
-		if(one + two + three == 15){
-			state.setScore(x, state.getScore(x) + 2);
-		}
-		if(two + three + four == 15){
-			state.setScore(x, state.getScore(x) + 2);
-		}
-		if(one + two + four == 15){
-			state.setScore(x, state.getScore(x) + 2);
-		}
-		if(one + three + four == 15){
-			state.setScore(x, state.getScore(x) + 2);
-		}
-		if(one+two+three+four == 15){
-			state.setScore(x, state.getScore(x) + 2);
-		}*/
 		int[] cribCards = new int[]{one, two, three, four};
 
 		for(int i = 0; i < cribCards.length; i++){
@@ -293,18 +261,6 @@ public class CribLocalGame extends LocalGame {
 		} else {
 			x = playerIdx;
 		}
-		/*if(one == two && one == three){
-			state.setScore(x, state.getScore(x) + 6);
-		}
-		if(two == three && two == four){
-			state.setScore(x, state.getScore(x) + 6);
-		}
-		if(one == two && one == four){
-			state.setScore(x, state.getScore(x) + 6);
-		}
-		if(one == three && one == four){
-			state.setScore(x, state.getScore(x) + 6);
-		}*/
 		int[] cribCards = new int[]{one, two, three, four};
 
 		for(int i = 0; i < cribCards.length; i++){
@@ -343,7 +299,7 @@ public class CribLocalGame extends LocalGame {
 	public boolean over31(int player, int index){
 		int prevRun = state.getRunningTotal();
 		int toAdd = state.rankToInt(state.getHand(player).getCard(index));
-		if((prevRun + toAdd) > 31){
+		if((prevRun + toAdd) >= 32){
 			return true;
 		} else {
 			return false;
@@ -357,6 +313,7 @@ public class CribLocalGame extends LocalGame {
 				return true;
 			}
 		}
+
 		return false;
 	}
 

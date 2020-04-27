@@ -209,22 +209,22 @@ public class CribSurfaceView extends FlashSurfaceView {
         //adds card to hand1
         for(int i = 0; i < x; i++){
             Card temp = state.getHand(1).getCard(i);
-                //drawCard(g,hand1Box.get(i),temp);
-
+                drawCard(g,hand1Box.get(i),temp);
+                /*
                 if(temp!=null){
                     drawCardBacks(g, hand1Box.get(i), 0, 300, 1);
-                }
+                }*/
 
         }
 
         //draw the crib
         for(int i = 0; i < z; i ++) {
             Card temp = state.getCrib().getCard(i);
-            //drawCard(g,cribBox.get(i),temp);
-
+            drawCard(g,cribBox.get(i),temp);
+            /*
             if(temp!= null) {
                 drawCardBacks(g,cribBox.get(i),0,600,1); //not the dealer
-            }
+            }*/
         }
         //shows card for the first card
         if(state.getGameStage() == CribState.PLAY_STAGE){

@@ -85,86 +85,34 @@ public class CribComputerPlayer1 extends GameComputerPlayer
             System.out.print("This is comp player" + playerNum + " " + turn);
             game.sendAction(new CribThrowAction(this, 0, 1));
         }else if(state.getGameStage() == CribState.PLAY_STAGE){
-            game.sendAction(new CribPlayAction(this, 0));
+            int random = pickRandom();
+            game.sendAction(new CribPlayAction(this, random));
         }
         Logger.log("TTTComputer1", "Play move");
 
     }
-
+    private int pickRandom(){
+        int x = state.getHand(playerNum).size();
+        Random ran = new Random();
+        int index = ran.nextInt(x);
+        while(over31(index)){
+            index = ran.nextInt(x);
+        }
+        return index;
+    }
+    public boolean over31(int index){
+        int prevRun = state.getRunningTotal();
+        int toAdd = state.rankToInt(state.getHand(playerNum).getCard(index));
+        if((prevRun + toAdd) >= 32){
+            return true;
+        } else {
+            return false;
+        }
+    }
     /**
      * This function throws two random cards from an initial hand of 6
      */
-    Card[] throwCards(Card[] hand){
-        int rand1 = (int)(Math.random()*hand.length); // oracle to remind myself how to make a random number.
-        int rand2 = (int)(Math.random()*hand.length);
-        while(rand1 == rand2) {
-            rand2 = (int)(Math.random()*hand.length);
-        }
-        Card[] toThrow = new Card[2];
-        toThrow[0] = hand[rand1];
-        toThrow[1] = hand[rand2];
-        hand[rand1] = null;
-        hand[rand2] = null;
-        return toThrow;
-    }
 
-    private int indexOfCard(Card[] a, Card c){
-        for(int i =0; i<a.length;i++){//iterate through array searching for card
-            if(a[i]==c){
-                return i;//index of card touched
-            }
-        }
-        return -1;//error value
-    }
-
-    /**
-     * Determines randomly which card in its hand to play to the table
-     */
-
-
-    private Card cardsToTable(Card[] hand){
-
-        int rand1 = (int)Math.random()*hand.length;
-        boolean canPlay = false;
-
-        // return the randomly chosen element if not null.
-        // if null, loop through the array until a non-null element is found and then retrun.
-        while (hand[rand1] == null && !canPlay) {
-
-            rand1 = (rand1 + 1)%6;
-            //canPlay = CribCounter.canMove(hand[rand1], state);
-        }
-        return hand[rand1];
-    }
-
-    /**
-     * Method to determine what to play during the computer's turn
-     */
-    private void takeTurn(){
-        action = null;
-        Card card = null;
-        if(state.getGameStage() == CribState.THROW_STAGE){//if throw stage
-            action = new CribThrowAction(this, 0, 1);//pick two cards to throw and save them into
-            //a CardsToThrow action
-        }
-        else if (state.getGameStage() == CribState.PLAY_STAGE){
-            action = new CribThrowAction(this, 0, 1);//pick one card and save it to
-            //a CardsToTable action
-
-
-            sleep((int) (Math.random()*1000));//creates a thinking time
-        }
-        game.sendAction(action);//sends action
-        /*
-        if(card != null){
-            int cardPos = indexOfCard(state.getPlayer1Hand(), card);
-            if (cardPos >=0 && cardPos < state.getPlayer1Hand().length){
-                Card[] hand = state.getPlayer1Hand();
-                hand[cardPos] = null;
-                state.setHand(hand);//gets index of card played and removes the card
-            }
-        }*/
-    }
 
     @Override
     public int getPlayerNum() {

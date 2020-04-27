@@ -35,6 +35,7 @@ public class Card implements Serializable {
 	// instance variables: the card's rank and the suit
     private Rank rank;
     private Suit suit;
+    private boolean over31;
 
     //Making a card array
 	private ArrayList<Object> Cards = new ArrayList(52);
@@ -48,6 +49,7 @@ public class Card implements Serializable {
 	public Card(Rank r, Suit s) {
 		rank = r;
 		suit = s;
+		over31 = false;
 	}
 
 	/**
@@ -58,6 +60,7 @@ public class Card implements Serializable {
 	public Card(Card orig) {
 		rank = orig.rank;
 		suit = orig.suit;
+		over31 = orig.over31;
 	}
 
     /**
@@ -218,7 +221,12 @@ public class Card implements Serializable {
     		R.drawable.card_ks, 
     	},
     };
-    
+    private boolean getOver31(){
+    	return over31;
+	}
+	private void setOver31(boolean change){
+    	over31 = change;
+	}
     // the array of card images
     private static Bitmap[][] cardImages = null;
     
