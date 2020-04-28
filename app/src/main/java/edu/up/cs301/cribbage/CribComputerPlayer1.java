@@ -95,20 +95,9 @@ public class CribComputerPlayer1 extends GameComputerPlayer
         int x = state.getHand(playerNum).size();
         Random ran = new Random();
         int index = ran.nextInt(x);
-        while(over31(index)){
-            index = ran.nextInt(x);
-        }
         return index;
     }
-    public boolean over31(int index){
-        int prevRun = state.getRunningTotal();
-        int toAdd = state.rankToInt(state.getHand(playerNum).getCard(index));
-        if((prevRun + toAdd) >= 32){
-            return true;
-        } else {
-            return false;
-        }
-    }
+
     /**
      * This function throws two random cards from an initial hand of 6
      */

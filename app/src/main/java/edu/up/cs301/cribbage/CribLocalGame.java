@@ -65,9 +65,9 @@ public class CribLocalGame extends LocalGame {
 		}
 		int otherScore = state.getScore(otherID);
 		// the character that will eventually contain an 'X' or 'O' if we
-		if(dealersScore >= 10){//found winner
+		if(dealersScore >= 121){//found winner
 			return playerNames[state.getDealerID()] +" is the winner.";
-		}else if(otherScore >= 10){ //found winner
+		}else if(otherScore >= 121){ //found winner
 			return playerNames[otherID] +" is the winner.";
 		} else{ //game not over
 			return null;
