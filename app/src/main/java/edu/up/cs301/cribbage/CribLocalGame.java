@@ -129,6 +129,8 @@ public class CribLocalGame extends LocalGame {
 				state.setWhoseMove();
 			}
 			if(state.getHand(thisPlayerIdx).size() == 4 && state.getHand(1 - thisPlayerIdx).size() == 4){
+				calculateCribScore();
+				calculateHandScore();
 				state.setGameStage(CribState.PLAY_STAGE);
 			}
 			return true;
@@ -158,8 +160,6 @@ public class CribLocalGame extends LocalGame {
 			if(state.getHand(thisPlayerIdx).size() == 0 && state.getHand(1- thisPlayerIdx).size() == 0){
 				//calculate score
 				forLast(state.getLastMove());
-				calculateCribScore();
-				calculateHandScore();
 				state.setDealerID();
 				state.resetRoundHand();
 
