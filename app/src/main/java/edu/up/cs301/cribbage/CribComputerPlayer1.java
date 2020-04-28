@@ -100,7 +100,7 @@ public class CribComputerPlayer1 extends GameComputerPlayer
         }
         return index;
     }
-    public boolean over31(int index){
+    private boolean over31(int index){
         int prevRun = state.getRunningTotal();
         int toAdd = state.rankToInt(state.getHand(playerNum).getCard(index));
         if((prevRun + toAdd) >= 32){

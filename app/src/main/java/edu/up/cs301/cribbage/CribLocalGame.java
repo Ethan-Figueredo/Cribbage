@@ -180,15 +180,15 @@ public class CribLocalGame extends LocalGame {
 		Card pos8 = state.getHand(1).getCard(3);
 
 
-		pairCheck(50,pos1.getRank().ordinal(),pos2.getRank().ordinal(),pos3.getRank().ordinal(),pos4.getRank().ordinal());
-		fifteenCheck(50,pos1.getRank().ordinal(),pos2.getRank().ordinal(),pos3.getRank().ordinal(),pos4.getRank().ordinal());
-		pairRoyal(50,pos1.getRank().ordinal(),pos2.getRank().ordinal(),pos3.getRank().ordinal(),pos4.getRank().ordinal());
-		runCheck(50,pos1.getRank().ordinal(),pos2.getRank().ordinal(),pos3.getRank().ordinal(),pos4.getRank().ordinal());
+		pairCheck(0,pos1.getRank().ordinal(),pos2.getRank().ordinal(),pos3.getRank().ordinal(),pos4.getRank().ordinal());
+		fifteenCheck(0,pos1.getRank().ordinal(),pos2.getRank().ordinal(),pos3.getRank().ordinal(),pos4.getRank().ordinal());
+		pairRoyal(0,pos1.getRank().ordinal(),pos2.getRank().ordinal(),pos3.getRank().ordinal(),pos4.getRank().ordinal());
+		runCheck(0,pos1.getRank().ordinal(),pos2.getRank().ordinal(),pos3.getRank().ordinal(),pos4.getRank().ordinal());
 
-		pairCheck(50,pos5.getRank().ordinal(),pos6.getRank().ordinal(),pos7.getRank().ordinal(),pos8.getRank().ordinal());
-		fifteenCheck(50,pos5.getRank().ordinal(),pos6.getRank().ordinal(),pos7.getRank().ordinal(),pos8.getRank().ordinal());
-		pairRoyal(50,pos5.getRank().ordinal(),pos6.getRank().ordinal(),pos7.getRank().ordinal(),pos8.getRank().ordinal());
-		runCheck(50,pos5.getRank().ordinal(),pos6.getRank().ordinal(),pos7.getRank().ordinal(),pos8.getRank().ordinal());
+		pairCheck(1,pos5.getRank().ordinal(),pos6.getRank().ordinal(),pos7.getRank().ordinal(),pos8.getRank().ordinal());
+		fifteenCheck(1,pos5.getRank().ordinal(),pos6.getRank().ordinal(),pos7.getRank().ordinal(),pos8.getRank().ordinal());
+		pairRoyal(1,pos5.getRank().ordinal(),pos6.getRank().ordinal(),pos7.getRank().ordinal(),pos8.getRank().ordinal());
+		runCheck(1,pos5.getRank().ordinal(),pos6.getRank().ordinal(),pos7.getRank().ordinal(),pos8.getRank().ordinal());
 	}
 
 	public void forLast(int player){
