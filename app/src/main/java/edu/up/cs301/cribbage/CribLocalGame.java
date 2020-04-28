@@ -159,6 +159,7 @@ public class CribLocalGame extends LocalGame {
 				//calculate score
 				forLast(state.getLastMove());
 				calculateCribScore();
+				calculateHandScore();
 				state.setDealerID();
 				state.resetRoundHand();
 
@@ -168,8 +169,26 @@ public class CribLocalGame extends LocalGame {
 		return false;
 	}
 	private void calculateHandScore(){
+		Card pos1 = state.getHand(0).getCard(0);
+		Card pos2 = state.getHand(0).getCard(1);
+		Card pos3 = state.getHand(0).getCard(2);
+		Card pos4 = state.getHand(0).getCard(3);
+
+		Card pos5 = state.getHand(1).getCard(0);
+		Card pos6 = state.getHand(1).getCard(1);
+		Card pos7 = state.getHand(1).getCard(2);
+		Card pos8 = state.getHand(1).getCard(3);
 
 
+		pairCheck(50,pos1.getRank().ordinal(),pos2.getRank().ordinal(),pos3.getRank().ordinal(),pos4.getRank().ordinal());
+		fifteenCheck(50,pos1.getRank().ordinal(),pos2.getRank().ordinal(),pos3.getRank().ordinal(),pos4.getRank().ordinal());
+		pairRoyal(50,pos1.getRank().ordinal(),pos2.getRank().ordinal(),pos3.getRank().ordinal(),pos4.getRank().ordinal());
+		runCheck(50,pos1.getRank().ordinal(),pos2.getRank().ordinal(),pos3.getRank().ordinal(),pos4.getRank().ordinal());
+
+		pairCheck(50,pos5.getRank().ordinal(),pos6.getRank().ordinal(),pos7.getRank().ordinal(),pos8.getRank().ordinal());
+		fifteenCheck(50,pos5.getRank().ordinal(),pos6.getRank().ordinal(),pos7.getRank().ordinal(),pos8.getRank().ordinal());
+		pairRoyal(50,pos5.getRank().ordinal(),pos6.getRank().ordinal(),pos7.getRank().ordinal(),pos8.getRank().ordinal());
+		runCheck(50,pos5.getRank().ordinal(),pos6.getRank().ordinal(),pos7.getRank().ordinal(),pos8.getRank().ordinal());
 	}
 
 	public void forLast(int player){
