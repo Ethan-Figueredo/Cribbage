@@ -129,8 +129,6 @@ public class CribLocalGame extends LocalGame {
 				state.setWhoseMove();
 			}
 			if(state.getHand(thisPlayerIdx).size() == 4 && state.getHand(1 - thisPlayerIdx).size() == 4){
-				calculateCribScore();
-				calculateHandScore();
 				state.setGameStage(CribState.PLAY_STAGE);
 			}
 			return true;
@@ -144,7 +142,7 @@ public class CribLocalGame extends LocalGame {
 				//state.setWhoseMove();
 				return false;
 			} else{
-				if(over31(thisPlayerIdx, ((CribPlayAction)action).getIndexPlay())) {
+				if(state.over31(thisPlayerIdx, ((CribPlayAction)action).getIndexPlay())) {
 					return false;
 				} else if(!checkCanPlay(thisPlayerIdx)) {
 					state.setWhoseMove();
@@ -160,6 +158,8 @@ public class CribLocalGame extends LocalGame {
 			if(state.getHand(thisPlayerIdx).size() == 0 && state.getHand(1- thisPlayerIdx).size() == 0){
 				//calculate score
 				forLast(state.getLastMove());
+				calculateCribScore();
+				calculateHandScore();
 				state.setDealerID();
 				state.resetRoundHand();
 
@@ -315,20 +315,10 @@ public class CribLocalGame extends LocalGame {
 	}
 	//helper method (helps runCheck) that sorts the numbers in rising order
 
-	public boolean over31(int player, int index){
-		int prevRun = state.getRunningTotal();
-		int toAdd = state.rankToInt(state.getHand(player).getCard(index));
-		if((prevRun + toAdd) >= 32){
-			return true;
-		} else {
-			return false;
-		}
-	}
-
 	public boolean checkCanPlay(int player){
 		Deck playerHand = state.getHand(player);
 		for(int i = 0; i < playerHand.size(); i++){
-			if(!over31(player, i)){
+			if(!state.over31(player, i)){
 				return true;
 			}
 		}

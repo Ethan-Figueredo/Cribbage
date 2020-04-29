@@ -85,17 +85,22 @@ public class CribComputerPlayer1 extends GameComputerPlayer
             System.out.print("This is comp player" + playerNum + " " + turn);
             game.sendAction(new CribThrowAction(this, 0, 1));
         }else if(state.getGameStage() == CribState.PLAY_STAGE){
-            int random = pickRandom();
-            game.sendAction(new CribPlayAction(this, random));
+            int index = pickIndex();
+            if(index == -1){
+                state.setWhoseMove();
+            }
+            game.sendAction(new CribPlayAction(this, index));
         }
         Logger.log("TTTComputer1", "Play move");
 
     }
-    private int pickRandom(){
-        int x = state.getHand(playerNum).size();
-        Random ran = new Random();
-        int index = ran.nextInt(x);
-        return index;
+    private int pickIndex(){
+        for(int i = 0; i < state.getHand(1 - this.playerNum).size(); i++){
+            if(!state.over31(1 - this.playerNum, i)){
+                return i;
+            }
+        }
+        return -1;
     }
 
     /**

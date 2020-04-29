@@ -20,12 +20,6 @@ public class CribState extends GameState {
     private static final String TAG = "CribState";
 	private static final long serialVersionUID = 7552321013488624386L;
 
-    //instance variables
-    private int[][] board;
-    private int prevPegP1;
-    private int currPegP1;
-    private int prevPegP0;
-    private int currPegP0;
     private int throwCount = 0;
 
     public int getWhoseMove() {
@@ -75,6 +69,16 @@ public class CribState extends GameState {
 
     public Deck getDeck(){
         return piles[2];
+    }
+
+    public boolean over31(int player, int index){
+        int prevRun = getRunningTotal();
+        int toAdd = rankToInt(getHand(player).getCard(index));
+        if((prevRun + toAdd) >= 32){
+            return true;
+        } else {
+            return false;
+        }
     }
 
     private int turn;
