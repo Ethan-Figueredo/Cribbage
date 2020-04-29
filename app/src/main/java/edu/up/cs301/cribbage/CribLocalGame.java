@@ -191,6 +191,7 @@ public class CribLocalGame extends LocalGame {
 				//calculate score
 				forLast(state.getLastMove());
 				//calculateHandScore();
+				calculatePlayScore();
 				state.setDealerID();
 				state.resetRoundHand();
 
@@ -224,14 +225,94 @@ public class CribLocalGame extends LocalGame {
 
     private void calculatePlayScore(){
 		nullCounter = 0;
+		ArrayList<Card> newDeck = new ArrayList<>();
+		for(int i = 0; i < state.getNullDeck().size(); i++){
+			if(state.getNullDeck().get(i) == null) {
+				newDeck.add(state.getNullDeck().get(i));
+				nullCounter++;
+			}
+		}
+		Card pos1 = newDeck.get(0);
+		Card pos2 = newDeck.get(1);
+		Card pos3 = newDeck.get(2);
 
-        Card pos1 = state.getPlayedCards().getCard(0);
-        Card pos2 = state.getPlayedCards().getCard(1);
-        Card pos3 = state.getPlayedCards().getCard(2);
-        Card pos4 = state.getPlayedCards().getCard(3);
-
-
+		nullPairCheck(0,pos1.getRank().ordinal(),pos2.getRank().ordinal(),pos3.getRank().ordinal());
+		nullCheckFifteen(0,pos1.getRank().ordinal(),pos2.getRank().ordinal(),pos3.getRank().ordinal());
+		nullConStraight(0,pos1.getRank().ordinal(),pos2.getRank().ordinal(),pos3.getRank().ordinal());
+		// pair check, checkFifteen for 0 and 1 index, 3 card of a consecutive straight
     }
+	private void nullCheckFifteen(int playerIdx, int two, int three, int four){
+		int x;
+		if(playerIdx == 50){
+			x =state.getDealerID();
+		} else {
+			x = playerIdx;
+		}
+		int[] cribCards = new int[]{two, three, four};
+
+		for(int i = 0; i < cribCards.length; i++){
+			for(int j = i + 1; j < cribCards.length; j++){
+				if(cribCards[i] + cribCards[j] == 15){
+					System.out.println("15: " + i + " " + j);
+					state.setScore(x, state.getScore(x) + 2);
+				}
+			}
+		}
+
+		for(int i = 0; i < cribCards.length; i++){
+			for(int j = i + 1; j < cribCards.length; j++){
+				for(int k = j + 1; k < cribCards.length; k++) {
+					if (cribCards[i] + cribCards[j] + cribCards[k] == 15) {
+						System.out.println("15: " + i + " " + j + " " + k);
+						state.setScore(x, state.getScore(x) + 2);
+					}
+				}
+			}
+		}
+
+		if(two+three+four == 15){
+			state.setScore(x, state.getScore(x) + 2);
+		}
+
+	}
+
+	private void nullConStraight(int playerIdx, int two, int three, int four){
+		int x;
+		if(playerIdx == 50){
+			x =state.getDealerID();
+		} else {
+			x = playerIdx;
+		}
+
+		int[] cribCards = new int[]{two, three, four};
+		for(int i = 0; i < cribCards.length; i++){
+			for(int j = i + 1; j < cribCards.length; j++){
+				if(cribCards[i] == cribCards[j]){
+					System.out.println("Pair: " + i + " " + j);
+					state.setScore(x, state.getScore(x) + 2);
+				}
+			}
+		}
+	}
+
+    private void nullPairCheck(int playerIdx, int two, int three, int four){
+		int x;
+		if(playerIdx == 50){
+			x =state.getDealerID();
+		} else {
+			x = playerIdx;
+		}
+
+		int[] cribCards = new int[]{two, three, four};
+		for(int i = 0; i < cribCards.length; i++){
+			for(int j = i + 1; j < cribCards.length; j++){
+				if(cribCards[i] == cribCards[j]){
+					System.out.println("Pair: " + i + " " + j);
+					state.setScore(x, state.getScore(x) + 2);
+				}
+			}
+		}
+	}
 
 	public void forLast(int player){
 		state.setScore(player, state.getScore(player) + 1);

@@ -182,6 +182,10 @@ public class CribState extends GameState {
         nullDeck.clear();
     }
 
+    public ArrayList<Card> getNullDeck(){
+        return nullDeck;
+    }
+
     public void copyNullDeck(){
         for(int i = 0; i < piles[4].size(); i++){
             Card temp = piles[4].getCard(i);
