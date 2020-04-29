@@ -180,7 +180,7 @@ public class CribLocalGame extends LocalGame {
 				} else {
 					state.setRunningTotal(state.getRunningTotal() + state.rankToInt(state.getHand(thisPlayerIdx).getCard(((CribPlayAction) action).getIndexPlay())));
 					sendToPlay(thisPlayerIdx, ((CribPlayAction) action).getIndexPlay());
-					//checkPair(thisPlayerIdx);
+					checkPair(thisPlayerIdx);
 					state.setLastMove(thisPlayerIdx);
 					state.setWhoseMove();
 				}
@@ -283,12 +283,16 @@ public class CribLocalGame extends LocalGame {
 		if(playedCards.size() < 2){
 			return;
 		}
+		try{
 		Card prevCard = playedCards.getCard(playedCards.size() - 2);
 		Card cardPlayed = playedCards.getCard(playedCards.size() - 1);
 		int prevCardRank = state.rankToInt(prevCard);
 		int cardPlayedRank = state.rankToInt(cardPlayed);
 		if(prevCardRank == cardPlayedRank){
 			state.setScore(player, state.getScore(player) + 2);
+		}
+		}catch (Exception e){
+			return;
 		}
 	}
 
