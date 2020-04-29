@@ -86,18 +86,22 @@ public class CribComputerPlayer1 extends GameComputerPlayer
             game.sendAction(new CribThrowAction(this, 0, 1));
         }else if(state.getGameStage() == CribState.PLAY_STAGE){
             int index = pickIndex();
+            if(index == -1){
+                state.setWhoseMove();
+                return;
+            }
             game.sendAction(new CribPlayAction(this, index));
         }
         Logger.log("TTTComputer1", "Play move");
 
     }
     private int pickIndex(){
-        for(int i = 0; i < state.getHand(playerNum).size(); i++){
-            if(!state.over31(playerNum, i)){
+        for(int i = 0; i < state.getHand(1 - this.playerNum).size(); i++){
+            if(!(state.over31(1 - this.playerNum, i))){
                 return i;
             }
         }
-        return 0;
+        return -1;
     }
 
     /**

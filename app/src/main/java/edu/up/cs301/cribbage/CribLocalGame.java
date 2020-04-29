@@ -147,9 +147,12 @@ public class CribLocalGame extends LocalGame {
 			if(state.getHand(thisPlayerIdx).size() > 4) {//player has too many cards in their hands
 				return false;
 			} else {
-                if(((CribPlayAction)action).getIndexPlay() > state.getHand(thisPlayerIdx).size() - 1){
-                    return false;
-			    }else if(state.over31(thisPlayerIdx, ((CribPlayAction)action).getIndexPlay())) {
+                if(((CribPlayAction)action).getIndexPlay() > state.getHand(thisPlayerIdx).size() - 1) {
+					return false;
+				//} else if(((CribPlayAction)action).getIndexPlay() == -1){
+                	//state.setWhoseMove();
+                	//return false;
+			    } else if(state.over31(thisPlayerIdx, ((CribPlayAction)action).getIndexPlay())) {
 					return false;
 				} else {
 					state.setRunningTotal(state.getRunningTotal() + state.rankToInt(state.getHand(thisPlayerIdx).getCard(((CribPlayAction) action).getIndexPlay())));
