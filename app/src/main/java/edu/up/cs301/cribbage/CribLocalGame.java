@@ -106,7 +106,6 @@ public class CribLocalGame extends LocalGame {
 		if(!checkCanPlay(playerIdx)){
 		    return false;
         }
-		return true;
 	}
 
 	/**
