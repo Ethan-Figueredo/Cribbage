@@ -157,6 +157,7 @@ public class CribLocalGame extends LocalGame {
 			if(state.getHand(thisPlayerIdx).size() == 0 && state.getHand(1- thisPlayerIdx).size() == 0){
 				//calculate score
 				forLast(state.getLastMove());
+				calculateHandScore();
 				state.setDealerID();
 				state.resetRoundHand();
 
@@ -188,6 +189,19 @@ public class CribLocalGame extends LocalGame {
 		runCheck(1,pos5.getRank().ordinal(),pos6.getRank().ordinal(),pos7.getRank().ordinal(),pos8.getRank().ordinal());
 	}
 
+    private void calculatePlayScore(){
+        Card pos1 = state.getPlayedCards().getCard(0);
+        Card pos2 = state.getPlayedCards().getCard(1);
+        Card pos3 = state.getPlayedCards().getCard(2);
+        Card pos4 = state.getPlayedCards().getCard(3);
+
+
+        pairCheck(0,pos1.getRank().ordinal(),pos2.getRank().ordinal(),pos3.getRank().ordinal(),pos4.getRank().ordinal());
+        fifteenCheck(0,pos1.getRank().ordinal(),pos2.getRank().ordinal(),pos3.getRank().ordinal(),pos4.getRank().ordinal());
+        pairRoyal(0,pos1.getRank().ordinal(),pos2.getRank().ordinal(),pos3.getRank().ordinal(),pos4.getRank().ordinal());
+        runCheck(0,pos1.getRank().ordinal(),pos2.getRank().ordinal(),pos3.getRank().ordinal(),pos4.getRank().ordinal());
+    }
+
 	public void forLast(int player){
 		state.setScore(player, state.getScore(player) + 1);
 	}
@@ -199,7 +213,9 @@ public class CribLocalGame extends LocalGame {
 		}
 		Card prevCard = playedCards.getCard(playedCards.size() - 2);
 		Card cardPlayed = playedCards.getCard(playedCards.size() - 1);
-		if(prevCard == cardPlayed){
+		int prevCardRank = state.rankToInt(prevCard);
+		int cardPlayedRank = state.rankToInt(cardPlayed);
+		if(prevCardRank == cardPlayedRank){
 			state.setScore(player, state.getScore(player) + 2);
 		}
 	}
