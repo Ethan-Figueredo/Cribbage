@@ -35,6 +35,9 @@ public class CribState extends GameState {
     private int whoseMove;
     private int[] scores;
     private Deck[] piles;
+    private ArrayList<Card> nullDeck;
+
+
 
     public Deck getHand(int index) {
         return piles[index];
@@ -70,6 +73,8 @@ public class CribState extends GameState {
     public Deck getDeck(){
         return piles[2];
     }
+
+
 
     public boolean over31(int player, int index){
         int prevRun = getRunningTotal();
@@ -120,6 +125,9 @@ public class CribState extends GameState {
 
         piles[2].add52();
         piles[2].shuffle();
+
+        nullDeck = new ArrayList<>();
+
         for(int i = 0; i < 6; i++){
             piles[2].moveTopCardTo(piles[0]);
             piles[2].moveTopCardTo(piles[1]);
@@ -148,6 +156,8 @@ public class CribState extends GameState {
         scores = orig.scores;
         runningTotal = orig.runningTotal;
         lastMove = orig.lastMove;
+
+        nullDeck = orig.nullDeck;
     }
     public void resetRoundHand(){
         setWhoseMove();
@@ -168,6 +178,20 @@ public class CribState extends GameState {
             piles[2].moveTopCardTo(piles[1]);
         }
         setRunningTotal(0);
+
+        nullDeck.clear();
+    }
+
+    public ArrayList<Card> getNullDeck(){
+        return nullDeck;
+    }
+
+    public void copyNullDeck(){
+        for(int i = 0; i < piles[4].size(); i++){
+            Card temp = piles[4].getCard(i);
+            nullDeck.add(temp);
+        }
+        nullDeck.add(null);
     }
 
     public int getDealerID(){
