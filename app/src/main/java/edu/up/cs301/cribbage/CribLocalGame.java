@@ -100,12 +100,20 @@ public class CribLocalGame extends LocalGame {
 	 * 		true iff the player is allowed to move
 	 */
 	protected boolean canMove(int playerIdx) {
-		if(playerIdx == state.getWhoseMove()){
+		if(playerIdx != state.getWhoseMove()){
 		    return false;
-        }
-		if(!checkCanPlay(playerIdx)){
-		    return false;
-        }
+        } else if(!checkCanPlay(playerIdx) && !checkCanPlay(1 - playerIdx)){
+			forLast(state.getLastMove());
+			state.getPlayedCards().nullifyDeck();
+			state.setRunningTotal(0);
+			return false;
+        } else if(!checkCanPlay(playerIdx)){
+			return false;
+		} else if(!checkCanPlay(playerIdx) && checkCanPlay(1 - playerIdx)){
+			state.setWhoseMove();
+			return false;
+		}
+		return true;
 	}
 
 	/**
@@ -140,16 +148,8 @@ public class CribLocalGame extends LocalGame {
 		} else if(cribMA.isPlay()){
 			if(state.getHand(thisPlayerIdx).size() > 4) {//player has too many cards in their hands
 				return false;
-			} else if(!checkCanPlay(thisPlayerIdx) && !checkCanPlay(1 - thisPlayerIdx)){//check if both players cant play
-				forLast(state.getLastMove());
-				state.getPlayedCards().nullifyDeck();
-				state.setRunningTotal(0);
-				return false;
 			} else{
-				if(!checkCanPlay(thisPlayerIdx)) {
-					state.setWhoseMove();
-					return false;
-				} else if(state.over31(thisPlayerIdx, ((CribPlayAction)action).getIndexPlay())) {
+				if(state.over31(thisPlayerIdx, ((CribPlayAction)action).getIndexPlay())) {
 					return false;
 				} else {
 					state.setRunningTotal(state.getRunningTotal() + state.rankToInt(state.getHand(thisPlayerIdx).getCard(((CribPlayAction) action).getIndexPlay())));
