@@ -77,6 +77,9 @@ public class CribComputerPlayer2 extends GameComputerPlayer {
 			int[] index = crib();
 			game.sendAction(new CribThrowAction(this, index[0], index[1]));
 		}else if(state.getGameStage() == CribState.PLAY_STAGE){
+			if(state.getWhoseMove() != playerNum){
+				return;
+			}
 			int index = play();
 			game.sendAction(new CribPlayAction(this, index));
 		}
@@ -94,7 +97,7 @@ public class CribComputerPlayer2 extends GameComputerPlayer {
 		}
 		if(found == -1 && check2Consec()){
 			found = lookFor2Consec(possible);}
-		if(found == -1){
+		if(found == -1 && checkPair()){
 			found = playPair(possible);
 		}
 		if(found == -1){
@@ -104,12 +107,18 @@ public class CribComputerPlayer2 extends GameComputerPlayer {
 		}
 		return found;
 	}
+	private boolean checkPair(){
+		if(state.getPlayedCards().size() >= 1){
+			return true;
+		}
+		return false;
+	}
 	private ArrayList<Integer> under31(){
 		int x = state.getHand(playerNum).size();
 		ArrayList<Integer> possible = new ArrayList<>();
 
 		for(int i = 0; i < x; i++){
-			if(state.getRunningTotal() + state.rankToInt(state.getHand(playerNum).getCard(i)) <= 31){
+			if((state.getRunningTotal() + state.rankToInt(state.getHand(playerNum).getCard(i))) <= 31){
 				possible.add(i);
 			}
 		}
@@ -156,10 +165,11 @@ public class CribComputerPlayer2 extends GameComputerPlayer {
 		return false;
 	}
 	private boolean check15(ArrayList<Integer> possible){
-		int x = possible.size();
+
 		int count = 0;
-		if(state.getPlayedCards().size() >= 1){
-			for(int i = 0; i < x;i++){
+		int y = state.getPlayedCards().size();
+		if(y >= 1){
+			for(int i = 0; i < y;i++){
 				count += state.rankToInt(state.getPlayedCards().getCard(i));
 				if(count >= 15){
 					return false;
@@ -180,7 +190,7 @@ public class CribComputerPlayer2 extends GameComputerPlayer {
 		return -1;
 	}
 	private int playPair(ArrayList<Integer> possible){
-		int lastCard = state.rankToInt(state.getPlayedCards().getCard(state.getPlayedCards().size() - 1));
+		int lastCard = state.rankToInt(state.getPlayedCards().getCard(state.getPlayedCards().size()-1));
 		int x = possible.size();
 		for(int i = 0; i < x; i++){
 			if(lastCard == state.rankToInt(state.getHand(playerNum).getCard(i))){
