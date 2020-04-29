@@ -88,6 +88,7 @@ public class CribComputerPlayer1 extends GameComputerPlayer
             int index = pickIndex();
             if(index == -1){
                 state.setWhoseMove();
+                return;
             }
             game.sendAction(new CribPlayAction(this, index));
         }
@@ -95,8 +96,8 @@ public class CribComputerPlayer1 extends GameComputerPlayer
 
     }
     private int pickIndex(){
-        for(int i = 0; i < state.getHand(1 - this.playerNum).size(); i++){
-            if(!state.over31(1 - this.playerNum, i)){
+        for(int i = 0; i < state.getHand(playerNum).size(); i++){
+            if(!state.over31(playerNum, i)){
                 return i;
             }
         }

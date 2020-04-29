@@ -100,7 +100,13 @@ public class CribLocalGame extends LocalGame {
 	 * 		true iff the player is allowed to move
 	 */
 	protected boolean canMove(int playerIdx) {
-		return playerIdx == state.getWhoseMove();
+		if(playerIdx == state.getWhoseMove()){
+		    return false;
+        }
+		if(!checkCanPlay(playerIdx)){
+		    return false;
+        }
+		return true;
 	}
 
 	/**
