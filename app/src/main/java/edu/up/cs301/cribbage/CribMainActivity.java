@@ -58,7 +58,7 @@ public class CribMainActivity extends GameMainActivity {
 		defaultConfig.addPlayer("Computer", 1); // dumb computer player
 
 		// Set the initial information for the remote player
-		defaultConfig.setRemoteData("Remote Player", "", 1); // red-on-yellow GUI
+		// red-on-yellow GUI
 
 
 		//done!

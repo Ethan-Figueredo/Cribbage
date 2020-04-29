@@ -134,7 +134,7 @@ public class CribComputerPlayer2 extends GameComputerPlayer {
 		int lastCard = state.getPlayedCards().getCard(x-1).getRank().ordinal();
 
 		for(int i = 0; i < handSize; i++){
-			if(lastCard == state.getPlayedCards().getCard(i).getRank().ordinal() - 1){
+			if(lastCard == state.getHand(playerNum).getCard(possible.get(i)).getRank().ordinal() - 1){
 				return i;
 			}
 		}
