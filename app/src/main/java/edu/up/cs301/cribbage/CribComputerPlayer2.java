@@ -98,7 +98,7 @@ public class CribComputerPlayer2 extends GameComputerPlayer {
 		if(found == -1 && check2Consec()){
 			found = lookFor2Consec(possible);}
 		if(found == -1 && checkPair()){
-			found = playPair(possible);
+ 			found = playPair(possible);
 		}
 		if(found == -1){
 			if(possible.size() >= 1){

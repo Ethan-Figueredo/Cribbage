@@ -165,6 +165,7 @@ public class CribState extends GameState {
             piles[2].moveTopCardTo(piles[0]);
             piles[2].moveTopCardTo(piles[1]);
         }
+        setRunningTotal(0);
     }
 
     public int getDealerID(){

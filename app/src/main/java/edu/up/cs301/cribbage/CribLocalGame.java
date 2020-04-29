@@ -139,13 +139,12 @@ public class CribLocalGame extends LocalGame {
 				forLast(state.getLastMove());
 				state.getPlayedCards().nullifyDeck();
 				state.setRunningTotal(0);
-				//state.setWhoseMove();
 				return false;
 			} else{
-				if(state.over31(thisPlayerIdx, ((CribPlayAction)action).getIndexPlay())) {
-					return false;
-				} else if(!checkCanPlay(thisPlayerIdx)) {
+				if(!checkCanPlay(thisPlayerIdx)) {
 					state.setWhoseMove();
+					return false;
+				} else if(state.over31(thisPlayerIdx, ((CribPlayAction)action).getIndexPlay())) {
 					return false;
 				} else {
 					state.setRunningTotal(state.getRunningTotal() + state.rankToInt(state.getHand(thisPlayerIdx).getCard(((CribPlayAction) action).getIndexPlay())));
@@ -158,8 +157,6 @@ public class CribLocalGame extends LocalGame {
 			if(state.getHand(thisPlayerIdx).size() == 0 && state.getHand(1- thisPlayerIdx).size() == 0){
 				//calculate score
 				forLast(state.getLastMove());
-				calculateCribScore();
-				calculateHandScore();
 				state.setDealerID();
 				state.resetRoundHand();
 
