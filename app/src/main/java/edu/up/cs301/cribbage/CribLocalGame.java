@@ -227,9 +227,6 @@ public class CribLocalGame extends LocalGame {
 		check15(found);
 		consec(found);
 		found.clear();
-
-
-		// pair check, checkFifteen for 0 and 1 index, 3 card of a consecutive straight
     }
     private void consec(ArrayList<Card> found){
 		if(found.size() < 3){

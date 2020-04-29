@@ -119,7 +119,7 @@ public class CribSurfaceView extends FlashSurfaceView {
 
         RectF flipped = new RectF(6*getWidth()/8,getHeight()/4, 7*getWidth()/8, getHeight()-1000); //rectangle for flipped card
 
-
+        //placeholders for play cards
         RectF play1 = new RectF(00,getHeight()/2,getWidth()/8 ,getHeight()-600);
         RectF play2 = new RectF( getWidth()/8,getHeight()/2,2*getWidth()/8 ,getHeight()-600);
         RectF play3 = new RectF( 2*getWidth()/8,getHeight()/2,3*getWidth()/8 ,getHeight()-600);
@@ -130,7 +130,7 @@ public class CribSurfaceView extends FlashSurfaceView {
         RectF play8 = new RectF(7*getWidth()/8,getHeight()/2,getWidth() ,getHeight()-600);//not displayed
 
 
-
+        //placeholders for crib
         RectF crib1 = new RectF(0,300,125,600);
         RectF crib2 = new RectF(125,300,250,600);
         RectF crib3 = new RectF(250,300,375,600);
@@ -138,7 +138,7 @@ public class CribSurfaceView extends FlashSurfaceView {
 
         int width = getWidth() - 100;
         int height = getHeight()-300;
-
+        //place holder for players0 hand
         RectF hand00 = new RectF(500,getHeight(), width/6,height);
         RectF hand01 = new RectF(500 + width/6, getHeight(), width/3, height);
         RectF hand02 = new RectF(500 + width/3, getHeight(),width/2,height);
@@ -146,6 +146,8 @@ public class CribSurfaceView extends FlashSurfaceView {
         RectF hand04 = new RectF(500 + 4*width/6, getHeight(),5*width/6,height);
         RectF hand05 = new RectF(500 + width, getHeight(),width,height);
 
+
+        //place holder for player 1 hand
         RectF hand10 = new RectF(500, 0, width/6, 300);
         RectF hand11 = new RectF(500 + width/6, 0, width/3, 300);
         RectF hand12 = new RectF(500+width/3, 0, width/2, 300);
@@ -153,7 +155,7 @@ public class CribSurfaceView extends FlashSurfaceView {
         RectF hand14 = new RectF(500+4*width/6, 0, 5*width/6, 300);
         RectF hand15 = new RectF(500+5*width/6, 0, width, 300);
 
-
+        //next adds the rectangles above to arraylist
         ArrayList<RectF> cribBox = new ArrayList<>();
         cribBox.add(crib1);
         cribBox.add(crib2);
@@ -185,7 +187,7 @@ public class CribSurfaceView extends FlashSurfaceView {
         playBox.add(play6);
         playBox.add(play7);
         playBox.add(play8);
-
+        //get the sizes
         int n = state.getHand(0).size();
         int x = state.getHand(1).size();
         int z = state.getCrib().size();
@@ -209,22 +211,22 @@ public class CribSurfaceView extends FlashSurfaceView {
         //adds card to hand1
         for(int i = 0; i < x; i++){
             Card temp = state.getHand(1).getCard(i);
-                drawCard(g,hand1Box.get(i),temp);
-                /*
+                //drawCard(g,hand1Box.get(i),temp);
+
                 if(temp!=null){
                     drawCardBacks(g, hand1Box.get(i), 0, 300, 1);
-                }*/
+                }
 
         }
 
         //draw the crib
         for(int i = 0; i < z; i ++) {
             Card temp = state.getCrib().getCard(i);
-            drawCard(g,cribBox.get(i),temp);
-            /*
+            //drawCard(g,cribBox.get(i),temp);
+
             if(temp!= null) {
                 drawCardBacks(g,cribBox.get(i),0,600,1); //not the dealer
-            }*/
+            }
         }
         //shows card for the first card
         if(state.getGameStage() == CribState.PLAY_STAGE){
@@ -243,10 +245,10 @@ public class CribSurfaceView extends FlashSurfaceView {
 
         Paint white = new Paint();
         white.setColor(Color.WHITE);
-
+        //get scores
         int score1 = state.getScore(0);
         int score2 = state.getScore(1);
-
+        //draw scores
         System.out.println( score1 + " " + score2 + " This is score" );
         g.drawText("You: ", 1000, 1300, white);
         g.drawText(score1 + "", 1050, 1300, white);
@@ -263,9 +265,7 @@ public class CribSurfaceView extends FlashSurfaceView {
      * @param y
      * 		the y pixel-coordinate
      * @return
-     *		a Point whose components are in the range 0-2, indicating the
-     *		column and row of the corresponding square on the tic-tac-toe
-     * 		board, or null if the point does not correspond to a square
+     *		the index of tap
      */
     public int mapPixelToPosition(int x, int y) {
         // no match: return null
