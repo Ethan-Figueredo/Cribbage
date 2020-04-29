@@ -202,7 +202,9 @@ public class CribLocalGame extends LocalGame {
 		}
 		Card prevCard = playedCards.getCard(playedCards.size() - 2);
 		Card cardPlayed = playedCards.getCard(playedCards.size() - 1);
-		if(prevCard == cardPlayed){
+		int prevCardRank = state.rankToInt(prevCard);
+		int cardPlayedRank = state.rankToInt(cardPlayed);
+		if(prevCardRank == cardPlayedRank){
 			state.setScore(player, state.getScore(player) + 2);
 		}
 	}
