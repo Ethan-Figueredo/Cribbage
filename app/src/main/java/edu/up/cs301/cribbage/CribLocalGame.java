@@ -28,6 +28,7 @@ public class CribLocalGame extends LocalGame {
 	// the number of moves that have been played so far, used to
 	// determine whether the game is over
 	protected int moveCount;
+	private int nullCounter;
 
 
 	/**
@@ -113,16 +114,19 @@ public class CribLocalGame extends LocalGame {
 		}
 		if(state.getRunningTotal()==31){
 			forLast(state.getLastMove());
+			state.copyNullDeck();
 			state.getPlayedCards().nullifyDeck();
 			state.setRunningTotal(0);
 			return true;
 		} else if(!(checkCanPlay(playerIdx)) && !(checkCanPlay(1 - playerIdx))){
 			forLast(state.getLastMove());
+			state.copyNullDeck();
 			state.getPlayedCards().nullifyDeck();
 			state.setRunningTotal(0);
 			return true;
         }else if(!(checkCanPlay(playerIdx))){
 			forLast(state.getLastMove());
+			state.copyNullDeck();
 			state.getPlayedCards().nullifyDeck();
 			state.setRunningTotal(0);
 			return true;
@@ -171,6 +175,7 @@ public class CribLocalGame extends LocalGame {
                 	//return false;
 			    } else if(state.over31(thisPlayerIdx, ((CribPlayAction)action).getIndexPlay())) {
 					forLast(state.getLastMove());
+					state.copyNullDeck();
 					state.getPlayedCards().nullifyDeck();
 					state.setRunningTotal(0);
 					return false;
@@ -218,16 +223,14 @@ public class CribLocalGame extends LocalGame {
 	}
 
     private void calculatePlayScore(){
+		nullCounter = 0;
+
         Card pos1 = state.getPlayedCards().getCard(0);
         Card pos2 = state.getPlayedCards().getCard(1);
         Card pos3 = state.getPlayedCards().getCard(2);
         Card pos4 = state.getPlayedCards().getCard(3);
 
 
-        pairCheck(0,pos1.getRank().ordinal(),pos2.getRank().ordinal(),pos3.getRank().ordinal(),pos4.getRank().ordinal());
-        fifteenCheck(0,pos1.getRank().ordinal(),pos2.getRank().ordinal(),pos3.getRank().ordinal(),pos4.getRank().ordinal());
-        pairRoyal(0,pos1.getRank().ordinal(),pos2.getRank().ordinal(),pos3.getRank().ordinal(),pos4.getRank().ordinal());
-        runCheck(0,pos1.getRank().ordinal(),pos2.getRank().ordinal(),pos3.getRank().ordinal(),pos4.getRank().ordinal());
     }
 
 	public void forLast(int player){
