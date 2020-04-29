@@ -120,7 +120,6 @@ public class CribState extends GameState {
 
         piles[2].add52();
         piles[2].shuffle();
-
         for(int i = 0; i < 6; i++){
             piles[2].moveTopCardTo(piles[0]);
             piles[2].moveTopCardTo(piles[1]);

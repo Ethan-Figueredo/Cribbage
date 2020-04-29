@@ -158,6 +158,8 @@ public class CribLocalGame extends LocalGame {
 			}
 			if(state.getHand(thisPlayerIdx).size() == 4 && state.getHand(1 - thisPlayerIdx).size() == 4){
 				state.setGameStage(CribState.PLAY_STAGE);
+				calculateHandScore();
+				calculateCribScore();
 			}
 			return true;
 		} else if(cribMA.isPlay()){
@@ -170,9 +172,6 @@ public class CribLocalGame extends LocalGame {
                 	//state.setWhoseMove();
                 	//return false;
 			    } else if(state.over31(thisPlayerIdx, ((CribPlayAction)action).getIndexPlay())) {
-					forLast(state.getLastMove());
-					state.getPlayedCards().nullifyDeck();
-					state.setRunningTotal(0);
 					return false;
 				} else {
 					state.setRunningTotal(state.getRunningTotal() + state.rankToInt(state.getHand(thisPlayerIdx).getCard(((CribPlayAction) action).getIndexPlay())));

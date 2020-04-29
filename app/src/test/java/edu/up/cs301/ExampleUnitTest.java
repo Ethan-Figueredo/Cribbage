@@ -2,6 +2,9 @@ package edu.up.cs301;
 
 import org.junit.Test;
 
+import java.util.ArrayList;
+
+import edu.up.cs301.cribbage.CribComputerPlayer2;
 import edu.up.cs301.cribbage.CribLocalGame;
 import edu.up.cs301.cribbage.CribState;
 

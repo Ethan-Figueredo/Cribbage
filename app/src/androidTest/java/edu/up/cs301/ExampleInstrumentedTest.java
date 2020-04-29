@@ -7,6 +7,9 @@ import android.support.test.runner.AndroidJUnit4;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
+import edu.up.cs301.cribbage.CribComputerPlayer2;
+import edu.up.cs301.cribbage.CribState;
+
 import static org.junit.Assert.*;
 
 /**
@@ -23,4 +26,5 @@ public class ExampleInstrumentedTest {
 
         assertEquals("edu.up.cs301", appContext.getPackageName());
     }
+
 }
