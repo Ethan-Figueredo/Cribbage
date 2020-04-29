@@ -121,7 +121,12 @@ public class CribLocalGame extends LocalGame {
 			state.getPlayedCards().nullifyDeck();
 			state.setRunningTotal(0);
 			return true;
-        }
+        }else if(!(checkCanPlay(playerIdx))){
+			forLast(state.getLastMove());
+			state.getPlayedCards().nullifyDeck();
+			state.setRunningTotal(0);
+			return true;
+		}
 
 		return true;
 	}

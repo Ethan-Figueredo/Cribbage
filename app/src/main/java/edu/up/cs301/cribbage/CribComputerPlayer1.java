@@ -86,10 +86,6 @@ public class CribComputerPlayer1 extends GameComputerPlayer
             game.sendAction(new CribThrowAction(this, 0, 1));
         }else if(state.getGameStage() == CribState.PLAY_STAGE){
             int index = pickIndex();
-            if(index == -1){
-                state.setWhoseMove();
-                return;
-            }
             game.sendAction(new CribPlayAction(this, index));
         }
         Logger.log("TTTComputer1", "Play move");
@@ -101,7 +97,7 @@ public class CribComputerPlayer1 extends GameComputerPlayer
                 return i;
             }
         }
-        return -1;
+        return 0;
     }
 
     /**
