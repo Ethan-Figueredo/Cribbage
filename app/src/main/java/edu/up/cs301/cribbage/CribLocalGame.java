@@ -194,10 +194,9 @@ public class CribLocalGame extends LocalGame {
 
     private void calculatePlayScore(){
         Card pos1 = state.getPlayedCards().getCard(0);
-        Card pos2 = state.getPlayedCards().getCard(0);
-        Card pos3 = state.getPlayedCards().getCard(0);
-        Card pos4 = state.getPlayedCards().getCard(0);
-
+        Card pos2 = state.getPlayedCards().getCard(1);
+        Card pos3 = state.getPlayedCards().getCard(2);
+        Card pos4 = state.getPlayedCards().getCard(3);
 
 
         pairCheck(0,pos1.getRank().ordinal(),pos2.getRank().ordinal(),pos3.getRank().ordinal(),pos4.getRank().ordinal());
