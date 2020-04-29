@@ -118,7 +118,7 @@ public class CribComputerPlayer2 extends GameComputerPlayer {
 		ArrayList<Integer> possible = new ArrayList<>();
 
 		for(int i = 0; i < x; i++){
-			if((state.getRunningTotal() + state.rankToInt(state.getHand(playerNum).getCard(i))) <= 31){
+			if((state.getRunningTotal() + state.rankToInt(state.getHand(playerNum).getCard(i))) < 32){
 				possible.add(i);
 			}
 		}

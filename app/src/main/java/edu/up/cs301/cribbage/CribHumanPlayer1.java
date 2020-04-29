@@ -46,8 +46,6 @@ public class CribHumanPlayer1 extends GameHumanPlayer implements View.OnTouchLis
     // the ID for the layout to use
     private int layoutId;
 
-    private ArrayList<Card> cardHand1 = new ArrayList();
-    private Random ran = new Random();
 
     private CribMoveAction action;//action that will be sent to the game
     private int indexOfCard1;

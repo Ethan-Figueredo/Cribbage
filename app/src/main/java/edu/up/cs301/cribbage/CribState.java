@@ -77,7 +77,7 @@ public class CribState extends GameState {
             return false;
         }
         int toAdd = rankToInt(getHand(player).getCard(index));
-        if((prevRun + toAdd) >= 32){
+        if((prevRun + toAdd) > 31){
             return true;
         } else {
             return false;
