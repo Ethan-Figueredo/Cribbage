@@ -114,19 +114,16 @@ public class CribLocalGame extends LocalGame {
 		}
 		if(state.getRunningTotal()==31){
 			forLast(state.getLastMove());
-			state.copyNullDeck();
 			state.getPlayedCards().nullifyDeck();
 			state.setRunningTotal(0);
 			return true;
 		} else if(!(checkCanPlay(playerIdx)) && !(checkCanPlay(1 - playerIdx))){
 			forLast(state.getLastMove());
-			state.copyNullDeck();
 			state.getPlayedCards().nullifyDeck();
 			state.setRunningTotal(0);
 			return true;
         }else if(!(checkCanPlay(playerIdx))){
 			forLast(state.getLastMove());
-			state.copyNullDeck();
 			state.getPlayedCards().nullifyDeck();
 			state.setRunningTotal(0);
 			return true;
@@ -162,6 +159,8 @@ public class CribLocalGame extends LocalGame {
 			}
 			if(state.getHand(thisPlayerIdx).size() == 4 && state.getHand(1 - thisPlayerIdx).size() == 4){
 				state.setGameStage(CribState.PLAY_STAGE);
+				calculateHandScore();
+				calculateCribScore();
 			}
 			return true;
 		} else if(cribMA.isPlay()){
@@ -175,7 +174,6 @@ public class CribLocalGame extends LocalGame {
                 	//return false;
 			    } else if(state.over31(thisPlayerIdx, ((CribPlayAction)action).getIndexPlay())) {
 					forLast(state.getLastMove());
-					state.copyNullDeck();
 					state.getPlayedCards().nullifyDeck();
 					state.setRunningTotal(0);
 					return false;
@@ -191,7 +189,7 @@ public class CribLocalGame extends LocalGame {
 				//calculate score
 				forLast(state.getLastMove());
 				//calculateHandScore();
-				//calculatePlayScore();
+				calculatePlayScore();
 				state.setDealerID();
 				state.resetRoundHand();
 
@@ -224,95 +222,56 @@ public class CribLocalGame extends LocalGame {
 	}
 
     private void calculatePlayScore(){
-		nullCounter = 0;
-		ArrayList<Card> newDeck = new ArrayList<>();
-		for(int i = 0; i < state.getNullDeck().size(); i++){
-			if(state.getNullDeck().get(i) != null) {
-				newDeck.add(state.getNullDeck().get(i));
-			}else if(state.getNullDeck().get(i) == null){
-			    break;
-            }
-		}
+		ArrayList<Card> found = state.getNullDeck();
+		playPair(found);
+		check15(found);
+		consec(found);
+		found.clear();
 
-        nullCounter++;
 
-		Card pos1 = newDeck.get(0);
-		Card pos2 = newDeck.get(1);
-		Card pos3 = newDeck.get(2);
-
-		nullPairCheck(0,pos1.getRank().ordinal(),pos2.getRank().ordinal(),pos3.getRank().ordinal());
-		nullCheckFifteen(0,pos1.getRank().ordinal(),pos2.getRank().ordinal(),pos3.getRank().ordinal());
-		nullConStraight(0,pos1.getRank().ordinal(),pos2.getRank().ordinal(),pos3.getRank().ordinal());
 		// pair check, checkFifteen for 0 and 1 index, 3 card of a consecutive straight
     }
-	private void nullCheckFifteen(int playerIdx, int two, int three, int four){
-		int x;
-		if(playerIdx == 50){
-			x =state.getDealerID();
-		} else {
-			x = playerIdx;
+    private void consec(ArrayList<Card> found){
+		if(found.size() < 3){
+			return;
 		}
-		int[] cribCards = new int[]{two, three, four};
-
-		for(int i = 0; i < cribCards.length; i++){
-			for(int j = i + 1; j < cribCards.length; j++){
-				if(cribCards[i] + cribCards[j] == 15){
-					System.out.println("15: " + i + " " + j);
-					state.setScore(x, state.getScore(x) + 2);
-				}
-			}
-		}
-
-		for(int i = 0; i < cribCards.length; i++){
-			for(int j = i + 1; j < cribCards.length; j++){
-				for(int k = j + 1; k < cribCards.length; k++) {
-					if (cribCards[i] + cribCards[j] + cribCards[k] == 15) {
-						System.out.println("15: " + i + " " + j + " " + k);
-						state.setScore(x, state.getScore(x) + 2);
-					}
-				}
-			}
-		}
-
-		if(two+three+four == 15){
-			state.setScore(x, state.getScore(x) + 2);
-		}
-
-	}
-
-	private void nullConStraight(int playerIdx, int two, int three, int four){
-		int x;
-		if(playerIdx == 50){
-			x =state.getDealerID();
-		} else {
-			x = playerIdx;
-		}
-
-		int[] cribCards = new int[]{two, three, four};
-		for(int i = 0; i < cribCards.length; i++){
-			for(int j = i + 1; j < cribCards.length; j++){
-				if(cribCards[i] == cribCards[j]){
-					System.out.println("Pair: " + i + " " + j);
-					state.setScore(x, state.getScore(x) + 2);
+		for (int i = 0; i < found.size()-2; i++) {
+			if(state.rankToInt(found.get(i)) - 1 == state.rankToInt(found.get(i+1)) && state.rankToInt(found.get(i+1))-1 == state.rankToInt(found.get(i+2))){
+				int dealer = state.getDealerID();
+				if((i+1)%2==0){
+					state.setScore(dealer,state.getScore(dealer)+3);
+				}else{
+					state.setScore(1-dealer,state.getScore(1-dealer)+3);
 				}
 			}
 		}
 	}
-
-    private void nullPairCheck(int playerIdx, int two, int three, int four){
-		int x;
-		if(playerIdx == 50){
-			x =state.getDealerID();
-		} else {
-			x = playerIdx;
+    private void check15(ArrayList<Card> found){
+		if(found.size() < 2){
+			return;
 		}
-
-		int[] cribCards = new int[]{two, three, four};
-		for(int i = 0; i < cribCards.length; i++){
-			for(int j = i + 1; j < cribCards.length; j++){
-				if(cribCards[i] == cribCards[j]){
-					System.out.println("Pair: " + i + " " + j);
-					state.setScore(x, state.getScore(x) + 2);
+		int count = 0;
+		for(int i = 0; i < found.size(); i++){
+			if(count + state.rankToInt(found.get(i)) == 15 ){
+				int dealer = state.getDealerID();
+				if((i+1)%2==0){
+					state.setScore(dealer,state.getScore(dealer)+2);
+				}else{
+					state.setScore(1-dealer,state.getScore(1-dealer)+ 2);
+				}
+			}else if(count <= 15){
+				count += state.rankToInt(found.get(i));
+			}
+		}
+	}
+    private void playPair(ArrayList<Card> found){
+		for(int i = 0; i < found.size()-1; i++){
+			if(found.get(i).getRank().ordinal() == found.get(i+1).getRank().ordinal()){
+				int dealer = state.getDealerID();
+				if((i+1)%2==0){
+					state.setScore(dealer,state.getScore(dealer)+2);
+				}else{
+					state.setScore(1-dealer,state.getScore(1-dealer )+2);
 				}
 			}
 		}
@@ -457,6 +416,7 @@ public class CribLocalGame extends LocalGame {
 
 	private void sendToPlay(int playerNum, int index){
 		state.getPlayedCards().add(state.getHand(playerNum).getCard(index));
+		state.getNullDeck().add(state.getHand(playerNum).getCard(index));
 		state.getHand(playerNum).removeCard(index);
 	}
 

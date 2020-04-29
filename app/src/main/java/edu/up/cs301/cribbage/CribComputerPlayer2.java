@@ -10,6 +10,7 @@ import edu.up.cs301.game.GameFramework.utilities.Logger;
 import android.content.Intent;
 import android.graphics.Point;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -103,8 +104,11 @@ public class CribComputerPlayer2 extends GameComputerPlayer {
 		if(found == -1){
 			if(possible.size() >= 1){
 				return possible.get(0);
+			}else{
+				return 0;
 			}
 		}
+
 		return found;
 	}
 	private boolean checkPair(){
@@ -124,35 +128,28 @@ public class CribComputerPlayer2 extends GameComputerPlayer {
 		}
 		return possible;
 	}
-	private int lookFor2Consec(ArrayList<Integer> possible){
+	public int lookFor2Consec(ArrayList<Integer> possible){
 		int x = state.getPlayedCards().size();
 		int handSize = possible.size();
-		int lastCard = state.rankToInt(state.getPlayedCards().getCard(x-1));
-		int secondLastCard = state.rankToInt(state.getPlayedCards().getCard(x-2));
-		int diff = Math.abs(lastCard-secondLastCard);
-		for (int i = 0; i < handSize; i++) {
-			if(diff == 2){//need to find the number that is inclusive to make a run
-				if(lastCard - secondLastCard < 0 && state.rankToInt(state.getHand(playerNum).getCard(i)) - 1 == lastCard && state.rankToInt(state.getHand(playerNum).getCard(i)) + 1 == secondLastCard){//smaller number is the last Card
-					return i;
-				}else{ //bigger number is the last secondLastCard
-					if(state.rankToInt(state.getHand(playerNum).getCard(i))+ 1 == lastCard && state.rankToInt(state.getHand(playerNum).getCard(i)) - 1 == secondLastCard){
-						return i;
-					}
-				}
-			}else{//need to find the number that is exclusive to make a run
-				if(lastCard - secondLastCard < 0 && state.getHand(playerNum).getCard(i).getRank().ordinal() + 1 == lastCard){//smaller number is the last Card
-					return i;
-				}else{ //bigger number is the last secondLastCard
-					if(state.rankToInt(state.getHand(playerNum).getCard(i)) - 1 == secondLastCard){
-						return i;
-					}
-				}
+		int lastCard = state.getPlayedCards().getCard(x-1).getRank().ordinal();
+
+		for(int i = 0; i < handSize; i++){
+			if(lastCard == state.getPlayedCards().getCard(i).getRank().ordinal() - 1){
+				return i;
 			}
 		}
 		return -1;
 	}
 	private boolean check2Consec(){
-		int x = state.getPlayedCards().size();
+		int y = state.getPlayedCards().size();
+		ArrayList<Card> possible = new ArrayList<>();
+
+		for (int i = 0; i < y; i++) {
+			if(state.getPlayedCards().getCard(i) != null){
+				possible.add(state.getPlayedCards().getCard(i));
+			}
+		}
+		int x = possible.size();
 		if(x < 2){
 			return false;
 		}
@@ -192,7 +189,7 @@ public class CribComputerPlayer2 extends GameComputerPlayer {
 		int x = possibl.size();
 		int firstCard = state.getRunningTotal();
 		for(int i = 0; i < x; i++){
-			if(firstCard + possibl.get(i) == 15){
+			if((firstCard + state.rankToInt(state.getHand(playerNum).getCard(possibl.get(i)))) == 15){
 				return i;
 			}
 		}
