@@ -65,9 +65,9 @@ public class CribLocalGame extends LocalGame {
 		}
 		int otherScore = state.getScore(otherID);
 		// the character that will eventually contain an 'X' or 'O' if we
-		if(dealersScore >= 10){//found winner
+		if(dealersScore >= 121){//found winner
 			return playerNames[state.getDealerID()] +" is the winner.";
-		}else if(otherScore >= 10){ //found winner
+		}else if(otherScore >= 121){ //found winner
 			return playerNames[otherID] +" is the winner.";
 		} else{ //game not over
 			return null;
@@ -129,9 +129,6 @@ public class CribLocalGame extends LocalGame {
 				state.setWhoseMove();
 			}
 			if(state.getHand(thisPlayerIdx).size() == 4 && state.getHand(1 - thisPlayerIdx).size() == 4){
-				calculateCribScore();
-				calculateHandScore();
-                calculatePlayScore();
 				state.setGameStage(CribState.PLAY_STAGE);
 			}
 			return true;
@@ -145,7 +142,7 @@ public class CribLocalGame extends LocalGame {
 				//state.setWhoseMove();
 				return false;
 			} else{
-				if(over31(thisPlayerIdx, ((CribPlayAction)action).getIndexPlay())) {
+				if(state.over31(thisPlayerIdx, ((CribPlayAction)action).getIndexPlay())) {
 					return false;
 				} else if(!checkCanPlay(thisPlayerIdx)) {
 					state.setWhoseMove();
@@ -161,6 +158,9 @@ public class CribLocalGame extends LocalGame {
 			if(state.getHand(thisPlayerIdx).size() == 0 && state.getHand(1- thisPlayerIdx).size() == 0){
 				//calculate score
 				forLast(state.getLastMove());
+				calculateCribScore();
+				calculateHandScore();
+				calculatePlayScore();
 				state.setDealerID();
 				state.resetRoundHand();
 
@@ -217,7 +217,9 @@ public class CribLocalGame extends LocalGame {
 		}
 		Card prevCard = playedCards.getCard(playedCards.size() - 2);
 		Card cardPlayed = playedCards.getCard(playedCards.size() - 1);
-		if(prevCard == cardPlayed){
+		int prevCardRank = state.rankToInt(prevCard);
+		int cardPlayedRank = state.rankToInt(cardPlayed);
+		if(prevCardRank == cardPlayedRank){
 			state.setScore(player, state.getScore(player) + 2);
 		}
 	}
@@ -330,20 +332,10 @@ public class CribLocalGame extends LocalGame {
 	}
 	//helper method (helps runCheck) that sorts the numbers in rising order
 
-	public boolean over31(int player, int index){
-		int prevRun = state.getRunningTotal();
-		int toAdd = state.rankToInt(state.getHand(player).getCard(index));
-		if((prevRun + toAdd) >= 32){
-			return true;
-		} else {
-			return false;
-		}
-	}
-
 	public boolean checkCanPlay(int player){
 		Deck playerHand = state.getHand(player);
 		for(int i = 0; i < playerHand.size(); i++){
-			if(!over31(player, i)){
+			if(!state.over31(player, i)){
 				return true;
 			}
 		}
