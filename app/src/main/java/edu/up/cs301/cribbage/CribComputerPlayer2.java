@@ -156,11 +156,16 @@ public class CribComputerPlayer2 extends GameComputerPlayer {
 		if(x < 2){
 			return false;
 		}
-		int lastCard = state.rankToInt(state.getPlayedCards().getCard(x-1));
-		int secondLastCard = state.rankToInt(state.getPlayedCards().getCard(x-2));
-		int diff = Math.abs(lastCard-secondLastCard);
-		if(diff <= 2 && lastCard != secondLastCard){
-			return true;
+		try {
+			int lastCard = state.rankToInt(state.getPlayedCards().getCard(x - 1));
+			int secondLastCard = state.rankToInt(state.getPlayedCards().getCard(x - 2));
+
+			int diff = Math.abs(lastCard - secondLastCard);
+			if (diff <= 2 && lastCard != secondLastCard) {
+				return true;
+			}
+		}catch(Exception e){
+			return false;
 		}
 		return false;
 	}
@@ -170,7 +175,11 @@ public class CribComputerPlayer2 extends GameComputerPlayer {
 		int y = state.getPlayedCards().size();
 		if(y >= 1){
 			for(int i = 0; i < y;i++){
-				count += state.rankToInt(state.getPlayedCards().getCard(i));
+				try {
+					count += state.rankToInt(state.getPlayedCards().getCard(i));
+				}catch (NullPointerException e){
+					break;
+				}
 				if(count >= 15){
 					return false;
 				}
@@ -190,14 +199,18 @@ public class CribComputerPlayer2 extends GameComputerPlayer {
 		return -1;
 	}
 	private int playPair(ArrayList<Integer> possible){
-		int lastCard = state.rankToInt(state.getPlayedCards().getCard(state.getPlayedCards().size()-1));
-		int x = possible.size();
-		for(int i = 0; i < x; i++){
-			if(lastCard == state.rankToInt(state.getHand(playerNum).getCard(i))){
-				return i;
+		try {
+			int lastCard = state.rankToInt(state.getPlayedCards().getCard(state.getPlayedCards().size() - 1));
+			int x = possible.size();
+			for (int i = 0; i < x; i++) {
+				if (lastCard == state.rankToInt(state.getHand(playerNum).getCard(i))) {
+					return i;
+				}
 			}
+			return -1;
+		}catch (NullPointerException e){
+			return -1;
 		}
-		return -1;
 	}
 	/**
 	 * depending which player is the dealer send the best card

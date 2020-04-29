@@ -190,8 +190,12 @@ public class Deck implements Serializable {
     gets CArd from index
     */
     public Card getCard(int index){
-        if (cards.isEmpty()) return null;
-        return cards.get(index);
+        try{
+            if (cards.isEmpty()) return null;
+            return cards.get(index);
+        }catch (ArrayIndexOutOfBoundsException e){
+            return cards.get(index+1);
+        }
     }
     public void removeCard(int index){
         if (cards.isEmpty()) return;
