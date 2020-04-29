@@ -131,6 +131,7 @@ public class CribLocalGame extends LocalGame {
 			if(state.getHand(thisPlayerIdx).size() == 4 && state.getHand(1 - thisPlayerIdx).size() == 4){
 				calculateCribScore();
 				calculateHandScore();
+                calculatePlayScore();
 				state.setGameStage(CribState.PLAY_STAGE);
 			}
 			return true;
@@ -190,6 +191,20 @@ public class CribLocalGame extends LocalGame {
 		pairRoyal(1,pos5.getRank().ordinal(),pos6.getRank().ordinal(),pos7.getRank().ordinal(),pos8.getRank().ordinal());
 		runCheck(1,pos5.getRank().ordinal(),pos6.getRank().ordinal(),pos7.getRank().ordinal(),pos8.getRank().ordinal());
 	}
+
+    private void calculatePlayScore(){
+        Card pos1 = state.getPlayedCards().getCard(0);
+        Card pos2 = state.getPlayedCards().getCard(0);
+        Card pos3 = state.getPlayedCards().getCard(0);
+        Card pos4 = state.getPlayedCards().getCard(0);
+
+
+
+        pairCheck(0,pos1.getRank().ordinal(),pos2.getRank().ordinal(),pos3.getRank().ordinal(),pos4.getRank().ordinal());
+        fifteenCheck(0,pos1.getRank().ordinal(),pos2.getRank().ordinal(),pos3.getRank().ordinal(),pos4.getRank().ordinal());
+        pairRoyal(0,pos1.getRank().ordinal(),pos2.getRank().ordinal(),pos3.getRank().ordinal(),pos4.getRank().ordinal());
+        runCheck(0,pos1.getRank().ordinal(),pos2.getRank().ordinal(),pos3.getRank().ordinal(),pos4.getRank().ordinal());
+    }
 
 	public void forLast(int player){
 		state.setScore(player, state.getScore(player) + 1);
