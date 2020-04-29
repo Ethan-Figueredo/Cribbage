@@ -10,6 +10,7 @@ import edu.up.cs301.game.GameFramework.utilities.Logger;
 import android.content.Intent;
 import android.graphics.Point;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -103,6 +104,8 @@ public class CribComputerPlayer2 extends GameComputerPlayer {
 		if(found == -1){
 			if(possible.size() >= 1){
 				return possible.get(0);
+			}else{
+				return 0;
 			}
 		}
 
@@ -138,12 +141,20 @@ public class CribComputerPlayer2 extends GameComputerPlayer {
 		return -1;
 	}
 	private boolean check2Consec(){
-		int x = state.getPlayedCards().size();
+		int y = state.getPlayedCards().size();
+		ArrayList<Card> possible = new ArrayList<>();
+
+		for (int i = 0; i < y; i++) {
+			if(state.getPlayedCards().getCard(i) != null){
+				possible.add(state.getPlayedCards().getCard(i));
+			}
+		}
+		int x = possible.size();
 		if(x < 2){
 			return false;
 		}
-		int lastCard = state.rankToInt(state.getPlayedCards().getCard(x-1));
-		int secondLastCard = state.rankToInt(state.getPlayedCards().getCard(x-2));
+		int lastCard = state.getPlayedCards().getCard(x-1).getRank().ordinal();
+		int secondLastCard = state.getPlayedCards().getCard(x-2).getRank().ordinal();
 		if(lastCard - 1 == secondLastCard){
 			return true;
 		}
@@ -173,7 +184,14 @@ public class CribComputerPlayer2 extends GameComputerPlayer {
 		return -1;
 	}
 	private int playPair(ArrayList<Integer> possible){
-		int lastCard = state.getPlayedCards().getCard(state.getPlayedCards().size()-1).getRank().ordinal();
+		ArrayList<Card> possible2 = new ArrayList<>();
+		int y = state.getPlayedCards().size();
+		for (int i = 0; i < y; i++) {
+			if(state.getPlayedCards().getCard(i) != null){
+				possible2.add(state.getPlayedCards().getCard(i));
+			}
+		}
+		int lastCard = possible2.get(possible2.size() - 1).getRank().ordinal();
 		int x = possible.size();
 		for(int i = 0; i < x; i++){
 			if(lastCard == state.getHand(playerNum).getCard(i).getRank().ordinal()){
