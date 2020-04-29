@@ -191,7 +191,7 @@ public class CribLocalGame extends LocalGame {
 				//calculate score
 				forLast(state.getLastMove());
 				//calculateHandScore();
-				calculatePlayScore();
+				//calculatePlayScore();
 				state.setDealerID();
 				state.resetRoundHand();
 
@@ -227,11 +227,15 @@ public class CribLocalGame extends LocalGame {
 		nullCounter = 0;
 		ArrayList<Card> newDeck = new ArrayList<>();
 		for(int i = 0; i < state.getNullDeck().size(); i++){
-			if(state.getNullDeck().get(i) == null) {
+			if(state.getNullDeck().get(i) != null) {
 				newDeck.add(state.getNullDeck().get(i));
-				nullCounter++;
-			}
+			}else if(state.getNullDeck().get(i) == null){
+			    break;
+            }
 		}
+
+        nullCounter++;
+
 		Card pos1 = newDeck.get(0);
 		Card pos2 = newDeck.get(1);
 		Card pos3 = newDeck.get(2);
